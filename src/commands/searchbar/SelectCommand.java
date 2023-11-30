@@ -25,7 +25,7 @@ public final class SelectCommand implements ICommand {
     @Override
     public void execute() {
         session.setTimestamp(commandInput.getTimestamp());
-        PrinterBasic printer = new PrinterBasic(user, session, output, commandInput.getCommand());
+        PrinterBasic printer = new PrinterBasic(output, commandInput);
 
         if (user.getSearchResult() == null) {
             printer.print("Please conduct a search before making a selection.");

@@ -8,7 +8,7 @@ import database.audio.Song;
 import database.users.User;
 import java.util.ArrayList;
 
-public final class PrinterShowPlaylists extends Printer {
+public final class PrinterShowPlaylists extends PrinterComplex {
     private final User user;
 
     /* Constructor */

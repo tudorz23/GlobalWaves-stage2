@@ -27,7 +27,7 @@ public final class SwitchPlaylistVisibilityCommand implements ICommand {
     @Override
     public void execute() {
         session.setTimestamp(commandInput.getTimestamp());
-        PrinterBasic printer = new PrinterBasic(user, session, output, commandInput.getCommand());
+        PrinterBasic printer = new PrinterBasic(output, commandInput);
 
         int oldId = commandInput.getPlaylistId();
         if (oldId > user.getPlaylists().size()) {

@@ -7,7 +7,7 @@ import database.*;
 import database.users.User;
 import utils.enums.PlayerState;
 
-public final class PrinterStatus extends Printer {
+public final class PrinterStatus extends PrinterComplex {
     private final User user;
 
     /* Constructor */

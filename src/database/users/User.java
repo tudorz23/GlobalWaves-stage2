@@ -7,6 +7,7 @@ import database.audio.Podcast;
 import database.audio.Song;
 import fileio.input.UserInput;
 import pages.Page;
+import utils.enums.LogStatus;
 import utils.enums.UserType;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public abstract class User {
     private ArrayList<Playlist> followedPlaylists;
     private UserType type;
     private Page currPage;
+    private LogStatus logStatus;
 
     /* Constructor */
     public User(String username, int age, String city) {
@@ -148,5 +150,11 @@ public abstract class User {
     }
     public void setCurrPage(Page currPage) {
         this.currPage = currPage;
+    }
+    public LogStatus getLogStatus() {
+        return logStatus;
+    }
+    public void setLogStatus(LogStatus logStatus) {
+        this.logStatus = logStatus;
     }
 }

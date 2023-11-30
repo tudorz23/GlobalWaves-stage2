@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import database.audio.Audio;
 import database.users.User;
 
-public final class PrinterSearch extends Printer {
+public final class PrinterSearch extends PrinterComplex {
     private final User user;
 
     /* Constructor */

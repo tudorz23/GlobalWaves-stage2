@@ -32,7 +32,7 @@ public final class LoadCommand implements ICommand {
     @Override
     public void execute() {
         session.setTimestamp(commandInput.getTimestamp());
-        PrinterBasic printer = new PrinterBasic(user, session, output, commandInput.getCommand());
+        PrinterBasic printer = new PrinterBasic(output, commandInput);
 
         if (user.getSelection() == null) {
             printer.print("Please select a source before attempting to load.");

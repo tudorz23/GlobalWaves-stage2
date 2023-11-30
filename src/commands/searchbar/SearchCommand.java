@@ -40,7 +40,13 @@ public final class SearchCommand implements ICommand {
         user.setSelection(null);
         user.getPlayer().emptyPlayer();
 
-        ISearchStrategy searchStrategy = getSearchStrategy();
+        ISearchStrategy searchStrategy;
+
+        try {
+            searchStrategy = getSearchStrategy();
+        } catch (IllegalArgumentException illegalArgumentException) {
+            return;
+        }
 
         searchStrategy.search();
 

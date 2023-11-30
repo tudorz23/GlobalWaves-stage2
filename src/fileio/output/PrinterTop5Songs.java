@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import database.audio.Song;
 import java.util.ArrayList;
 
-public final class PrinterTop5Songs extends Printer {
+public final class PrinterTop5Songs extends PrinterComplex {
     /* Constructor */
     public PrinterTop5Songs(final Session session, final ArrayNode output) {
         super(session, output);

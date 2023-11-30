@@ -10,6 +10,7 @@ import commands.statsCommands.*;
 import commands.userCommands.*;
 import database.users.User;
 import fileio.input.CommandInput;
+import fileio.output.PrinterBasic;
 import utils.enums.CommandType;
 
 public class CommandFactory {
@@ -23,23 +24,36 @@ public class CommandFactory {
     }
 
     /**
-     * Factory method that creates ICommand instances, based on the CommandInput.
+     * Public Factory Method that creates ICommand instances, based on the CommandInput.
+     * Split in multiple methods to keep them short and manageable.
+     * This part manages commands that do not require a User instance.
      * @param commandInput key that decides the type of instance that is created.
      * @return ICommand object.
      * @throws IllegalArgumentException if command is not supported.
      */
     public ICommand getCommand(final CommandInput commandInput) throws IllegalArgumentException {
         CommandType commandType = CommandType.fromString(commandInput.getCommand());
-        if (commandType == null) {
-            throw new IllegalArgumentException("Command " + commandInput.getCommand()
-                                                + " not supported.");
-        }
 
-        User user = null;
-        if (commandType != CommandType.GET_TOP5_PLAYLISTS
-                && commandType != CommandType.GET_TOP5_SONGS) {
-            user = getUser(commandInput);
+        switch (commandType) {
+            case GET_TOP5_SONGS -> {
+                return new GetTop5SongsCommand(session, commandInput, output);
+            }
+            case GET_TOP5_PLAYLISTS -> {
+                return new GetTop5PlaylistsCommand(session, commandInput, output);
+            }
+            default -> {
+                return helperGetCommand(commandInput, commandType);
+            }
         }
+    }
+
+    /**
+     * Helper to the public Factory Method. This part manages commands from stage 1
+     * that require a User instance.
+     * @return ICommand object.
+     */
+    private ICommand helperGetCommand(CommandInput commandInput, CommandType commandType) {
+        User user = getUser(commandInput);
 
         switch (commandType) {
             case SEARCH -> {
@@ -96,12 +110,21 @@ public class CommandFactory {
             case BACKWARD -> {
                 return new BackwardCommand(session, commandInput, user, output);
             }
-            case GET_TOP5_SONGS -> {
-                return new GetTop5SongsCommand(session, commandInput, output);
+            default -> {
+                return helperGetCommandStage2(commandInput, commandType, user);
             }
-            case GET_TOP5_PLAYLISTS -> {
-                return new GetTop5PlaylistsCommand(session, commandInput, output);
-            }
+        }
+    }
+
+    /**
+     * Helper to the public Factory Method. This part manages commands from stage 2
+     * that require a User instance.
+     * @return ICommand object.
+     * @throws IllegalArgumentException if the command is not supported.
+     */
+    private ICommand helperGetCommandStage2(CommandInput commandInput, CommandType commandType,
+                                            User user) {
+        switch(commandType) {
             default -> throw new IllegalArgumentException("Command " + commandInput.getCommand()
                     + " not supported.");
         }
@@ -119,6 +142,9 @@ public class CommandFactory {
                 return user;
             }
         }
+
+        PrinterBasic printer = new PrinterBasic(output, commandInput);
+        printer.print("The username " + commandInput.getUsername() + " doesn't exist.");
 
         throw new IllegalArgumentException("Nonexistent user.");
     }

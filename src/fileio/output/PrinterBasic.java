@@ -1,20 +1,19 @@
 package fileio.output;
 
-import client.Session;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import database.users.User;
+import fileio.input.CommandInput;
 
+/**
+ * The most commonly-used printer for a simple message.
+ */
 public final class PrinterBasic extends Printer {
-    private final User user;
-    private final String command;
+    private final CommandInput commandInput;
 
     /* Constructor */
-    public PrinterBasic(final User user, final Session session,
-                        final ArrayNode output, final String command) {
-        super(session, output);
-        this.user = user;
-        this.command = command;
+    public PrinterBasic(final ArrayNode output, CommandInput commandInput) {
+        super(output);
+        this.commandInput = commandInput;
     }
 
     /**
@@ -24,9 +23,9 @@ public final class PrinterBasic extends Printer {
     public void print(final String message) {
         ObjectNode commandNode = mapper.createObjectNode();
 
-        commandNode.put("command", command);
-        commandNode.put("user", user.getUsername());
-        commandNode.put("timestamp", session.getTimestamp());
+        commandNode.put("command", commandInput.getCommand());
+        commandNode.put("user", commandInput.getUsername());
+        commandNode.put("timestamp", commandInput.getTimestamp());
         commandNode.put("message", message);
 
         output.add(commandNode);

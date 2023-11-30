@@ -27,7 +27,7 @@ public final class FollowPlaylistCommand implements ICommand {
     @Override
     public void execute() {
         session.setTimestamp(commandInput.getTimestamp());
-        PrinterBasic printer = new PrinterBasic(user, session, output, commandInput.getCommand());
+        PrinterBasic printer = new PrinterBasic(output, commandInput);
 
         if (user.getSelection() == null) {
             printer.print("Please select a source before following or unfollowing.");

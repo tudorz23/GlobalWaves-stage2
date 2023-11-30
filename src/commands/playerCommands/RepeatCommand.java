@@ -28,7 +28,7 @@ public final class RepeatCommand implements ICommand {
     @Override
     public void execute() {
         session.setTimestamp(commandInput.getTimestamp());
-        PrinterBasic printer = new PrinterBasic(user, session, output, commandInput.getCommand());
+        PrinterBasic printer = new PrinterBasic(output, commandInput);
         Player userPlayer = user.getPlayer();
 
         if (userPlayer == null || userPlayer.getPlayerState() == PlayerState.EMPTY) {
