@@ -13,11 +13,13 @@ public abstract class SongCollection extends Audio {
     private ArrayList<Song> songs;
     private int playingSongIndex; // Index from the songs array.
     private ArrayList<Integer> shuffleArray;
+    private int likeCnt; // Total number of likes of its songs.
 
     /* Constructor */
     public SongCollection(final String name) {
         super(name);
         this.songs = new ArrayList<>();
+        this.likeCnt = 0;
     }
 
     @Override
@@ -186,6 +188,26 @@ public abstract class SongCollection extends Audio {
         }
     }
 
+    /**
+     * If the collection contains the song, likeCnt is incremented.
+     * @param song recently liked song.
+     */
+    public void incrementLikeCntAttempt(Song song) {
+        if (getSongs().contains(song)) {
+            likeCnt++;
+        }
+    }
+
+    /**
+     * If the collection contains the song, likeCnt is decremented.
+     * @param song recently liked song.
+     */
+    public void decrementLikeCntAttempt(Song song) {
+        if (getSongs().contains(song)) {
+            likeCnt--;
+        }
+    }
+
     /* Getters and Setters */
     public ArrayList<Song> getSongs() {
         return songs;
@@ -204,5 +226,11 @@ public abstract class SongCollection extends Audio {
     }
     public void setShuffleArray(ArrayList<Integer> shuffleArray) {
         this.shuffleArray = shuffleArray;
+    }
+    public int getLikeCnt() {
+        return likeCnt;
+    }
+    public void setLikeCnt(int likeCnt) {
+        this.likeCnt = likeCnt;
     }
 }

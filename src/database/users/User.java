@@ -6,6 +6,7 @@ import database.audio.Playlist;
 import database.audio.Podcast;
 import database.audio.Song;
 import fileio.input.UserInput;
+import pages.Page;
 import utils.enums.UserType;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public abstract class User {
     private ArrayList<Song> likedSongs;
     private ArrayList<Playlist> followedPlaylists;
     private UserType type;
+    private Page currPage;
 
     /* Constructor */
     public User(String username, int age, String city) {
@@ -140,5 +142,11 @@ public abstract class User {
     }
     public void setType(UserType type) {
         this.type = type;
+    }
+    public Page getCurrPage() {
+        return currPage;
+    }
+    public void setCurrPage(Page currPage) {
+        this.currPage = currPage;
     }
 }

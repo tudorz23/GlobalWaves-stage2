@@ -1,5 +1,6 @@
 package database;
 
+import database.audio.Album;
 import database.audio.Playlist;
 import database.audio.Podcast;
 import database.audio.Song;
@@ -12,6 +13,7 @@ public final class Database {
     private ArrayList<Podcast> podcasts;
     private ArrayList<User> users;
     private ArrayList<Playlist> playlists;
+    private ArrayList<Album> albums;
 
     /* Constructor */
     public Database() {
@@ -19,6 +21,7 @@ public final class Database {
         this.podcasts = new ArrayList<>();
         this.users = new ArrayList<>();
         this.playlists = new ArrayList<>();
+        this.albums = new ArrayList<>();
     }
 
     /**
@@ -50,6 +53,13 @@ public final class Database {
     }
 
     /**
+     * Adds a new album to the albums list.
+     */
+    public void addAlbum(Album album) {
+        albums.add(album);
+    }
+
+    /**
      * Traverses the song database and returns the instance of the
      * requested song, if it exists.
      * @return Song instance for success, null otherwise.
@@ -77,5 +87,8 @@ public final class Database {
     }
     public ArrayList<Playlist> getPlaylists() {
         return playlists;
+    }
+    public ArrayList<Album> getAlbums() {
+        return albums;
     }
 }
