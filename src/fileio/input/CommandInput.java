@@ -1,5 +1,7 @@
 package fileio.input;
 
+import java.util.ArrayList;
+
 public final class CommandInput {
     private String command;
     private String username;
@@ -10,6 +12,16 @@ public final class CommandInput {
     private int playlistId;
     private String playlistName;
     private int seed;
+    private String nextPage;
+    private int age;
+    private String city;
+    private int releaseYear;
+    private String description;
+    private ArrayList<SongInput> songs;
+    private String name;
+    private String date;
+    private int price;
+    private ArrayList<EpisodeInput> episodes;
 
     /* Constructor */
     public CommandInput() { }
@@ -85,5 +97,85 @@ public final class CommandInput {
 
     public void setSeed(final int seed) {
         this.seed = seed;
+    }
+
+    public String getNextPage() {
+        return nextPage;
+    }
+
+    public void setNextPage(String nextPage) {
+        this.nextPage = nextPage;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public int getReleaseYear() {
+        return releaseYear;
+    }
+
+    public void setReleaseYear(int releaseYear) {
+        this.releaseYear = releaseYear;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public ArrayList<SongInput> getSongs() {
+        return songs;
+    }
+
+    public void setSongs(ArrayList<SongInput> songs) {
+        this.songs = songs;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public ArrayList<EpisodeInput> getEpisodes() {
+        return episodes;
+    }
+
+    public void setEpisodes(ArrayList<EpisodeInput> episodes) {
+        this.episodes = episodes;
     }
 }

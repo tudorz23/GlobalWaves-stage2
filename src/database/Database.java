@@ -1,5 +1,10 @@
 package database;
 
+import database.audio.Playlist;
+import database.audio.Podcast;
+import database.audio.Song;
+import database.users.User;
+
 import java.util.ArrayList;
 
 public final class Database {

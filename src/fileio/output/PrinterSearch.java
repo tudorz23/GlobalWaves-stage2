@@ -3,8 +3,8 @@ package fileio.output;
 import client.Session;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import database.Audio;
-import database.User;
+import database.audio.Audio;
+import database.users.User;
 
 public final class PrinterSearch extends Printer {
     private final User user;

@@ -1,7 +1,8 @@
 package database;
 
-import utils.PlayerState;
-import utils.RepeatState;
+import database.audio.Audio;
+import utils.enums.PlayerState;
+import utils.enums.RepeatState;
 
 public final class Player {
     private Audio currPlaying;

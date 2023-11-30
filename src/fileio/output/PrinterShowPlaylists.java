@@ -3,9 +3,9 @@ package fileio.output;
 import client.Session;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import database.Playlist;
-import database.Song;
-import database.User;
+import database.audio.Playlist;
+import database.audio.Song;
+import database.users.User;
 import java.util.ArrayList;
 
 public final class PrinterShowPlaylists extends Printer {

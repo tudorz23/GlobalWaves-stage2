@@ -3,7 +3,7 @@ package fileio.output;
 import client.Session;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import database.Playlist;
+import database.audio.Playlist;
 import java.util.ArrayList;
 
 public final class PrinterTop5Playlists extends Printer {

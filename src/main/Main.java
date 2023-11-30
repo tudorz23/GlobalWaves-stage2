@@ -1,9 +1,8 @@
 package main;
 
-import app.Admin;
-import app.CommandRunner;
 import checker.Checker;
 import checker.CheckerConstants;
+import client.AdminInteraction;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -15,6 +14,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -71,47 +72,14 @@ public final class Main {
                               final String filePath2) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         LibraryInput library = objectMapper.readValue(new File(CheckerConstants.TESTS_PATH + "library/library.json"), LibraryInput.class);
-        CommandInput[] commands = objectMapper.readValue(new File(CheckerConstants.TESTS_PATH + filePath1), CommandInput[].class);
+        List<CommandInput> commandList = Arrays.asList(objectMapper.readValue(new File(CheckerConstants.TESTS_PATH
+                + filePath1), CommandInput[].class));
         ArrayNode outputs = objectMapper.createArrayNode();
 
-        Admin.setUsers(library.getUsers());
-        Admin.setSongs(library.getSongs());
-        Admin.setPodcasts(library.getPodcasts());
-
-        for (CommandInput command : commands) {
-            Admin.updateTimestamp(command.getTimestamp());
-
-            String commandName = command.getCommand();
-
-            switch (commandName) {
-                case "search" -> outputs.add(CommandRunner.search(command));
-                case "select" -> outputs.add(CommandRunner.select(command));
-                case "load" -> outputs.add(CommandRunner.load(command));
-                case "playPause" -> outputs.add(CommandRunner.playPause(command));
-                case "repeat" -> outputs.add(CommandRunner.repeat(command));
-                case "shuffle" -> outputs.add(CommandRunner.shuffle(command));
-                case "forward" -> outputs.add(CommandRunner.forward(command));
-                case "backward" -> outputs.add(CommandRunner.backward(command));
-                case "like" -> outputs.add(CommandRunner.like(command));
-                case "next" -> outputs.add(CommandRunner.next(command));
-                case "prev" -> outputs.add(CommandRunner.prev(command));
-                case "createPlaylist" -> outputs.add(CommandRunner.createPlaylist(command));
-                case "addRemoveInPlaylist" -> outputs.add(CommandRunner.addRemoveInPlaylist(command));
-                case "switchVisibility" -> outputs.add(CommandRunner.switchVisibility(command));
-                case "showPlaylists" -> outputs.add(CommandRunner.showPlaylists(command));
-                case "follow" -> outputs.add(CommandRunner.follow(command));
-                case "status" -> outputs.add(CommandRunner.status(command));
-                case "showPreferredSongs" -> outputs.add(CommandRunner.showLikedSongs(command));
-                case "getPreferredGenre" -> outputs.add(CommandRunner.getPreferredGenre(command));
-                case "getTop5Songs" -> outputs.add(CommandRunner.getTop5Songs(command));
-                case "getTop5Playlists" -> outputs.add(CommandRunner.getTop5Playlists(command));
-                default -> System.out.println("Invalid command " + commandName);
-            }
-        }
+        AdminInteraction adminInteraction = new AdminInteraction(library, commandList, outputs);
+        adminInteraction.startAdminInteraction();
 
         ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
         objectWriter.writeValue(new File(filePath2), outputs);
-
-        Admin.reset();
     }
 }

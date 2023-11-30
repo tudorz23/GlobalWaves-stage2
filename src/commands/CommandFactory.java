@@ -2,9 +2,15 @@ package commands;
 
 import client.Session;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import database.User;
+import commands.playerCommands.*;
+import commands.searchbar.LoadCommand;
+import commands.searchbar.SearchCommand;
+import commands.searchbar.SelectCommand;
+import commands.statsCommands.*;
+import commands.userCommands.*;
+import database.users.User;
 import fileio.input.CommandInput;
-import utils.CommandType;
+import utils.enums.CommandType;
 
 public class CommandFactory {
     private final Session session;
@@ -58,7 +64,7 @@ public class CommandFactory {
                 return new AddRemoveInPlaylistCommand(session, commandInput, user, output);
             }
             case LIKE -> {
-                return new LikeCommand(session, commandInput, user, output);
+                return new LikeSongCommand(session, commandInput, user, output);
             }
             case SHOW_PLAYLISTS -> {
                 return new ShowPlaylistsCommand(session, commandInput, user, output);
@@ -76,7 +82,7 @@ public class CommandFactory {
                 return new NextCommand(session, commandInput, user, output);
             }
             case SWITCH_VISIBILITY -> {
-                return new SwitchVisibilityCommand(session, commandInput, user, output);
+                return new SwitchPlaylistVisibilityCommand(session, commandInput, user, output);
             }
             case FOLLOW -> {
                 return new FollowPlaylistCommand(session, commandInput, user, output);

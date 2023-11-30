@@ -4,7 +4,8 @@ import client.Session;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import database.*;
-import utils.PlayerState;
+import database.users.User;
+import utils.enums.PlayerState;
 
 public final class PrinterStatus extends Printer {
     private final User user;

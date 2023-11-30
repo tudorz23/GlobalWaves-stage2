@@ -4,9 +4,9 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import commands.CommandFactory;
 import commands.ICommand;
 import database.Database;
-import database.Podcast;
-import database.Song;
-import database.User;
+import database.audio.Podcast;
+import database.audio.Song;
+import database.users.User;
 import fileio.input.*;
 import java.util.List;
 
