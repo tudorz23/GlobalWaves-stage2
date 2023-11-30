@@ -1,12 +1,12 @@
 package utils.enums;
 
-public enum Visibility {
+public enum PlaylistVisibility {
     PUBLIC("public"),
     PRIVATE("private");
 
     private final String label;
 
-    Visibility(final String label) {
+    PlaylistVisibility(final String label) {
         this.label = label;
     }
 
@@ -18,7 +18,7 @@ public enum Visibility {
      * @param currVisibility visibility before cycling.
      * @return PUBLIC, if current visibility is PRIVATE, and otherwise.
      */
-    public static Visibility cycleVisibility(final Visibility currVisibility) {
+    public static PlaylistVisibility cycleVisibility(final PlaylistVisibility currVisibility) {
         if (currVisibility == PUBLIC) {
             return PRIVATE;
         }

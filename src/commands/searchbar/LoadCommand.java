@@ -55,7 +55,7 @@ public final class LoadCommand implements ICommand {
         userPlayer.setPlayerState(PlayerState.PLAYING);
 
         if (userPlayer.getCurrPlaying().getType() == AudioType.PLAYLIST) {
-            userPlayer.setRepeatState(RepeatState.NO_REPEAT_PLAYLIST);
+            userPlayer.setRepeatState(RepeatState.NO_REPEAT_COLLECTION);
         } else {
             userPlayer.setRepeatState(RepeatState.NO_REPEAT);
         }

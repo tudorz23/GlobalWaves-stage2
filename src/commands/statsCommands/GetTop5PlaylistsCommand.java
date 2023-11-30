@@ -6,7 +6,7 @@ import commands.ICommand;
 import database.audio.Playlist;
 import fileio.input.CommandInput;
 import fileio.output.PrinterTop5Playlists;
-import utils.enums.Visibility;
+import utils.enums.PlaylistVisibility;
 import java.util.ArrayList;
 import static utils.Constants.MAX_PLAYLIST_RANK_NUMBER;
 
@@ -30,7 +30,7 @@ public final class GetTop5PlaylistsCommand implements ICommand {
 
         ArrayList<Playlist> publicPlaylists = new ArrayList<>();
         for (Playlist playlist : session.getDatabase().getPlaylists()) {
-            if (playlist.getVisibility() == Visibility.PUBLIC) {
+            if (playlist.getVisibility() == PlaylistVisibility.PUBLIC) {
                 publicPlaylists.add(playlist);
             }
         }

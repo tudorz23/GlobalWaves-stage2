@@ -7,7 +7,7 @@ import database.audio.Playlist;
 import database.users.User;
 import fileio.input.CommandInput;
 import fileio.output.PrinterBasic;
-import utils.enums.Visibility;
+import utils.enums.PlaylistVisibility;
 
 public final class SwitchPlaylistVisibilityCommand implements ICommand {
     private final Session session;
@@ -39,7 +39,7 @@ public final class SwitchPlaylistVisibilityCommand implements ICommand {
 
         Playlist playlist = user.getPlaylists().get(realId);
 
-        Visibility newVisibility = Visibility.cycleVisibility(playlist.getVisibility());
+        PlaylistVisibility newVisibility = PlaylistVisibility.cycleVisibility(playlist.getVisibility());
         playlist.setVisibility(newVisibility);
 
         printer.print("Visibility status updated successfully to "

@@ -5,7 +5,7 @@ import utils.enums.AudioType;
 
 /**
  * Describes audio objects that can be searched by the user.
- * To be extended by classes Song, Playlist and Podcast.
+ * To be extended by classes Song, SongCollection and Podcast.
  */
 public abstract class Audio {
     private String name;

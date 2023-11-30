@@ -1,9 +1,9 @@
 package utils.enums;
 
 public enum RepeatState {
-    NO_REPEAT_PLAYLIST("No Repeat"),
-    REPEAT_ALL_PLAYLIST("Repeat All"),
-    REPEAT_CURR_SONG_PLAYLIST("Repeat Current Song"),
+    NO_REPEAT_COLLECTION("No Repeat"),
+    REPEAT_ALL_COLLECTION("Repeat All"),
+    REPEAT_CURR_SONG_COLLECTION("Repeat Current Song"),
     NO_REPEAT("No Repeat"),
     REPEAT_ONCE("Repeat Once"),
     REPEAT_INFINITE("Repeat Infinite");
@@ -25,14 +25,14 @@ public enum RepeatState {
      */
     public static RepeatState cycleState(final RepeatState prevState) {
         switch (prevState) {
-            case NO_REPEAT_PLAYLIST -> {
-                return REPEAT_ALL_PLAYLIST;
+            case NO_REPEAT_COLLECTION -> {
+                return REPEAT_ALL_COLLECTION;
             }
-            case REPEAT_ALL_PLAYLIST -> {
-                return REPEAT_CURR_SONG_PLAYLIST;
+            case REPEAT_ALL_COLLECTION -> {
+                return REPEAT_CURR_SONG_COLLECTION;
             }
-            case REPEAT_CURR_SONG_PLAYLIST -> {
-                return NO_REPEAT_PLAYLIST;
+            case REPEAT_CURR_SONG_COLLECTION -> {
+                return NO_REPEAT_COLLECTION;
             }
             case NO_REPEAT -> {
                 return REPEAT_ONCE;

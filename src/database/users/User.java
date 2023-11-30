@@ -6,9 +6,11 @@ import database.audio.Playlist;
 import database.audio.Podcast;
 import database.audio.Song;
 import fileio.input.UserInput;
+import utils.enums.UserType;
+
 import java.util.ArrayList;
 
-public final class User {
+public abstract class User {
     private String username;
     private int age;
     private String city;
@@ -19,18 +21,23 @@ public final class User {
     private ArrayList<Podcast> listenedPodcasts;
     private ArrayList<Song> likedSongs;
     private ArrayList<Playlist> followedPlaylists;
+    private UserType type;
 
     /* Constructor */
-    public User(final UserInput userInput) {
-        this.username = userInput.getUsername();
-        this.age = userInput.getAge();
-        this.city = userInput.getCity();
+    public User(String username, int age, String city) {
+        this.username = username;
+        this.age = age;
+        this.city = city;
         this.searchResult = null;
         this.player = new Player();
         this.playlists = new ArrayList<>();
         this.listenedPodcasts = new ArrayList<>();
         this.likedSongs = new ArrayList<>();
         this.followedPlaylists = new ArrayList<>();
+    }
+
+    public User(final UserInput userInput) {
+        this(userInput.getUsername(), userInput.getAge(), userInput.getCity());
     }
 
     /**
@@ -127,5 +134,11 @@ public final class User {
     }
     public ArrayList<Playlist> getFollowedPlaylists() {
         return followedPlaylists;
+    }
+    public UserType getType() {
+        return type;
+    }
+    public void setType(UserType type) {
+        this.type = type;
     }
 }
