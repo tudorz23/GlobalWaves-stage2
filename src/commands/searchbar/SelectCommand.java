@@ -3,10 +3,15 @@ package commands.searchbar;
 import client.Session;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import commands.ICommand;
+import database.audio.Audio;
+import database.users.Artist;
+import database.users.Host;
 import database.users.User;
 import fileio.input.CommandInput;
 import fileio.output.PrinterBasic;
 import utils.enums.LogStatus;
+import utils.enums.SearchableType;
+import utils.enums.UserType;
 
 public final class SelectCommand implements ICommand {
     private final Session session;
@@ -46,6 +51,19 @@ public final class SelectCommand implements ICommand {
         int index = commandInput.getItemNumber() - 1;
         user.setSelection(user.getSearchResult().get(index));
 
-        printer.print("Successfully selected " + user.getSelection().getName() + ".");
+        if (user.getSelection().getSearchableType() == SearchableType.USER) {
+            User selection = (User) user.getSelection();
+
+            if (selection.getType() == UserType.ARTIST) {
+                user.setCurrPage(((Artist) selection).getOfficialPage());
+            } else {
+                user.setCurrPage(((Host) selection).getOfficialPage());
+            }
+            printer.print("Successfully selected " + ((User) selection).getUsername()
+                            + "'s page.");
+            return;
+        }
+
+        printer.print("Successfully selected " + ((Audio) user.getSelection()).getName() + ".");
     }
 }

@@ -1,6 +1,7 @@
 package commands.searchbar.searchStrategy;
 
 import client.Session;
+import database.Searchable;
 import database.audio.Audio;
 import database.audio.Song;
 import database.users.User;
@@ -26,7 +27,7 @@ public final class SearchSongStrategy implements ISearchStrategy {
 
     @Override
     public void search() {
-        ArrayList<Audio> searchResult = user.getSearchResult();
+        ArrayList<Searchable> searchResult = user.getSearchResult();
         FiltersInput filtersInput = commandInput.getFilters();
 
         // Add all songs, then remove those that do not respect the given filters.
@@ -65,8 +66,8 @@ public final class SearchSongStrategy implements ISearchStrategy {
         }
     }
 
-    private void searchSongsByName(final ArrayList<Audio> searchResult, final String name) {
-        Iterator<Audio> iterator = searchResult.iterator();
+    private void searchSongsByName(final ArrayList<Searchable> searchResult, final String name) {
+        Iterator<Searchable> iterator = searchResult.iterator();
         while (iterator.hasNext()) {
             Song song = (Song) iterator.next();
 
@@ -76,8 +77,8 @@ public final class SearchSongStrategy implements ISearchStrategy {
         }
     }
 
-    private void searchSongsByAlbum(final ArrayList<Audio> searchResult, final String album) {
-        Iterator<Audio> iterator = searchResult.iterator();
+    private void searchSongsByAlbum(final ArrayList<Searchable> searchResult, final String album) {
+        Iterator<Searchable> iterator = searchResult.iterator();
         while (iterator.hasNext()) {
             Song song = (Song) iterator.next();
 
@@ -87,9 +88,9 @@ public final class SearchSongStrategy implements ISearchStrategy {
         }
     }
 
-    private void searchSongsByTags(final ArrayList<Audio> searchResult,
+    private void searchSongsByTags(final ArrayList<Searchable> searchResult,
                                    final ArrayList<String> tags) {
-        Iterator<Audio> iterator = searchResult.iterator();
+        Iterator<Searchable> iterator = searchResult.iterator();
         while (iterator.hasNext()) {
             Song song = (Song) iterator.next();
 
@@ -99,8 +100,8 @@ public final class SearchSongStrategy implements ISearchStrategy {
         }
     }
 
-    private void searchSongsByLyrics(final ArrayList<Audio> searchResult, final String lyrics) {
-        Iterator<Audio> iterator = searchResult.iterator();
+    private void searchSongsByLyrics(final ArrayList<Searchable> searchResult, final String lyrics) {
+        Iterator<Searchable> iterator = searchResult.iterator();
         while (iterator.hasNext()) {
             Song song = (Song) iterator.next();
 
@@ -120,8 +121,8 @@ public final class SearchSongStrategy implements ISearchStrategy {
         return copy1.contains(copy2);
     }
 
-    private void searchSongsByGenre(final ArrayList<Audio> searchResult, final String genre) {
-        Iterator<Audio> iterator = searchResult.iterator();
+    private void searchSongsByGenre(final ArrayList<Searchable> searchResult, final String genre) {
+        Iterator<Searchable> iterator = searchResult.iterator();
         while (iterator.hasNext()) {
             Song song = (Song) iterator.next();
 
@@ -131,7 +132,7 @@ public final class SearchSongStrategy implements ISearchStrategy {
         }
     }
 
-    private void searchSongsByReleaseYear(final ArrayList<Audio> searchResult,
+    private void searchSongsByReleaseYear(final ArrayList<Searchable> searchResult,
                                           final String releaseYear) {
         Criteria criteria;
 
@@ -153,7 +154,7 @@ public final class SearchSongStrategy implements ISearchStrategy {
             return;
         }
 
-        Iterator<Audio> iterator = searchResult.iterator();
+        Iterator<Searchable> iterator = searchResult.iterator();
         while (iterator.hasNext()) {
             Song song = (Song) iterator.next();
 
@@ -175,8 +176,8 @@ public final class SearchSongStrategy implements ISearchStrategy {
         return (year > reqYear);
     }
 
-    private void searchSongsByArtist(final ArrayList<Audio> searchResult, final String artist) {
-        Iterator<Audio> iterator = searchResult.iterator();
+    private void searchSongsByArtist(final ArrayList<Searchable> searchResult, final String artist) {
+        Iterator<Searchable> iterator = searchResult.iterator();
         while (iterator.hasNext()) {
             Song song = (Song) iterator.next();
 

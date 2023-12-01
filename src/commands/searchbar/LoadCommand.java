@@ -10,10 +10,7 @@ import database.audio.Podcast;
 import database.users.User;
 import fileio.input.CommandInput;
 import fileio.output.PrinterBasic;
-import utils.enums.AudioType;
-import utils.enums.LogStatus;
-import utils.enums.PlayerState;
-import utils.enums.RepeatState;
+import utils.enums.*;
 
 public final class LoadCommand implements ICommand {
     private final Session session;
@@ -45,7 +42,13 @@ public final class LoadCommand implements ICommand {
             return;
         }
 
-        if (user.getSelection().getType() == AudioType.PLAYLIST) {
+        if (user.getSelection().getSearchableType() == SearchableType.USER) {
+            // Cannot load an artist.
+            return;
+        }
+
+        Audio selection = (Audio) user.getSelection();
+        if (selection.getType() == AudioType.PLAYLIST) {
             if (((Playlist) user.getSelection()).getSongs().isEmpty()) {
                 printer.print("You can't load an empty audio collection!");
                 return;
@@ -76,7 +79,7 @@ public final class LoadCommand implements ICommand {
      * For songs and playlists, a deep copy is directly added.
      */
     public void loadSelection(final Player player) {
-        Audio selection = user.getSelection();
+        Audio selection = (Audio) user.getSelection();
 
         // If the selection is a podcast, check if it hasn't been listened to before.
         if (selection.getType() == AudioType.PODCAST) {

@@ -77,7 +77,33 @@ public class ArtistPage extends Page {
         }
 
         // TODO: Print merch and events.
-        stringBuilder.append("\n\nMerch:\n\t[");
+        stringBuilder.append("]\n\nMerch:\n\t[");
+
+        Iterator<Merch> merchIterator = merchList.iterator();
+        while (merchIterator.hasNext()) {
+            Merch merch = merchIterator.next();
+            stringBuilder.append(merch.getName()).append(" - ").append(merch.getPrice())
+                    .append(":\n\t").append(merch.getDescription());
+
+            if (merchIterator.hasNext()) {
+                stringBuilder.append(", ");
+            }
+        }
+
+        stringBuilder.append("]\n\nEvents:\n\t[");
+
+        Iterator<Event> eventIterator = events.iterator();
+        while (eventIterator.hasNext()) {
+            Event event = eventIterator.next();
+            stringBuilder.append(event.getName()).append(" - ").append(event.getDate())
+                    .append(":\n\t").append(event.getDescription());
+
+            if (eventIterator.hasNext()) {
+                stringBuilder.append(", ");
+            }
+        }
+
+        stringBuilder.append("]");
 
         return stringBuilder.toString();
     }

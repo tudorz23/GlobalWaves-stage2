@@ -9,16 +9,17 @@ import fileio.input.UserInput;
 import pages.HomePage;
 import pages.Page;
 import utils.enums.LogStatus;
+import utils.enums.SearchableType;
 import utils.enums.UserType;
 
 import java.util.ArrayList;
 
-public abstract class User {
+public abstract class User extends Searchable {
     private String username;
     private int age;
     private String city;
-    private ArrayList<Audio> searchResult;  // null when no search has been done.
-    private Audio selection;
+    private ArrayList<Searchable> searchResult;  // null when no search has been done.
+    private Searchable selection;
     private Player player;
     private ArrayList<Playlist> playlists;
     private ArrayList<Podcast> listenedPodcasts;
@@ -40,6 +41,7 @@ public abstract class User {
         this.likedSongs = new ArrayList<>();
         this.followedPlaylists = new ArrayList<>();
         this.currPage = new HomePage(this);
+        this.setSearchableType(SearchableType.USER);
     }
 
     public User(final UserInput userInput) {
@@ -111,16 +113,16 @@ public abstract class User {
     public void setCity(final String city) {
         this.city = city;
     }
-    public ArrayList<Audio> getSearchResult() {
+    public ArrayList<Searchable> getSearchResult() {
         return searchResult;
     }
-    public void setSearchResult(final ArrayList<Audio> searchResult) {
+    public void setSearchResult(final ArrayList<Searchable> searchResult) {
         this.searchResult = searchResult;
     }
-    public Audio getSelection() {
+    public Searchable getSelection() {
         return selection;
     }
-    public void setSelection(final Audio selection) {
+    public void setSelection(final Searchable selection) {
         this.selection = selection;
     }
     public Player getPlayer() {

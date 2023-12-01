@@ -3,12 +3,14 @@ package commands.userCommands;
 import client.Session;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import commands.ICommand;
+import database.audio.Audio;
 import database.audio.Playlist;
 import database.users.User;
 import fileio.input.CommandInput;
 import fileio.output.PrinterBasic;
 import utils.enums.AudioType;
 import utils.enums.LogStatus;
+import utils.enums.SearchableType;
 
 public final class FollowPlaylistCommand implements ICommand {
     private final Session session;
@@ -40,7 +42,13 @@ public final class FollowPlaylistCommand implements ICommand {
             return;
         }
 
-        if (user.getSelection().getType() != AudioType.PLAYLIST) {
+        if (user.getSelection().getSearchableType() == SearchableType.USER) {
+            // A user is not a playlist.
+            return;
+        }
+
+        Audio selection = (Audio) user.getSelection();
+        if (selection.getType() != AudioType.PLAYLIST) {
             printer.print("The selected source is not a playlist.");
             return;
         }

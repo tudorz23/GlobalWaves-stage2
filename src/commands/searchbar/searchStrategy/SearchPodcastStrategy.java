@@ -1,6 +1,7 @@
 package commands.searchbar.searchStrategy;
 
 import client.Session;
+import database.Searchable;
 import database.audio.Audio;
 import database.audio.Podcast;
 import database.users.User;
@@ -25,7 +26,7 @@ public final class SearchPodcastStrategy implements ISearchStrategy {
 
     @Override
     public void search() {
-        ArrayList<Audio> searchResult = user.getSearchResult();
+        ArrayList<Searchable> searchResult = user.getSearchResult();
 
         FiltersInput filtersInput = commandInput.getFilters();
 
@@ -49,8 +50,8 @@ public final class SearchPodcastStrategy implements ISearchStrategy {
      * Traverses the Search result list and removes the podcasts
      * that do not have the indicated name.
      */
-    private void searchPodcastsByName(final ArrayList<Audio> searchResult, final String name) {
-        Iterator<Audio> iterator = searchResult.iterator();
+    private void searchPodcastsByName(final ArrayList<Searchable> searchResult, final String name) {
+        Iterator<Searchable> iterator = searchResult.iterator();
         while (iterator.hasNext()) {
             Podcast podcast = (Podcast) iterator.next();
 
@@ -64,8 +65,8 @@ public final class SearchPodcastStrategy implements ISearchStrategy {
      * Traverses the Search result list and removes the podcasts
      * that do not have the indicated owner.
      */
-    private void searchPodcastsByOwner(final ArrayList<Audio> searchResult, final String owner) {
-        Iterator<Audio> iterator = searchResult.iterator();
+    private void searchPodcastsByOwner(final ArrayList<Searchable> searchResult, final String owner) {
+        Iterator<Searchable> iterator = searchResult.iterator();
         while (iterator.hasNext()) {
             Podcast podcast = (Podcast) iterator.next();
 

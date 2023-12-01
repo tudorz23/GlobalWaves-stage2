@@ -3,10 +3,7 @@ package commands.searchbar;
 import client.Session;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import commands.ICommand;
-import commands.searchbar.searchStrategy.ISearchStrategy;
-import commands.searchbar.searchStrategy.SearchPlaylistStrategy;
-import commands.searchbar.searchStrategy.SearchPodcastStrategy;
-import commands.searchbar.searchStrategy.SearchSongStrategy;
+import commands.searchbar.searchStrategy.*;
 import database.users.User;
 import fileio.input.CommandInput;
 import fileio.output.PrinterBasic;
@@ -75,6 +72,9 @@ public final class SearchCommand implements ICommand {
             }
             case "podcast" -> {
                 return new SearchPodcastStrategy(session, commandInput, user);
+            }
+            case "artist" -> {
+                return new SearchArtistStrategy(session, commandInput, user);
             }
             default -> throw new IllegalArgumentException("Invalid search criteria.");
         }

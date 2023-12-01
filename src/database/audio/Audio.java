@@ -1,22 +1,26 @@
 package database.audio;
 
 import database.Player;
+import database.Searchable;
 import utils.enums.AudioType;
+import utils.enums.SearchableType;
 
 /**
  * Describes audio objects that can be searched by the user.
  * To be extended by classes Song, SongCollection and Podcast.
  */
-public abstract class Audio {
+public abstract class Audio extends Searchable {
     private String name;
     private AudioType type;
 
     /* Constructors */
     public Audio() {
+        setSearchableType(SearchableType.AUDIO);
     }
 
     public Audio(final String name) {
         this.name = name;
+        setSearchableType(SearchableType.AUDIO);
     }
 
     /**

@@ -1,6 +1,7 @@
 package commands.searchbar.searchStrategy;
 
 import client.Session;
+import database.Searchable;
 import database.audio.Audio;
 import database.audio.Playlist;
 import database.users.User;
@@ -26,7 +27,7 @@ public final class SearchPlaylistStrategy implements ISearchStrategy {
 
     @Override
     public void search() {
-        ArrayList<Audio> searchResult = user.getSearchResult();
+        ArrayList<Searchable> searchResult = user.getSearchResult();
 
         FiltersInput filtersInput = commandInput.getFilters();
 
@@ -51,8 +52,8 @@ public final class SearchPlaylistStrategy implements ISearchStrategy {
         }
     }
 
-    private void searchPlaylistsByName(final ArrayList<Audio> searchResult, final String name) {
-        Iterator<Audio> iterator = searchResult.iterator();
+    private void searchPlaylistsByName(final ArrayList<Searchable> searchResult, final String name) {
+        Iterator<Searchable> iterator = searchResult.iterator();
         while (iterator.hasNext()) {
             Playlist playlist = (Playlist) iterator.next();
 
@@ -62,8 +63,8 @@ public final class SearchPlaylistStrategy implements ISearchStrategy {
         }
     }
 
-    private void searchPlaylistsByOwner(final ArrayList<Audio> searchResult, final String owner) {
-        Iterator<Audio> iterator = searchResult.iterator();
+    private void searchPlaylistsByOwner(final ArrayList<Searchable> searchResult, final String owner) {
+        Iterator<Searchable> iterator = searchResult.iterator();
         while (iterator.hasNext()) {
             Playlist playlist = (Playlist) iterator.next();
 

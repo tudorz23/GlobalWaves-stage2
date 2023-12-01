@@ -3,9 +3,11 @@ package fileio.output;
 import client.Session;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import database.Searchable;
 import database.audio.Audio;
 import database.users.User;
 import utils.enums.LogStatus;
+import utils.enums.SearchableType;
 
 public final class PrinterSearch extends PrinterComplex {
     private final User user;
@@ -27,8 +29,12 @@ public final class PrinterSearch extends PrinterComplex {
         commandNode.put("message", message);
 
         ArrayNode results = mapper.createArrayNode();
-        for (Audio audio : user.getSearchResult()) {
-            results.add(audio.getName());
+        for (Searchable searchable : user.getSearchResult()) {
+            if (searchable.getSearchableType() == SearchableType.USER) {
+                results.add(((User) searchable).getUsername());
+            } else {
+                results.add(((Audio) searchable).getName());
+            }
         }
 
         commandNode.set("results", results);
