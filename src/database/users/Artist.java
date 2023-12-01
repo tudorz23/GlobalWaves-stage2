@@ -10,6 +10,7 @@ public class Artist extends User {
     public Artist(String username, int age, String city) {
         super(username, age, city);
         this.setType(UserType.ARTIST);
+        this.officialPage = new ArtistPage();
     }
 
     /* Getters and Setters */

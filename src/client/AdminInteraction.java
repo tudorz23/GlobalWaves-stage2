@@ -7,7 +7,6 @@ import database.Database;
 import database.audio.Podcast;
 import database.audio.Song;
 import database.users.BasicUser;
-import database.users.User;
 import fileio.input.*;
 import java.util.List;
 
@@ -60,7 +59,7 @@ public class AdminInteraction {
         // Populate database with users.
         for (UserInput userInput : libraryInput.getUsers()) {
             BasicUser user =  new BasicUser(userInput);
-            database.addUser(user);
+            database.addBasicUser(user);
         }
     }
 

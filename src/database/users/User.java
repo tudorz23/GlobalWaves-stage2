@@ -27,7 +27,7 @@ public abstract class User {
     private Page currPage;
     private LogStatus logStatus;
 
-    /* Constructor */
+    /* Constructors */
     public User(String username, int age, String city) {
         this.username = username;
         this.age = age;

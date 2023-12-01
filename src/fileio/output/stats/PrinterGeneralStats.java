@@ -60,7 +60,7 @@ public class PrinterGeneralStats extends PrinterComplex {
         commandNode.put("timestamp", session.getTimestamp());
 
         ArrayNode result = mapper.createArrayNode();
-        for (User user : session.getDatabase().getUsers()) {
+        for (User user : session.getDatabase().getBasicUsers()) {
             if (user.getLogStatus() == LogStatus.ONLINE) {
                 result.add(user.getUsername());
             }

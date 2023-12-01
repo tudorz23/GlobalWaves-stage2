@@ -2,6 +2,7 @@ package commands;
 
 import client.Session;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import commands.adminCommands.AddUserCommand;
 import commands.playerCommands.*;
 import commands.searchbar.LoadCommand;
 import commands.searchbar.SearchCommand;
@@ -48,6 +49,9 @@ public class CommandFactory {
             }
             case GET_ONLINE_USERS -> {
                 return new GetOnlineUsersCommand(session, commandInput, output);
+            }
+            case ADD_USER -> {
+                return new AddUserCommand(session, commandInput, output);
             }
             default -> {
                 return helperGetCommand(commandInput, commandType);
@@ -148,7 +152,7 @@ public class CommandFactory {
      * in the database.
      */
     private User getUser(final CommandInput commandInput) throws IllegalArgumentException {
-        for (User user : session.getDatabase().getUsers()) {
+        for (User user : session.getDatabase().getBasicUsers()) {
             if (user.getUsername().equals(commandInput.getUsername())) {
                 return user;
             }

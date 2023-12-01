@@ -4,12 +4,17 @@ import database.audio.Album;
 import database.audio.Playlist;
 import database.audio.Podcast;
 import database.audio.Song;
+import database.users.Artist;
+import database.users.BasicUser;
+import database.users.Host;
 import database.users.User;
 
 import java.util.ArrayList;
 
 public final class Database {
-    private ArrayList<User> users;
+    private ArrayList<BasicUser> basicUsers;
+    private ArrayList<Artist> artists;
+    private ArrayList<Host> hosts;
     private ArrayList<Song> songs;
     private ArrayList<Podcast> podcasts;
     private ArrayList<Playlist> playlists;
@@ -17,7 +22,9 @@ public final class Database {
 
     /* Constructor */
     public Database() {
-        this.users = new ArrayList<>();
+        this.basicUsers = new ArrayList<>();
+        this.artists = new ArrayList<>();
+        this.hosts = new ArrayList<>();
         this.songs = new ArrayList<>();
         this.podcasts = new ArrayList<>();
         this.playlists = new ArrayList<>();
@@ -39,10 +46,24 @@ public final class Database {
     }
 
     /**
-     * Adds a new user to the users list.
+     * Adds a new basic user to the basicUsers list.
      */
-    public void addUser(final User user) {
-        users.add(user);
+    public void addBasicUser(final BasicUser user) {
+        basicUsers.add(user);
+    }
+
+    /**
+     * Adds a new artist to the artists list.
+     */
+    public void addArtist(final Artist artist) {
+        artists.add(artist);
+    }
+
+    /**
+     * Adds a new host to the hosts list.
+     */
+    public void addHost(final Host host) {
+        hosts.add(host);
     }
 
     /**
@@ -75,6 +96,31 @@ public final class Database {
         throw new IllegalArgumentException("Critical: Song not found in the database.");
     }
 
+    /**
+     * Traverses the 3 user lists and searches for the username.
+     * @return true if the username exists in the database, false otherwise.
+     */
+    public boolean checkExistingUsername(String username) {
+        for (User user : basicUsers) {
+            if (user.getUsername().equals(username)) {
+                return true;
+            }
+        }
+
+        for (User user : artists) {
+            if (user.getUsername().equals(username)) {
+                return true;
+            }
+        }
+
+        for (User user : hosts) {
+            if (user.getUsername().equals(username)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /* Getters and Setters */
     public ArrayList<Song> getSongs() {
         return songs;
@@ -82,13 +128,19 @@ public final class Database {
     public ArrayList<Podcast> getPodcasts() {
         return podcasts;
     }
-    public ArrayList<User> getUsers() {
-        return users;
+    public ArrayList<BasicUser> getBasicUsers() {
+        return basicUsers;
     }
     public ArrayList<Playlist> getPlaylists() {
         return playlists;
     }
     public ArrayList<Album> getAlbums() {
         return albums;
+    }
+    public ArrayList<Artist> getArtists() {
+        return artists;
+    }
+    public ArrayList<Host> getHosts() {
+        return hosts;
     }
 }
