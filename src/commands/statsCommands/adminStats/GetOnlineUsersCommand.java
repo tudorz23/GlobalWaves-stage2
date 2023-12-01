@@ -1,10 +1,10 @@
-package commands.statsCommands;
+package commands.statsCommands.adminStats;
 
 import client.Session;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import commands.ICommand;
 import fileio.input.CommandInput;
-import fileio.output.PrinterUsers;
+import fileio.output.stats.PrinterGeneralStats;
 
 public class GetOnlineUsersCommand implements ICommand {
     private final Session session;
@@ -22,7 +22,7 @@ public class GetOnlineUsersCommand implements ICommand {
     @Override
     public void execute() {
         session.setTimestamp(commandInput.getTimestamp());
-        PrinterUsers printer = new PrinterUsers(session, output);
+        PrinterGeneralStats printer = new PrinterGeneralStats(session, output);
 
         printer.printOnlineUsers();
     }

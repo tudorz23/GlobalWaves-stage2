@@ -1,11 +1,12 @@
-package commands.statsCommands;
+package commands.statsCommands.adminStats;
 
 import client.Session;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import commands.ICommand;
 import database.audio.Song;
 import fileio.input.CommandInput;
-import fileio.output.PrinterTop5Songs;
+import fileio.output.stats.PrinterGeneralStats;
+
 import java.util.ArrayList;
 import static utils.Constants.MAX_SONG_RANK_NUMBER;
 
@@ -25,7 +26,7 @@ public final class GetTop5SongsCommand implements ICommand {
     @Override
     public void execute() {
         session.setTimestamp(commandInput.getTimestamp());
-        PrinterTop5Songs printer = new PrinterTop5Songs(session, output);
+        PrinterGeneralStats printer = new PrinterGeneralStats(session, output);
 
         ArrayList<Song> allSongs = new ArrayList<>();
         allSongs.addAll(session.getDatabase().getSongs());
@@ -37,6 +38,6 @@ public final class GetTop5SongsCommand implements ICommand {
             allSongs.remove((allSongs.size() - 1));
         }
 
-        printer.print(allSongs);
+        printer.printTop5Songs(allSongs);
     }
 }

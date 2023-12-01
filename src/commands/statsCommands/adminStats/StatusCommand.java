@@ -1,4 +1,4 @@
-package commands.statsCommands;
+package commands.statsCommands.adminStats;
 
 import client.Session;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -6,7 +6,7 @@ import commands.ICommand;
 import database.Player;
 import database.users.User;
 import fileio.input.CommandInput;
-import fileio.output.PrinterStatus;
+import fileio.output.stats.PrinterStatus;
 import utils.enums.LogStatus;
 import utils.enums.PlayerState;
 

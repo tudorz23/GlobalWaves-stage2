@@ -1,10 +1,11 @@
-package fileio.output;
+package fileio.output.stats;
 
 import client.Session;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import database.*;
 import database.users.User;
+import fileio.output.PrinterComplex;
 import utils.enums.PlayerState;
 
 public final class PrinterStatus extends PrinterComplex {
