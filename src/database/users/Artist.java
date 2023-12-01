@@ -22,7 +22,13 @@ public class Artist extends User {
         return officialPage.addAlbum(commandInput);
     }
 
+    public void addEvent(CommandInput commandInput) {
+        officialPage.addEvent(commandInput);
+    }
 
+    public void addMerch(CommandInput commandInput) {
+        officialPage.addMerch(commandInput);
+    }
 
     /* Getters and Setters */
     public ArtistPage getOfficialPage() {

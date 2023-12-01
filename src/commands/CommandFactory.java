@@ -17,6 +17,8 @@ import commands.statsCommands.personalStats.ShowPreferredSongsCommand;
 import commands.statsCommands.adminStats.StatusCommand;
 import commands.userCommands.*;
 import commands.userCommands.artistCommands.AddAlbumCommand;
+import commands.userCommands.artistCommands.AddEventCommand;
+import commands.userCommands.artistCommands.AddMerchCommand;
 import database.users.User;
 import fileio.input.CommandInput;
 import fileio.output.PrinterBasic;
@@ -151,6 +153,12 @@ public class CommandFactory {
             }
             case PRINT_CURRENT_PAGE -> {
                 return new PrintCurrentPageCommand(session, commandInput, user, output);
+            }
+            case ADD_EVENT -> {
+                return new AddEventCommand(session, commandInput, user, output);
+            }
+            case ADD_MERCH -> {
+                return new AddMerchCommand(session, commandInput, user, output);
             }
             default -> throw new IllegalArgumentException("Command " + commandInput.getCommand()
                     + " not supported.");

@@ -1,23 +1,31 @@
 package pages;
 
+import database.Event;
 import database.audio.Album;
 import database.audio.Song;
+import database.users.Merch;
 import database.users.User;
 import fileio.input.CommandInput;
 import fileio.input.SongInput;
 import utils.enums.PageType;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class ArtistPage extends Page {
     private ArrayList<Album> albums;
+    private ArrayList<Event> events;
+    private ArrayList<Merch> merchList;
 
     /* Constructor */
     public ArtistPage(User owningUser) {
         super(owningUser);
         setType(PageType.ARTIST_PAGE);
         albums = new ArrayList<>();
+        events = new ArrayList<>();
+        merchList = new ArrayList<>();
     }
 
     /**
@@ -74,8 +82,65 @@ public class ArtistPage extends Page {
         return stringBuilder.toString();
     }
 
-    /* Getters and Setters */
+    /**
+     * Adds a new event to the event list.
+     * @param commandInput Data containing details of the new event.
+     * @throws IllegalArgumentException if the operation fails.
+     */
+    public void addEvent(CommandInput commandInput) throws IllegalArgumentException {
+        for (Event event : events) {
+            if (event.getName().equals(commandInput.getName())) {
+                throw new IllegalArgumentException(commandInput.getUsername()
+                        + " has another event with the same name.");
+            }
+        }
+
+        LocalDate date;
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyy");
+            date = LocalDate.parse(commandInput.getDate(), formatter);
+        } catch (DateTimeParseException exception) {
+            throw new IllegalArgumentException("Event for " + commandInput.getUsername()
+                                                + " does not have a valid date.");
+        }
+
+        if (date.getYear() < 1900 || date.getYear() > 2023) {
+            throw new IllegalArgumentException("Event for " + commandInput.getUsername()
+                                                + " does not have a valid date.");
+        }
+
+        Event newEvent = new Event(commandInput.getName(), commandInput.getDescription(),
+                                    commandInput.getDate());
+        events.add(newEvent);
+    }
+
+    /**
+     * Adds a new merch to the merch list.
+     * @param commandInput Data containing details of the new merch.
+     * @throws IllegalArgumentException if the operation fails.
+     */
+    public void addMerch(CommandInput commandInput) throws IllegalArgumentException {
+        for (Merch merch : merchList) {
+            if (merch.getName().equals(commandInput.getName())) {
+                throw new IllegalArgumentException(commandInput.getUsername()
+                        + " has merchandise with the same name.");
+            }
+        }
+
+        if (commandInput.getPrice() < 0) {
+            throw new IllegalArgumentException("Price for merchandise can not be negative.");
+        }
+
+        Merch newMerch = new Merch(commandInput.getName(), commandInput.getDescription(),
+                                    commandInput.getPrice());
+        merchList.add(newMerch);
+    }
+
+    /* Getters */
     public ArrayList<Album> getAlbums() {
         return albums;
+    }
+    public ArrayList<Event> getEvents() {
+        return events;
     }
 }
