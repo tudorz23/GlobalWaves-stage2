@@ -3,40 +3,36 @@ package fileio.output.stats;
 import client.Session;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import database.audio.Playlist;
-import database.audio.Song;
-import database.users.User;
+import database.audio.Album;
+import database.users.Artist;
 import fileio.output.PrinterComplex;
 
-import java.util.ArrayList;
-
-public final class PrinterShowPlaylists extends PrinterComplex {
-    private final User user;
+public class PrinterShowAlbums extends PrinterComplex {
+    private final Artist artist;
 
     /* Constructor */
-    public PrinterShowPlaylists(final User user, final Session session,
+    public PrinterShowAlbums(final Artist artist, final Session session,
                                 final ArrayNode output) {
         super(session, output);
-        this.user = user;
+        this.artist = artist;
     }
 
     /**
-     * Appends the ShowPlaylists output to the output ArrayNode.
+     * Appends the ShowAlbums output to the output ArrayNode.
      */
     public void print() {
         ObjectNode commandNode = mapper.createObjectNode();
 
-        commandNode.put("command", "showPlaylists");
-        commandNode.put("user", user.getUsername());
+        commandNode.put("command", "showAlbums");
+        commandNode.put("user", artist.getUsername());
         commandNode.put("timestamp", session.getTimestamp());
 
         ArrayNode result = mapper.createArrayNode();
-        for (Playlist playlist : user.getPlaylists()) {
-            result.add(createPlaylistNode(playlist));
+        for (Album album : artist.getAlbums()) {
+            result.add(createAlbumNode(album));
         }
 
         commandNode.set("result", result);
         output.add(commandNode);
     }
-
 }

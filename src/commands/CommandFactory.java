@@ -3,6 +3,7 @@ package commands;
 import client.Session;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import commands.adminCommands.AddUserCommand;
+import commands.statsCommands.personalStats.ShowAlbumsCommand;
 import commands.playerCommands.*;
 import commands.searchbar.LoadCommand;
 import commands.searchbar.SearchCommand;
@@ -14,6 +15,7 @@ import commands.statsCommands.personalStats.ShowPlaylistsCommand;
 import commands.statsCommands.personalStats.ShowPreferredSongsCommand;
 import commands.statsCommands.adminStats.StatusCommand;
 import commands.userCommands.*;
+import commands.userCommands.artistCommands.AddAlbumCommand;
 import database.users.User;
 import fileio.input.CommandInput;
 import fileio.output.PrinterBasic;
@@ -140,19 +142,40 @@ public class CommandFactory {
             case SWITCH_CONNECTION_STATUS -> {
                 return new SwitchConnectionStatusCommand(session, commandInput, user, output);
             }
+            case ADD_ALBUM -> {
+                return new AddAlbumCommand(session, commandInput, user, output);
+            }
+            case SHOW_ALBUMS -> {
+                return new ShowAlbumsCommand(session, commandInput, user, output);
+            }
             default -> throw new IllegalArgumentException("Command " + commandInput.getCommand()
                     + " not supported.");
         }
     }
 
     /**
-     * Traverses the user list from the database.
+     * Traverses the user lists from the database.
      * @return User with the requested username.
      * @throws IllegalArgumentException if there is no user with the requested username
      * in the database.
      */
     private User getUser(final CommandInput commandInput) throws IllegalArgumentException {
+        // Search basic users.
         for (User user : session.getDatabase().getBasicUsers()) {
+            if (user.getUsername().equals(commandInput.getUsername())) {
+                return user;
+            }
+        }
+
+        // Search artists.
+        for (User user : session.getDatabase().getArtists()) {
+            if (user.getUsername().equals(commandInput.getUsername())) {
+                return user;
+            }
+        }
+
+        // Search hosts.
+        for (User user : session.getDatabase().getHosts()) {
             if (user.getUsername().equals(commandInput.getUsername())) {
                 return user;
             }

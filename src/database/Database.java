@@ -74,10 +74,14 @@ public final class Database {
     }
 
     /**
-     * Adds a new album to the albums list.
+     * Adds a new album to the albums list (and all its songs to the songs list).
      */
     public void addAlbum(Album album) {
         albums.add(album);
+
+        for (Song song : album.getSongs()) {
+            addSong(song);
+        }
     }
 
     /**
