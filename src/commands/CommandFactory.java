@@ -3,6 +3,7 @@ package commands;
 import client.Session;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import commands.adminCommands.AddUserCommand;
+import commands.statsCommands.personalStats.PrintCurrentPageCommand;
 import commands.statsCommands.personalStats.ShowAlbumsCommand;
 import commands.playerCommands.*;
 import commands.searchbar.LoadCommand;
@@ -147,6 +148,9 @@ public class CommandFactory {
             }
             case SHOW_ALBUMS -> {
                 return new ShowAlbumsCommand(session, commandInput, user, output);
+            }
+            case PRINT_CURRENT_PAGE -> {
+                return new PrintCurrentPageCommand(session, commandInput, user, output);
             }
             default -> throw new IllegalArgumentException("Command " + commandInput.getCommand()
                     + " not supported.");

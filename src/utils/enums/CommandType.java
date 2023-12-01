@@ -38,7 +38,8 @@ public enum CommandType {
     GET_TOP5_ALBUMS("getTop5Albums"),
     GET_TOP5_ARTISTS("getTop5Artists"),
     GET_ALL_USERS("getAllUsers"),
-    GET_ONLINE_USERS("getOnlineUsers");
+    GET_ONLINE_USERS("getOnlineUsers"),
+    PRINT_CURRENT_PAGE("printCurrentPage");
 
     private final String label;
 

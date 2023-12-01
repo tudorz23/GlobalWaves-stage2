@@ -46,6 +46,6 @@ public class AddAlbumCommand implements ICommand {
         }
 
         session.getDatabase().addAlbum(newAlbum);
-        printer.print(user.getUsername() + "has added new album successfully.");
+        printer.print(user.getUsername() + " has added new album successfully.");
     }
 }

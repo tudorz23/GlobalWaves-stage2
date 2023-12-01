@@ -23,8 +23,6 @@ public final class Album extends SongCollection {
         }
 
         copy.setPlayingSongIndex(0);
-        copy.setLikeCnt(this.getLikeCnt());
-
         copy.initializeShuffleArray();
 
         return copy;

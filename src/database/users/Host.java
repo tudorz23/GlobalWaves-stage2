@@ -10,7 +10,7 @@ public class Host extends User {
     public Host(String username, int age, String city) {
         super(username, age, city);
         this.setType(UserType.HOST);
-        this.officialPage = new HostPage();
+        this.officialPage = new HostPage(this);
     }
 
     /* Getters and Setters */

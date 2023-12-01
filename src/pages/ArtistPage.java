@@ -2,6 +2,7 @@ package pages;
 
 import database.audio.Album;
 import database.audio.Song;
+import database.users.User;
 import fileio.input.CommandInput;
 import fileio.input.SongInput;
 import utils.enums.PageType;
@@ -13,8 +14,8 @@ public class ArtistPage extends Page {
     private ArrayList<Album> albums;
 
     /* Constructor */
-    public ArtistPage() {
-        super();
+    public ArtistPage(User owningUser) {
+        super(owningUser);
         setType(PageType.ARTIST_PAGE);
         albums = new ArrayList<>();
     }
@@ -51,6 +52,26 @@ public class ArtistPage extends Page {
 
         albums.add(newAlbum);
         return newAlbum;
+    }
+
+    @Override
+    public String printPage() {
+        StringBuilder stringBuilder = new StringBuilder("Albums:\n\t[");
+
+        Iterator<Album> albumIterator = albums.iterator();
+        while (albumIterator.hasNext()) {
+            Album album = albumIterator.next();
+            stringBuilder.append(album.getName());
+
+            if (albumIterator.hasNext()) {
+                stringBuilder.append(", ");
+            }
+        }
+
+        // TODO: Print merch and events.
+        stringBuilder.append("\n\nMerch:\n\t[");
+
+        return stringBuilder.toString();
     }
 
     /* Getters and Setters */

@@ -27,8 +27,6 @@ public final class Playlist extends SongCollection {
 
         copy.setPlayingSongIndex(0);
         copy.followersCnt = this.followersCnt;
-        copy.setLikeCnt(this.getLikeCnt());
-
         copy.initializeShuffleArray();
 
         return copy;

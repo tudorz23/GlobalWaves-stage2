@@ -75,39 +75,12 @@ public final class LikeSongCommand implements ICommand {
 
         if (user.getLikedSongs().contains(song)) {
             user.removeLikedSong(song);
-            decrementSongCollectionsLikeCnt(song);
             printer.print("Unlike registered successfully.");
             return;
         }
 
         user.addLikedSong(song);
-        incrementSongCollectionsLikeCnt(song);
         printer.print("Like registered successfully.");
     }
 
-    /**
-     * Helper for incrementing the likeCnt of the collections the song is part of.
-     */
-    private void incrementSongCollectionsLikeCnt(Song song) {
-        for (Playlist playlist : session.getDatabase().getPlaylists()) {
-            playlist.incrementLikeCntAttempt(song);
-        }
-
-        for (Album album : session.getDatabase().getAlbums()) {
-            album.incrementLikeCntAttempt(song);
-        }
-    }
-
-    /**
-     * Helper for decrementing the likeCnt of the collections the song is part of.
-     */
-    private void decrementSongCollectionsLikeCnt(Song song) {
-        for (Playlist playlist : session.getDatabase().getPlaylists()) {
-            playlist.decrementLikeCntAttempt(song);
-        }
-
-        for (Album album : session.getDatabase().getAlbums()) {
-            album.decrementLikeCntAttempt(song);
-        }
-    }
 }

@@ -6,6 +6,7 @@ import database.audio.Playlist;
 import database.audio.Podcast;
 import database.audio.Song;
 import fileio.input.UserInput;
+import pages.HomePage;
 import pages.Page;
 import utils.enums.LogStatus;
 import utils.enums.UserType;
@@ -38,6 +39,7 @@ public abstract class User {
         this.listenedPodcasts = new ArrayList<>();
         this.likedSongs = new ArrayList<>();
         this.followedPlaylists = new ArrayList<>();
+        this.currPage = new HomePage(this);
     }
 
     public User(final UserInput userInput) {

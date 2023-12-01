@@ -224,4 +224,7 @@ public final class Podcast extends Audio {
     public void setOwner(final String owner) {
         this.owner = owner;
     }
+    public ArrayList<Episode> getEpisodes() {
+        return episodes;
+    }
 }
