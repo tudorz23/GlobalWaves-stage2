@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import database.audio.Audio;
 import database.users.User;
+import utils.enums.LogStatus;
 
 public final class PrinterSearch extends PrinterComplex {
     private final User user;
@@ -20,11 +21,7 @@ public final class PrinterSearch extends PrinterComplex {
      * Appends the Search output to the output ArrayNode.
      */
     public void print() {
-        ObjectNode commandNode = mapper.createObjectNode();
-
-        commandNode.put("command", "search");
-        commandNode.put("user", user.getUsername());
-        commandNode.put("timestamp", session.getTimestamp());
+        ObjectNode commandNode = getMetadataNode();
 
         String message = "Search returned " + user.getSearchResult().size() + " results";
         commandNode.put("message", message);
@@ -36,5 +33,24 @@ public final class PrinterSearch extends PrinterComplex {
 
         commandNode.set("results", results);
         output.add(commandNode);
+    }
+
+    public void printOfflineUser() {
+        ObjectNode commandNode = getMetadataNode();
+        commandNode.put("message", user.getUsername() + " is offline.");
+
+        ArrayNode results = mapper.createArrayNode();
+        commandNode.set("results", results);
+        output.add(commandNode);
+    }
+
+    private ObjectNode getMetadataNode() {
+        ObjectNode commandNode = mapper.createObjectNode();
+
+        commandNode.put("command", "search");
+        commandNode.put("user", user.getUsername());
+        commandNode.put("timestamp", session.getTimestamp());
+
+        return commandNode;
     }
 }

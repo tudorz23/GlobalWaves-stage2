@@ -11,6 +11,7 @@ import database.users.User;
 import fileio.input.CommandInput;
 import fileio.output.PrinterBasic;
 import utils.enums.AudioType;
+import utils.enums.LogStatus;
 import utils.enums.PlayerState;
 import utils.enums.RepeatState;
 
@@ -33,6 +34,11 @@ public final class LoadCommand implements ICommand {
     public void execute() {
         session.setTimestamp(commandInput.getTimestamp());
         PrinterBasic printer = new PrinterBasic(output, commandInput);
+
+        if (user.getLogStatus() == LogStatus.OFFLINE) {
+            printer.printOfflineUser();
+            return;
+        }
 
         if (user.getSelection() == null) {
             printer.print("Please select a source before attempting to load.");

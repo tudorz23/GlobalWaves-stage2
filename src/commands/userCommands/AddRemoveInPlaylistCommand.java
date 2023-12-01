@@ -10,6 +10,7 @@ import database.users.User;
 import fileio.input.CommandInput;
 import fileio.output.PrinterBasic;
 import utils.enums.AudioType;
+import utils.enums.LogStatus;
 import utils.enums.PlayerState;
 
 public final class AddRemoveInPlaylistCommand implements ICommand {
@@ -31,6 +32,12 @@ public final class AddRemoveInPlaylistCommand implements ICommand {
     public void execute() {
         session.setTimestamp(commandInput.getTimestamp());
         PrinterBasic printer = new PrinterBasic(output, commandInput);
+
+        if (user.getLogStatus() == LogStatus.OFFLINE) {
+            printer.printOfflineUser();
+            return;
+        }
+
         Player userPlayer = user.getPlayer();
 
         if (userPlayer == null || userPlayer.getPlayerState() == PlayerState.EMPTY) {

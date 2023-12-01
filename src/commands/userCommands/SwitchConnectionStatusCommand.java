@@ -7,6 +7,8 @@ import database.Player;
 import database.users.User;
 import fileio.input.CommandInput;
 import fileio.output.PrinterBasic;
+import utils.enums.LogStatus;
+import utils.enums.UserType;
 
 public class SwitchConnectionStatusCommand implements ICommand {
     private final Session session;
@@ -27,8 +29,25 @@ public class SwitchConnectionStatusCommand implements ICommand {
     public void execute() {
         session.setTimestamp(commandInput.getTimestamp());
         PrinterBasic printer = new PrinterBasic(output, commandInput);
+
+        if (user.getType() != UserType.BASIC_USER) {
+            printer.print(user.getUsername() + " is not a normal user.");
+            return;
+        }
+
         Player userPlayer = user.getPlayer();
 
+        if (user.getLogStatus() == LogStatus.OFFLINE) {
+            user.setLogStatus(LogStatus.ONLINE);
+            userPlayer.setPrevTimeInfo(session.getTimestamp());
 
+            printer.print(user.getUsername() + " has changed status successfully.");
+            return;
+        }
+
+        userPlayer.simulateTimePass(session.getTimestamp());
+        user.setLogStatus(LogStatus.OFFLINE);
+
+        printer.print(user.getUsername() + " has changed status successfully.");
     }
 }

@@ -21,13 +21,26 @@ public final class PrinterBasic extends Printer {
      * to the output ArrayNode.
      */
     public void print(final String message) {
+        ObjectNode commandNode = getMetadataNode();
+        commandNode.put("message", message);
+
+        output.add(commandNode);
+    }
+
+    public void printOfflineUser() {
+        ObjectNode commandNode = getMetadataNode();
+        commandNode.put("message", commandInput.getUsername() + " is offline.");
+
+        output.add(commandNode);
+    }
+
+    private ObjectNode getMetadataNode() {
         ObjectNode commandNode = mapper.createObjectNode();
 
         commandNode.put("command", commandInput.getCommand());
         commandNode.put("user", commandInput.getUsername());
         commandNode.put("timestamp", commandInput.getTimestamp());
-        commandNode.put("message", message);
 
-        output.add(commandNode);
+        return commandNode;
     }
 }

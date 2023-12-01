@@ -9,7 +9,9 @@ import commands.searchbar.searchStrategy.SearchPodcastStrategy;
 import commands.searchbar.searchStrategy.SearchSongStrategy;
 import database.users.User;
 import fileio.input.CommandInput;
+import fileio.output.PrinterBasic;
 import fileio.output.PrinterSearch;
+import utils.enums.LogStatus;
 import utils.enums.PlayerState;
 import java.util.ArrayList;
 
@@ -31,6 +33,13 @@ public final class SearchCommand implements ICommand {
     @Override
     public void execute() {
         session.setTimestamp(commandInput.getTimestamp());
+        PrinterSearch printer = new PrinterSearch(user, session, output);
+
+        if (user.getLogStatus() == LogStatus.OFFLINE) {
+            printer.printOfflineUser();
+            return;
+        }
+
         if (user.getPlayer() != null && user.getPlayer().getPlayerState() != PlayerState.EMPTY) {
             user.getPlayer().simulateTimePass(session.getTimestamp());
         }
@@ -49,8 +58,6 @@ public final class SearchCommand implements ICommand {
         }
 
         searchStrategy.search();
-
-        PrinterSearch printer = new PrinterSearch(user, session, output);
         printer.print();
     }
 

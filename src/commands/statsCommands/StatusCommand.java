@@ -7,6 +7,7 @@ import database.Player;
 import database.users.User;
 import fileio.input.CommandInput;
 import fileio.output.PrinterStatus;
+import utils.enums.LogStatus;
 import utils.enums.PlayerState;
 
 public final class StatusCommand implements ICommand {
@@ -30,7 +31,8 @@ public final class StatusCommand implements ICommand {
         PrinterStatus printer = new PrinterStatus(user, session, output);
         Player userPlayer = user.getPlayer();
 
-        if (userPlayer != null && userPlayer.getPlayerState() != PlayerState.EMPTY) {
+        if (userPlayer != null && userPlayer.getPlayerState() != PlayerState.EMPTY
+            && user.getLogStatus() == LogStatus.ONLINE) {
             userPlayer.simulateTimePass(session.getTimestamp());
         }
 

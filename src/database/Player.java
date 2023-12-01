@@ -31,7 +31,9 @@ public final class Player {
      * @param currTime Current timestamp of the query.
      */
     public void simulateTimePass(final int currTime) {
-        currPlaying.simulateTimePass(this, currTime);
+        if (this.playerState != PlayerState.EMPTY) {
+            currPlaying.simulateTimePass(this, currTime);
+        }
 
         // Update previous time from the player.
         this.setPrevTimeInfo(currTime);

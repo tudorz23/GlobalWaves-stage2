@@ -7,6 +7,7 @@ import database.audio.Playlist;
 import database.users.User;
 import fileio.input.CommandInput;
 import fileio.output.PrinterBasic;
+import utils.enums.LogStatus;
 import utils.enums.PlaylistVisibility;
 
 public final class SwitchPlaylistVisibilityCommand implements ICommand {
@@ -28,6 +29,11 @@ public final class SwitchPlaylistVisibilityCommand implements ICommand {
     public void execute() {
         session.setTimestamp(commandInput.getTimestamp());
         PrinterBasic printer = new PrinterBasic(output, commandInput);
+
+        if (user.getLogStatus() == LogStatus.OFFLINE) {
+            printer.printOfflineUser();
+            return;
+        }
 
         int oldId = commandInput.getPlaylistId();
         if (oldId > user.getPlaylists().size()) {

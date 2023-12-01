@@ -9,17 +9,17 @@ import database.users.User;
 import java.util.ArrayList;
 
 public final class Database {
+    private ArrayList<User> users;
     private ArrayList<Song> songs;
     private ArrayList<Podcast> podcasts;
-    private ArrayList<User> users;
     private ArrayList<Playlist> playlists;
     private ArrayList<Album> albums;
 
     /* Constructor */
     public Database() {
+        this.users = new ArrayList<>();
         this.songs = new ArrayList<>();
         this.podcasts = new ArrayList<>();
-        this.users = new ArrayList<>();
         this.playlists = new ArrayList<>();
         this.albums = new ArrayList<>();
     }
@@ -65,7 +65,7 @@ public final class Database {
      * @return Song instance for success, null otherwise.
      * @throws IllegalArgumentException if the song is not found.
      */
-    public Song searchSongInDatabase(final Song reqSong) {
+    public Song searchSongInDatabase(final Song reqSong) throws IllegalArgumentException {
         for (Song song : songs) {
             if (song.getName().equals(reqSong.getName())
                 && song.getArtist().equals(reqSong.getArtist())) {

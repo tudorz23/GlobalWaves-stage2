@@ -6,6 +6,7 @@ import commands.ICommand;
 import database.users.User;
 import fileio.input.CommandInput;
 import fileio.output.PrinterBasic;
+import utils.enums.LogStatus;
 
 public final class SelectCommand implements ICommand {
     private final Session session;
@@ -26,6 +27,11 @@ public final class SelectCommand implements ICommand {
     public void execute() {
         session.setTimestamp(commandInput.getTimestamp());
         PrinterBasic printer = new PrinterBasic(output, commandInput);
+
+        if (user.getLogStatus() == LogStatus.OFFLINE) {
+            printer.printOfflineUser();
+            return;
+        }
 
         if (user.getSearchResult() == null) {
             printer.print("Please conduct a search before making a selection.");

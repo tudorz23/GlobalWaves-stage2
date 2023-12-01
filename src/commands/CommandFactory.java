@@ -41,6 +41,9 @@ public class CommandFactory {
             case GET_TOP5_PLAYLISTS -> {
                 return new GetTop5PlaylistsCommand(session, commandInput, output);
             }
+            case GET_ONLINE_USERS -> {
+                return new GetOnlineUsersCommand(session, commandInput, output);
+            }
             default -> {
                 return helperGetCommand(commandInput, commandType);
             }
@@ -125,6 +128,9 @@ public class CommandFactory {
     private ICommand helperGetCommandStage2(CommandInput commandInput, CommandType commandType,
                                             User user) {
         switch(commandType) {
+            case SWITCH_CONNECTION_STATUS -> {
+                return new SwitchConnectionStatusCommand(session, commandInput, user, output);
+            }
             default -> throw new IllegalArgumentException("Command " + commandInput.getCommand()
                     + " not supported.");
         }
@@ -136,7 +142,7 @@ public class CommandFactory {
      * @throws IllegalArgumentException if there is no user with the requested username
      * in the database.
      */
-    private User getUser(final CommandInput commandInput) {
+    private User getUser(final CommandInput commandInput) throws IllegalArgumentException {
         for (User user : session.getDatabase().getUsers()) {
             if (user.getUsername().equals(commandInput.getUsername())) {
                 return user;

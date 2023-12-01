@@ -1,4 +1,4 @@
-package commands.statsCommands;
+package commands.userCommands;
 
 import client.Session;
 import com.fasterxml.jackson.databind.node.ArrayNode;

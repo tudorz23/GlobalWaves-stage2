@@ -52,7 +52,7 @@ public enum CommandType {
      * @return CommandType enum corresponding to the label.
      * @throws IllegalArgumentException if the String does not correspond to a command.
      */
-    public static CommandType fromString(final String text) {
+    public static CommandType fromString(final String text) throws IllegalArgumentException {
         for (CommandType commandType : CommandType.values()) {
             if (commandType.label.equals(text)) {
                 return commandType;
