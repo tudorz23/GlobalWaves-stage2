@@ -187,6 +187,9 @@ public class CommandFactory {
             case REMOVE_ANNOUNCEMENT -> {
                 return new RemoveAnnouncementCommand(session, commandInput, user, output);
             }
+            case CHANGE_PAGE -> {
+                return new ChangePageCommand(session, commandInput, user, output);
+            }
             default -> {
                 PrinterBasic printer = new PrinterBasic(output, commandInput);
                 printer.print("Command " + commandInput.getCommand() + " not supported.");

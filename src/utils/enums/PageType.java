@@ -1,10 +1,10 @@
 package utils.enums;
 
 public enum PageType {
-    HOME("home"),
-    LIKED_CONTENT("likedContent"),
-    ARTIST_PAGE("artistPage"),
-    HOST_PAGE("hostPage");
+    HOME("Home"),
+    LIKED_CONTENT("LikedContent"),
+    ARTIST_PAGE("ArtistPage"),
+    HOST_PAGE("HostPage");
 
     private final String label;
 
@@ -16,13 +16,14 @@ public enum PageType {
      * Gets a PageType enum from the label String.
      * @param text String that will be compared to the label.
      * @return PageType enum corresponding to the label.
+     * @throws IllegalArgumentException if requested page does not exist.
      */
-    public static PageType fromString(final String text) {
+    public static PageType fromString(final String text) throws IllegalArgumentException {
         for (PageType pageType : PageType.values()) {
             if (pageType.label.equals(text)) {
                 return pageType;
             }
         }
-        return null;
+        throw new IllegalArgumentException("Non-existent page.");
     }
 }

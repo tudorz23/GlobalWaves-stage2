@@ -32,7 +32,7 @@ public class LikedContentPage extends Page {
         Iterator<Playlist> playlistIterator = getOwningUser().getFollowedPlaylists().iterator();
         while (playlistIterator.hasNext()) {
             Playlist playlist = playlistIterator.next();
-            stringBuilder.append(playlist.getName()).append("-").append(playlist.getOwner());
+            stringBuilder.append(playlist.getName()).append(" - ").append(playlist.getOwner());
 
             if (playlistIterator.hasNext()) {
                 stringBuilder.append(", ");
