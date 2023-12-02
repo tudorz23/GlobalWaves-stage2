@@ -48,7 +48,7 @@ public class RemovePodcastCommand implements ICommand {
         session.getDatabase().simulateTimeForEveryone(session.getTimestamp());
 
         if (!session.getDatabase().canRemoveAudio(podcast)) {
-            printer.print(host.getUsername() + "  can't delete this podcast.");
+            printer.print(host.getUsername() + " can't delete this podcast.");
             return;
         }
 

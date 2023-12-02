@@ -98,6 +98,25 @@ public final class Database {
 
 
     /**
+     * Removes a playlist from the database.
+     */
+    public void removePlaylist(Playlist playlist) {
+        playlists.remove(playlist);
+
+        for (User user : basicUsers) {
+            user.removeFollowedPlaylist(playlist);
+        }
+
+        for (User user : artists) {
+            user.removeFollowedPlaylist(playlist);
+        }
+
+        for (User user : hosts) {
+            user.removeFollowedPlaylist(playlist);
+        }
+    }
+
+    /**
      * Adds a new album to the albums list (and all its songs to the songs list).
      */
     public void addAlbum(Album album) {
@@ -229,6 +248,9 @@ public final class Database {
     }
 
 
+    /**
+     * Removes the user from the database.
+     */
     public void removeUser(User user) {
         if (user.getType() == UserType.BASIC_USER) {
             basicUsers.remove((BasicUser) user);
