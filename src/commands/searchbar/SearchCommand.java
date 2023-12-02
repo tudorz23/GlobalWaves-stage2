@@ -73,6 +73,9 @@ public final class SearchCommand implements ICommand {
             case "podcast" -> {
                 return new SearchPodcastStrategy(session, commandInput, user);
             }
+            case "album" -> {
+                return new SearchAlbumStrategy(session, commandInput, user);
+            }
             case "artist" -> {
                 return new SearchArtistStrategy(session, commandInput, user);
             }

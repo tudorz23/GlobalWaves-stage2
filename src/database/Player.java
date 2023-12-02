@@ -31,7 +31,7 @@ public final class Player {
      * @param currTime Current timestamp of the query.
      */
     public void simulateTimePass(final int currTime) {
-        if (this.playerState != PlayerState.EMPTY) {
+        if (this.playerState != PlayerState.EMPTY && this.playerState != PlayerState.STOPPED) {
             currPlaying.simulateTimePass(this, currTime);
         }
 

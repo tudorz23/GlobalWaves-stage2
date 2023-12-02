@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import commands.ICommand;
 import database.Player;
 import database.audio.Playlist;
+import database.audio.SongCollection;
 import database.users.User;
 import fileio.input.CommandInput;
 import fileio.output.PrinterBasic;
@@ -53,20 +54,21 @@ public final class ShuffleCommand implements ICommand {
             return;
         }
 
-        if (userPlayer.getCurrPlaying().getType() != AudioType.PLAYLIST) {
-            printer.print("The loaded source is not a playlist.");
+        if (userPlayer.getCurrPlaying().getType() != AudioType.PLAYLIST
+            && userPlayer.getCurrPlaying().getType() != AudioType.ALBUM) {
+            printer.print("The loaded source is not a playlist or an album.");
             return;
         }
 
-        Playlist currPlaylist = (Playlist) userPlayer.getCurrPlaying();
+        SongCollection currSongCollection = (SongCollection) userPlayer.getCurrPlaying();
 
         // Clear the old shuffle array.
-        currPlaylist.getShuffleArray().clear();
+        currSongCollection.getShuffleArray().clear();
 
         if (userPlayer.isShuffle()) {
-            // Set the shuffle array to v[i] = i. (i.e. "un-shuffle" the playlist).
-            for (int i = 0; i < currPlaylist.getSongs().size(); i++) {
-                currPlaylist.getShuffleArray().add(i);
+            // Set the shuffle array to v[i] = i. (i.e. "un-shuffle" the collection).
+            for (int i = 0; i < currSongCollection.getSongs().size(); i++) {
+                currSongCollection.getShuffleArray().add(i);
             }
 
             userPlayer.setShuffle(false);
@@ -74,11 +76,11 @@ public final class ShuffleCommand implements ICommand {
             return;
         }
 
-        for (int i = 0; i < currPlaylist.getSongs().size(); i++) {
-            currPlaylist.getShuffleArray().add(i);
+        for (int i = 0; i < currSongCollection.getSongs().size(); i++) {
+            currSongCollection.getShuffleArray().add(i);
         }
 
-        Collections.shuffle(currPlaylist.getShuffleArray(),
+        Collections.shuffle(currSongCollection.getShuffleArray(),
                             new Random(commandInput.getSeed()));
 
         userPlayer.setShuffle(true);

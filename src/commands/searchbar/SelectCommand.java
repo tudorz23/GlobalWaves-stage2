@@ -59,8 +59,7 @@ public final class SelectCommand implements ICommand {
             } else {
                 user.setCurrPage(((Host) selection).getOfficialPage());
             }
-            printer.print("Successfully selected " + ((User) selection).getUsername()
-                            + "'s page.");
+            printer.print("Successfully selected " + selection.getUsername() + "'s page.");
             return;
         }
 

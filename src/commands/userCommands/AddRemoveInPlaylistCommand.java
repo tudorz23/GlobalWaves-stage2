@@ -6,6 +6,7 @@ import commands.ICommand;
 import database.Player;
 import database.audio.Playlist;
 import database.audio.Song;
+import database.audio.SongCollection;
 import database.users.User;
 import fileio.input.CommandInput;
 import fileio.output.PrinterBasic;
@@ -57,15 +58,21 @@ public final class AddRemoveInPlaylistCommand implements ICommand {
             return;
         }
 
-        if (userPlayer.getCurrPlaying().getType() != AudioType.SONG) {
+        if (userPlayer.getCurrPlaying().getType() == AudioType.PODCAST) {
             printer.print("The loaded source is not a song.");
             return;
         }
 
+        Song playingSong;
+        if (userPlayer.getCurrPlaying().getType() == AudioType.SONG) {
+            playingSong = (Song) userPlayer.getCurrPlaying();
+        } else {
+            SongCollection currSongCollection = (SongCollection) (userPlayer.getCurrPlaying());
+            playingSong = currSongCollection.getSongs().get(currSongCollection.getPlayingSongIndex());
+        }
+
         int realIndex = commandInput.getPlaylistId() - 1;
         Playlist userPlaylist = user.getPlaylists().get(realIndex);
-
-        Song playingSong = (Song) userPlayer.getCurrPlaying();
 
         // Remember that the Player stores a deep copy of the song,
         // so a search in the database is necessary to get the real song instance.
@@ -76,13 +83,13 @@ public final class AddRemoveInPlaylistCommand implements ICommand {
             return;
         }
 
-       if (userPlaylist.getSongs().contains(song)) {
+        if (userPlaylist.getSongs().contains(song)) {
            userPlaylist.removeSong(song);
            printer.print("Successfully removed from playlist.");
            return;
-       }
+        }
 
-       userPlaylist.addSong(song);
-       printer.print("Successfully added to playlist.");
+        userPlaylist.addSong(song);
+        printer.print("Successfully added to playlist.");
     }
 }

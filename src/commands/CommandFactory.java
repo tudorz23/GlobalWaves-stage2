@@ -160,8 +160,11 @@ public class CommandFactory {
             case ADD_MERCH -> {
                 return new AddMerchCommand(session, commandInput, user, output);
             }
-            default -> throw new IllegalArgumentException("Command " + commandInput.getCommand()
-                    + " not supported.");
+            default -> {
+                PrinterBasic printer = new PrinterBasic(output, commandInput);
+                printer.print("Command " + commandInput.getCommand() + " not supported.");
+                throw new IllegalArgumentException("Invalid command.");
+            }
         }
     }
 

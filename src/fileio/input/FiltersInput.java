@@ -11,6 +11,7 @@ public final class FiltersInput {
     private String releaseYear;
     private String artist;
     private String owner;
+    private String description;
 
     /* Constructor */
     public FiltersInput() {
@@ -79,5 +80,13 @@ public final class FiltersInput {
 
     public void setOwner(final String owner) {
         this.owner = owner;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

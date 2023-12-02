@@ -51,8 +51,8 @@ public class ArtistPage extends Page {
             }
         }
 
-        Album newAlbum = new Album(commandInput.getName(), commandInput.getReleaseYear(),
-                                    commandInput.getDescription());
+        Album newAlbum = new Album(commandInput.getName(), getOwningUser().getUsername(),
+                                commandInput.getReleaseYear(), commandInput.getDescription());
 
         for (SongInput songInput : commandInput.getSongs()) {
             newAlbum.addSong(new Song(songInput));

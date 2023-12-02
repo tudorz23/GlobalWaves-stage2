@@ -63,7 +63,8 @@ public final class LoadCommand implements ICommand {
         userPlayer.setPrevTimeInfo(session.getTimestamp());
         userPlayer.setPlayerState(PlayerState.PLAYING);
 
-        if (userPlayer.getCurrPlaying().getType() == AudioType.PLAYLIST) {
+        if (userPlayer.getCurrPlaying().getType() == AudioType.PLAYLIST
+            || userPlayer.getCurrPlaying().getType() == AudioType.ALBUM) {
             userPlayer.setRepeatState(RepeatState.NO_REPEAT_COLLECTION);
         } else {
             userPlayer.setRepeatState(RepeatState.NO_REPEAT);
@@ -76,7 +77,7 @@ public final class LoadCommand implements ICommand {
 
     /**
      * Loads the selection into the player. Podcast load is done separately
-     * For songs and playlists, a deep copy is directly added.
+     * For songs, playlists and albums, a deep copy is directly added.
      */
     public void loadSelection(final Player player) {
         Audio selection = (Audio) user.getSelection();

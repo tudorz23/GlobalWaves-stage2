@@ -4,9 +4,8 @@ import client.Session;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import commands.ICommand;
 import database.Player;
-import database.audio.Album;
-import database.audio.Playlist;
 import database.audio.Song;
+import database.audio.SongCollection;
 import database.users.User;
 import fileio.input.CommandInput;
 import fileio.output.PrinterBasic;
@@ -62,8 +61,8 @@ public final class LikeSongCommand implements ICommand {
         if (userPlayer.getCurrPlaying().getType() == AudioType.SONG) {
             playingSong = (Song) userPlayer.getCurrPlaying();
         } else {
-            Playlist currPlaylist = (Playlist) (userPlayer.getCurrPlaying());
-            playingSong = (currPlaylist.getSongs().get(currPlaylist.getPlayingSongIndex()));
+            SongCollection currSongCollection = (SongCollection) (userPlayer.getCurrPlaying());
+            playingSong = currSongCollection.getSongs().get(currSongCollection.getPlayingSongIndex());
         }
 
         Song song;
