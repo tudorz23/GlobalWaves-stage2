@@ -5,8 +5,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import commands.ICommand;
 import database.audio.Song;
 import fileio.input.CommandInput;
-import fileio.output.stats.PrinterGeneralStats;
-
+import fileio.output.PrinterBasic;
 import java.util.ArrayList;
 import static utils.Constants.MAX_SONG_RANK_NUMBER;
 
@@ -26,10 +25,9 @@ public final class GetTop5SongsCommand implements ICommand {
     @Override
     public void execute() {
         session.setTimestamp(commandInput.getTimestamp());
-        PrinterGeneralStats printer = new PrinterGeneralStats(session, output);
+        PrinterBasic printer = new PrinterBasic(output, commandInput);
 
-        ArrayList<Song> allSongs = new ArrayList<>();
-        allSongs.addAll(session.getDatabase().getSongs());
+        ArrayList<Song> allSongs = new ArrayList<>(session.getDatabase().getSongs());
 
         // Lambda expression to sort the songs by the likes number, decreasingly.
         allSongs.sort((song1, song2) -> song2.getLikeCnt() - song1.getLikeCnt());
@@ -38,6 +36,11 @@ public final class GetTop5SongsCommand implements ICommand {
             allSongs.remove((allSongs.size() - 1));
         }
 
-        printer.printTop5Songs(allSongs);
+        ArrayList<String> result = new ArrayList<>();
+        for (Song song : allSongs) {
+            result.add(song.getName());
+        }
+
+        printer.printStringResultsStats(result);
     }
 }

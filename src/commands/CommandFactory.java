@@ -3,18 +3,15 @@ package commands;
 import client.Session;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import commands.adminCommands.AddUserCommand;
+import commands.statsCommands.adminStats.*;
 import commands.statsCommands.personalStats.PrintCurrentPageCommand;
 import commands.statsCommands.personalStats.ShowAlbumsCommand;
 import commands.playerCommands.*;
 import commands.searchbar.LoadCommand;
 import commands.searchbar.SearchCommand;
 import commands.searchbar.SelectCommand;
-import commands.statsCommands.adminStats.GetOnlineUsersCommand;
-import commands.statsCommands.adminStats.GetTop5PlaylistsCommand;
-import commands.statsCommands.adminStats.GetTop5SongsCommand;
 import commands.statsCommands.personalStats.ShowPlaylistsCommand;
 import commands.statsCommands.personalStats.ShowPreferredSongsCommand;
-import commands.statsCommands.adminStats.StatusCommand;
 import commands.userCommands.*;
 import commands.userCommands.artistCommands.AddAlbumCommand;
 import commands.userCommands.artistCommands.AddEventCommand;
@@ -57,6 +54,9 @@ public class CommandFactory {
             }
             case ADD_USER -> {
                 return new AddUserCommand(session, commandInput, output);
+            }
+            case GET_ALL_USERS -> {
+                return new GetAllUsersCommand(session, commandInput, output);
             }
             default -> {
                 return helperGetCommand(commandInput, commandType);

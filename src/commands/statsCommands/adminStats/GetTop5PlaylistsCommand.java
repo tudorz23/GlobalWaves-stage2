@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import commands.ICommand;
 import database.audio.Playlist;
 import fileio.input.CommandInput;
-import fileio.output.stats.PrinterGeneralStats;
+import fileio.output.PrinterBasic;
 import utils.enums.PlaylistVisibility;
 import java.util.ArrayList;
 import static utils.Constants.MAX_PLAYLIST_RANK_NUMBER;
@@ -26,7 +26,7 @@ public final class GetTop5PlaylistsCommand implements ICommand {
     @Override
     public void execute() {
         session.setTimestamp(commandInput.getTimestamp());
-        PrinterGeneralStats printer = new PrinterGeneralStats(session, output);
+        PrinterBasic printer = new PrinterBasic(output, commandInput);
 
         ArrayList<Playlist> publicPlaylists = new ArrayList<>();
         for (Playlist playlist : session.getDatabase().getPlaylists()) {
@@ -45,6 +45,11 @@ public final class GetTop5PlaylistsCommand implements ICommand {
             publicPlaylists.remove(publicPlaylists.size() - 1);
         }
 
-        printer.printTop5Playlists(publicPlaylists);
+        ArrayList<String> results = new ArrayList<>();
+        for (Playlist playlist : publicPlaylists) {
+            results.add(playlist.getName());
+        }
+
+        printer.printStringResultsStats(results);
     }
 }

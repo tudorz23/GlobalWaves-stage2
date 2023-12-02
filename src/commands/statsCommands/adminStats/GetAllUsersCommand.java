@@ -6,18 +6,17 @@ import commands.ICommand;
 import database.users.User;
 import fileio.input.CommandInput;
 import fileio.output.PrinterBasic;
-import utils.enums.LogStatus;
 
 import java.util.ArrayList;
 
-public class GetOnlineUsersCommand implements ICommand {
+public class GetAllUsersCommand implements ICommand {
     private final Session session;
     private final CommandInput commandInput;
     private final ArrayNode output;
 
     /* Constructor */
-    public GetOnlineUsersCommand(final Session session, final CommandInput commandInput,
-                               final ArrayNode output) {
+    public GetAllUsersCommand(final Session session, final CommandInput commandInput,
+                                 final ArrayNode output) {
         this.session = session;
         this.commandInput = commandInput;
         this.output = output;
@@ -29,10 +28,17 @@ public class GetOnlineUsersCommand implements ICommand {
         PrinterBasic printer = new PrinterBasic(output, commandInput);
 
         ArrayList<String> result = new ArrayList<>();
+
         for (User user : session.getDatabase().getBasicUsers()) {
-            if (user.getLogStatus() == LogStatus.ONLINE) {
-                result.add(user.getUsername());
-            }
+            result.add(user.getUsername());
+        }
+
+        for (User user : session.getDatabase().getArtists()) {
+            result.add(user.getUsername());
+        }
+
+        for (User user : session.getDatabase().getHosts()) {
+            result.add(user.getUsername());
         }
 
         printer.printStringResultsStats(result);
