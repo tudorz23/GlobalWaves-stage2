@@ -5,6 +5,7 @@ import database.users.Artist;
 import database.users.BasicUser;
 import database.users.Host;
 import database.users.User;
+import utils.enums.UserType;
 
 import java.util.ArrayList;
 
@@ -227,6 +228,20 @@ public final class Database {
         }
     }
 
+
+    public void removeUser(User user) {
+        if (user.getType() == UserType.BASIC_USER) {
+            basicUsers.remove((BasicUser) user);
+            return;
+        }
+
+        if (user.getType() == UserType.ARTIST) {
+            artists.remove((Artist) user);
+            return;
+        }
+
+        hosts.remove((Host) user);
+    }
 
     /* Getters and Setters */
     public ArrayList<Song> getSongs() {

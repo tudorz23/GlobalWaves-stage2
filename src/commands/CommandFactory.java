@@ -3,6 +3,7 @@ package commands;
 import client.Session;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import commands.adminCommands.AddUserCommand;
+import commands.adminCommands.DeleteUserCommand;
 import commands.statsCommands.adminStats.*;
 import commands.statsCommands.personalStats.*;
 import commands.playerCommands.*;
@@ -174,6 +175,9 @@ public class CommandFactory {
             }
             case REMOVE_PODCAST -> {
                 return new RemovePodcastCommand(session, commandInput, user, output);
+            }
+            case DELETE_USER -> {
+                return new DeleteUserCommand(session, commandInput, user, output);
             }
             default -> {
                 PrinterBasic printer = new PrinterBasic(output, commandInput);
