@@ -6,6 +6,7 @@ import commands.ICommand;
 import database.audio.Playlist;
 import database.audio.Song;
 import database.users.Artist;
+import database.users.BasicUser;
 import database.users.Host;
 import database.users.User;
 import fileio.input.CommandInput;
@@ -106,6 +107,9 @@ public class DeleteUserCommand implements ICommand {
             }
             case HOST -> {
                 return new DeleteHostStrategy(session, (Host) user);
+            }
+            case BASIC_USER -> {
+                return new DeleteBasicUserCommand(session, (BasicUser) user);
             }
             // Never reached.
             default -> throw new IllegalArgumentException("Invalid user.");
