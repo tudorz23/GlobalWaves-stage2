@@ -79,6 +79,9 @@ public final class SearchCommand implements ICommand {
             case "artist" -> {
                 return new SearchArtistStrategy(session, commandInput, user);
             }
+            case "host" -> {
+                return new SearchHostStrategy(session, commandInput, user);
+            }
             default -> throw new IllegalArgumentException("Invalid search criteria.");
         }
     }
