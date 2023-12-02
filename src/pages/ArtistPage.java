@@ -77,7 +77,7 @@ public class ArtistPage extends Page {
                 return album;
             }
         }
-        throw new IllegalArgumentException(getOwningUser()
+        throw new IllegalArgumentException(getOwningUser().getUsername()
                 + " doesn't have an album with the given name.");
     }
 

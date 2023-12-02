@@ -15,7 +15,9 @@ import commands.userCommands.artistCommands.AddAlbumCommand;
 import commands.userCommands.artistCommands.AddEventCommand;
 import commands.userCommands.artistCommands.AddMerchCommand;
 import commands.userCommands.artistCommands.RemoveAlbumCommand;
+import commands.userCommands.hostCommands.AddAnnouncementCommand;
 import commands.userCommands.hostCommands.AddPodcastCommand;
+import commands.userCommands.hostCommands.RemoveAnnouncementCommand;
 import commands.userCommands.hostCommands.RemovePodcastCommand;
 import database.users.User;
 import fileio.input.CommandInput;
@@ -178,6 +180,12 @@ public class CommandFactory {
             }
             case DELETE_USER -> {
                 return new DeleteUserCommand(session, commandInput, user, output);
+            }
+            case ADD_ANNOUNCEMENT -> {
+                return new AddAnnouncementCommand(session, commandInput, user, output);
+            }
+            case REMOVE_ANNOUNCEMENT -> {
+                return new RemoveAnnouncementCommand(session, commandInput, user, output);
             }
             default -> {
                 PrinterBasic printer = new PrinterBasic(output, commandInput);

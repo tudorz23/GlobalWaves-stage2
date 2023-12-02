@@ -1,5 +1,6 @@
 package database.users;
 
+import database.Announcement;
 import database.audio.Podcast;
 import fileio.input.CommandInput;
 import pages.HostPage;
@@ -27,6 +28,18 @@ public class Host extends User {
 
     public Podcast findPodcast(String name) {
         return officialPage.findPodcast(name);
+    }
+
+    public void addAnnouncement(CommandInput commandInput) {
+        officialPage.addAnnouncement(commandInput);
+    }
+
+    public Announcement findAnnouncement(String name) {
+        return officialPage.findAnnouncement(name);
+    }
+
+    public void removeAnnouncement(Announcement announcement) {
+        officialPage.removeAnnouncement(announcement);
     }
 
     /* Getters and Setters */

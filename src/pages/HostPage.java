@@ -1,5 +1,6 @@
 package pages;
 
+import database.Announcement;
 import database.audio.Episode;
 import database.audio.Podcast;
 import database.users.User;
@@ -11,12 +12,14 @@ import java.util.Iterator;
 
 public class HostPage extends Page {
     private ArrayList<Podcast> podcasts;
+    private ArrayList<Announcement> announcements;
 
     /* Constructor */
     public HostPage(User owningUser) {
         super(owningUser);
         setType(PageType.HOST_PAGE);
         podcasts = new ArrayList<>();
+        announcements = new ArrayList<>();
     }
 
 
@@ -69,7 +72,7 @@ public class HostPage extends Page {
                 return podcast;
             }
         }
-        throw new IllegalArgumentException(getOwningUser()
+        throw new IllegalArgumentException(getOwningUser().getUsername()
                 + " doesn't have a podcast with the given name.");
     }
 
@@ -85,28 +88,83 @@ public class HostPage extends Page {
             Iterator<Episode> episodeIterator = podcast.getEpisodes().iterator();
             while (episodeIterator.hasNext()) {
                 Episode episode = episodeIterator.next();
-                stringBuilder.append(episode.getName()).append("-").append(episode.getDescription());
+                stringBuilder.append(episode.getName()).append(" - ").append(episode.getDescription());
 
                 if (episodeIterator.hasNext()) {
                     stringBuilder.append(", ");
                 }
             }
 
-            stringBuilder.append("]");
+            stringBuilder.append("]\n");
 
             if (podcastIterator.hasNext()) {
-                stringBuilder.append(", [");
+                stringBuilder.append(", ");
             }
         }
 
-        stringBuilder.append("]\n\nAnnouncements\n\t[");
-        //TODO: Print announcements.
+        stringBuilder.append("]\n\nAnnouncements:\n\t[");
+
+        Iterator<Announcement> announcementIterator = announcements.iterator();
+        while (announcementIterator.hasNext()) {
+            Announcement announcement = announcementIterator.next();
+            stringBuilder.append(announcement.getName()).append(":\n\t")
+                    .append(announcement.getDescription());
+
+            if (announcementIterator.hasNext()) {
+                stringBuilder.append(", ");
+            }
+        }
+
+        stringBuilder.append("\n]");
 
         return stringBuilder.toString();
+    }
+
+
+    /**
+     * Adds a new announcement to the event list.
+     * @param commandInput Data containing details of the new announcement.
+     * @throws IllegalArgumentException if the operation fails.
+     */
+    public void addAnnouncement(CommandInput commandInput) throws IllegalArgumentException {
+        for (Announcement announcement : announcements) {
+            if (announcement.getName().equals(commandInput.getName())) {
+                throw new IllegalArgumentException(commandInput.getUsername()
+                        + " has already added an announcement with this name.");
+            }
+        }
+
+        Announcement announcement = new Announcement(commandInput.getName(),
+                                                    commandInput.getDescription());
+        announcements.add(announcement);
+    }
+
+
+    /**
+     * @param name name of the requested announcement.
+     * @return Announcement from the list with the given name.
+     * @throws IllegalArgumentException if no announcement with the given name is found.
+     */
+    public Announcement findAnnouncement(String name) throws IllegalArgumentException {
+        for (Announcement announcement : announcements) {
+            if (announcement.getName().equals(name)) {
+                return announcement;
+            }
+        }
+
+        throw new IllegalArgumentException(getOwningUser().getUsername()
+                + " has no announcement with the given name.");
+    }
+
+    public void removeAnnouncement(Announcement announcement) {
+        announcements.remove(announcement);
     }
 
     /* Getters and Setters */
     public ArrayList<Podcast> getPodcasts() {
         return podcasts;
+    }
+    public ArrayList<Announcement> getAnnouncements() {
+        return announcements;
     }
 }
