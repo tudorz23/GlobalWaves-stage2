@@ -21,6 +21,14 @@ public class Host extends User {
         return officialPage.addPodcast(commandInput);
     }
 
+    public void removePodcast(Podcast podcast) {
+        officialPage.removePodcast(podcast);
+    }
+
+    public Podcast findPodcast(String name) {
+        return officialPage.findPodcast(name);
+    }
+
     /* Getters and Setters */
     public HostPage getOfficialPage() {
         return officialPage;

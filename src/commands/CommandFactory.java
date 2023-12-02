@@ -15,6 +15,7 @@ import commands.userCommands.artistCommands.AddEventCommand;
 import commands.userCommands.artistCommands.AddMerchCommand;
 import commands.userCommands.artistCommands.RemoveAlbumCommand;
 import commands.userCommands.hostCommands.AddPodcastCommand;
+import commands.userCommands.hostCommands.RemovePodcastCommand;
 import database.users.User;
 import fileio.input.CommandInput;
 import fileio.output.PrinterBasic;
@@ -29,6 +30,7 @@ public class CommandFactory {
         this.session = session;
         this.output = output;
     }
+
 
     /**
      * Public Factory Method that creates ICommand instances, based on the CommandInput.
@@ -62,6 +64,7 @@ public class CommandFactory {
             }
         }
     }
+
 
     /**
      * Helper to the public Factory Method. This part manages commands from stage 1
@@ -132,6 +135,7 @@ public class CommandFactory {
         }
     }
 
+
     /**
      * Helper to the public Factory Method. This part manages commands from stage 2
      * that require a User instance.
@@ -168,6 +172,9 @@ public class CommandFactory {
             case SHOW_PODCASTS -> {
                 return new ShowPodcastsCommand(session, commandInput, user, output);
             }
+            case REMOVE_PODCAST -> {
+                return new RemovePodcastCommand(session, commandInput, user, output);
+            }
             default -> {
                 PrinterBasic printer = new PrinterBasic(output, commandInput);
                 printer.print("Command " + commandInput.getCommand() + " not supported.");
@@ -175,6 +182,7 @@ public class CommandFactory {
             }
         }
     }
+
 
     /**
      * Traverses the user lists from the database.

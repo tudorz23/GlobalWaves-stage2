@@ -45,6 +45,26 @@ public final class Database {
 
 
     /**
+     * Removes a podcast from the podcast list.
+     */
+    public void removePodcast(Podcast podcast) {
+        podcasts.remove(podcast);
+
+        for (User user : basicUsers) {
+            user.removeListenedPodcast(podcast);
+        }
+
+        for (User user : artists) {
+            user.removeListenedPodcast(podcast);
+        }
+
+        for (User user : hosts) {
+            user.removeListenedPodcast(podcast);
+        }
+    }
+
+
+    /**
      * Adds a new basic user to the basicUsers list.
      */
     public void addBasicUser(final BasicUser user) {
@@ -105,33 +125,22 @@ public final class Database {
 
             for (User user : basicUsers) {
                 user.removeLikedSong(song);
-                user.removeElementFromSearchResult(album);
-                user.removeElementFromSearchResult(song);
-                user.clearSelectionIfEqualTo(album);
-                user.clearSelectionIfEqualTo(song);
             }
 
             for (User user : artists) {
                 user.removeLikedSong(song);
-                user.removeElementFromSearchResult(album);
-                user.removeElementFromSearchResult(song);
-                user.clearSelectionIfEqualTo(album);
-                user.clearSelectionIfEqualTo(song);
             }
 
             for (User user : hosts) {
                 user.removeLikedSong(song);
-                user.removeElementFromSearchResult(album);
-                user.removeElementFromSearchResult(song);
-                user.clearSelectionIfEqualTo(album);
-                user.clearSelectionIfEqualTo(song);
             }
         }
     }
 
 
     /**
-     * Checks if the Audio entity can be removed or not.
+     * Checks if the Audio entity can be removed or not,
+     * i.e. if any user interacts with it.
      * @return true, if it can, false otherwise.
      */
     public boolean canRemoveAudio(Audio audio) {

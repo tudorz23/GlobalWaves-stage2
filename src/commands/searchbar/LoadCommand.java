@@ -44,6 +44,7 @@ public final class LoadCommand implements ICommand {
 
         if (user.getSelection().getSearchableType() == SearchableType.USER) {
             // Cannot load an artist.
+            printer.print("Cannot load an artist. Please select an audio file.");
             return;
         }
 
@@ -88,7 +89,7 @@ public final class LoadCommand implements ICommand {
             return;
         }
 
-        // If the selection is a song or a playlist, add a deep copy of it.
+        // If the selection is a song, a playlist, or an album, add a deep copy of it.
         player.setCurrPlaying(selection.getDeepCopy());
     }
 

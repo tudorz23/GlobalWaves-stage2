@@ -8,6 +8,7 @@ import pages.Page;
 import utils.enums.*;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public abstract class User extends Searchable {
     private String username;
@@ -98,6 +99,17 @@ public abstract class User extends Searchable {
 
 
     /**
+     * If podcast is found to have been listened to, it is removed from the list.
+     * @param podcast podcast to remove if has been listened to.
+     */
+    public void removeListenedPodcast(Podcast podcast) {
+        listenedPodcasts.removeIf(listenedPodcast
+                -> listenedPodcast.getName().equals(podcast.getName())
+                && listenedPodcast.getOwner().equals(podcast.getOwner()));
+    }
+
+
+    /**
      * Checks if the User interacts with the Audio entity, i.e. if he has it
      * loaded or has one of its songs loaded, in case of Playlists and Albums.
      * @param audio Audio entity
@@ -129,6 +141,7 @@ public abstract class User extends Searchable {
         }
     }
 
+
     /**
      * Helper for checking if the user interacts with the song.
      * @return true if he does, false otherwise.
@@ -144,6 +157,7 @@ public abstract class User extends Searchable {
         return song.getName().equals(currSong.getName())
                 && song.getArtist().equals(currSong.getArtist());
     }
+
 
     /**
      * Helper for checking if the user interacts with the album.
@@ -218,31 +232,6 @@ public abstract class User extends Searchable {
                 && currPodcast.getOwner().equals(podcast.getOwner());
     }
 
-
-    /**
-     * Attempts to remove an element from the search result.
-     */
-    public void removeElementFromSearchResult(Searchable element) {
-        if (searchResult == null) {
-            return;
-        }
-
-        searchResult.remove(element);
-    }
-
-
-    /**
-     * If the selection is equal (as pointer) to the parameter, clear it.
-     */
-    public void clearSelectionIfEqualTo(Searchable searchable) {
-        if (selection == null) {
-            return;
-        }
-
-        if (selection == searchable) {
-            selection = null;
-        }
-    }
 
     /* Getters and Setters */
     public String getUsername() {

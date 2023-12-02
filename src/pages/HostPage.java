@@ -19,6 +19,7 @@ public class HostPage extends Page {
         podcasts = new ArrayList<>();
     }
 
+
     /**
      * Adds a new podcast to the podcast list.
      * @param commandInput Data containing details of the new podcast.
@@ -50,6 +51,26 @@ public class HostPage extends Page {
 
         podcasts.add(newPodcast);
         return newPodcast;
+    }
+
+    public void removePodcast(Podcast podcast) {
+        podcasts.remove(podcast);
+    }
+
+
+    /**
+     * @param name name of the requested podcast
+     * @return Podcast from the list with the given name.
+     * @throws IllegalArgumentException if no podcast with the given name is found.
+     */
+    public Podcast findPodcast(String name) throws IllegalArgumentException {
+        for (Podcast podcast : podcasts) {
+            if (podcast.getName().equals(name)) {
+                return podcast;
+            }
+        }
+        throw new IllegalArgumentException(getOwningUser()
+                + " doesn't have a podcast with the given name.");
     }
 
     @Override
