@@ -15,7 +15,7 @@ public final class Podcast extends Audio {
     private int playingEpisodeIdx;
 
     /* Constructors */
-    private Podcast(final String name, final String owner) {
+    public Podcast(final String name, final String owner) {
         super(name);
         this.owner = owner;
         this.setType(AudioType.PODCAST);
@@ -215,6 +215,10 @@ public final class Podcast extends Audio {
         if (player.getPlayerState() == PlayerState.PAUSED) {
             player.setPlayerState(PlayerState.PLAYING);
         }
+    }
+
+    public void addEpisode(Episode episode) {
+        episodes.add(episode);
     }
 
     /* Getters and Setters */

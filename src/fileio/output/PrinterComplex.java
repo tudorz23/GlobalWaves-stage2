@@ -3,9 +3,7 @@ package fileio.output;
 import client.Session;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import database.audio.Album;
-import database.audio.Playlist;
-import database.audio.Song;
+import database.audio.*;
 
 import java.util.ArrayList;
 
@@ -55,7 +53,20 @@ public abstract class PrinterComplex extends Printer {
     }
 
     /**
-     *
+     * @param episodes ArrayList of Episode objects.
+     * @return ArrayNode containing the names of the episodes from an ArrayList.
+     */
+    public ArrayNode createEpisodesArrayNode(final ArrayList<Episode> episodes) {
+        ArrayNode episodesArrayNode = mapper.createArrayNode();
+
+        for (Episode episode : episodes) {
+            episodesArrayNode.add(episode.getName());
+        }
+
+        return episodesArrayNode;
+    }
+
+    /**
      * @param album Album object.
      * @return ObjectNode containing data regarding an Album.
      */
@@ -68,5 +79,20 @@ public abstract class PrinterComplex extends Printer {
         albumNode.set("songs", songsNode);
 
         return albumNode;
+    }
+
+    /**
+     * @param podcast Podcast object.
+     * @return ObjectNode containing data regarding a Podcast.
+     */
+    public ObjectNode createPodcastNode(final Podcast podcast) {
+        ObjectNode podcastNode = mapper.createObjectNode();
+
+        podcastNode.put("name", podcast.getName());
+
+        ArrayNode episodesNode = createEpisodesArrayNode(podcast.getEpisodes());
+        podcastNode.set("episodes", episodesNode);
+
+        return podcastNode;
     }
 }

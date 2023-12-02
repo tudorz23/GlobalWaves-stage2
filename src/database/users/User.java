@@ -186,6 +186,7 @@ public abstract class User extends Searchable {
         }
     }
 
+
     /**
      * Helper for checking if the user interacts with the playlist.
      * @return true if he does, false otherwise.
@@ -201,6 +202,7 @@ public abstract class User extends Searchable {
                 && currPlaylist.getOwner().equals(playlist.getOwner());
     }
 
+
     /**
      * Helper for checking if the user interacts with the podcast.
      * @return true if he does, false otherwise.
@@ -214,6 +216,32 @@ public abstract class User extends Searchable {
         Podcast currPodcast = (Podcast) currPlaying;
         return currPodcast.getName().equals(podcast.getName())
                 && currPodcast.getOwner().equals(podcast.getOwner());
+    }
+
+
+    /**
+     * Attempts to remove an element from the search result.
+     */
+    public void removeElementFromSearchResult(Searchable element) {
+        if (searchResult == null) {
+            return;
+        }
+
+        searchResult.remove(element);
+    }
+
+
+    /**
+     * If the selection is equal (as pointer) to the parameter, clear it.
+     */
+    public void clearSelectionIfEqualTo(Searchable searchable) {
+        if (selection == null) {
+            return;
+        }
+
+        if (selection == searchable) {
+            selection = null;
+        }
     }
 
     /* Getters and Setters */

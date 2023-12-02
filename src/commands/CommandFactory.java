@@ -4,19 +4,17 @@ import client.Session;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import commands.adminCommands.AddUserCommand;
 import commands.statsCommands.adminStats.*;
-import commands.statsCommands.personalStats.PrintCurrentPageCommand;
-import commands.statsCommands.personalStats.ShowAlbumsCommand;
+import commands.statsCommands.personalStats.*;
 import commands.playerCommands.*;
 import commands.searchbar.LoadCommand;
 import commands.searchbar.SearchCommand;
 import commands.searchbar.SelectCommand;
-import commands.statsCommands.personalStats.ShowPlaylistsCommand;
-import commands.statsCommands.personalStats.ShowPreferredSongsCommand;
 import commands.userCommands.*;
 import commands.userCommands.artistCommands.AddAlbumCommand;
 import commands.userCommands.artistCommands.AddEventCommand;
 import commands.userCommands.artistCommands.AddMerchCommand;
 import commands.userCommands.artistCommands.RemoveAlbumCommand;
+import commands.userCommands.hostCommands.AddPodcastCommand;
 import database.users.User;
 import fileio.input.CommandInput;
 import fileio.output.PrinterBasic;
@@ -163,6 +161,12 @@ public class CommandFactory {
             }
             case REMOVE_ALBUM -> {
                 return new RemoveAlbumCommand(session, commandInput, user, output);
+            }
+            case ADD_PODCAST -> {
+                return new AddPodcastCommand(session, commandInput, user, output);
+            }
+            case SHOW_PODCASTS -> {
+                return new ShowPodcastsCommand(session, commandInput, user, output);
             }
             default -> {
                 PrinterBasic printer = new PrinterBasic(output, commandInput);

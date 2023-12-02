@@ -35,12 +35,14 @@ public final class Database {
         songs.add(song);
     }
 
+
     /**
      * Adds a new podcast to the podcasts list.
      */
     public void addPodcast(final Podcast podcast) {
         podcasts.add(podcast);
     }
+
 
     /**
      * Adds a new basic user to the basicUsers list.
@@ -49,12 +51,14 @@ public final class Database {
         basicUsers.add(user);
     }
 
+
     /**
      * Adds a new artist to the artists list.
      */
     public void addArtist(final Artist artist) {
         artists.add(artist);
     }
+
 
     /**
      * Adds a new host to the hosts list.
@@ -63,12 +67,14 @@ public final class Database {
         hosts.add(host);
     }
 
+
     /**
      * Adds a new playlist to the playlists list.
      */
     public void addPlaylist(final Playlist playlist) {
         playlists.add(playlist);
     }
+
 
     /**
      * Adds a new album to the albums list (and all its songs to the songs list).
@@ -99,26 +105,26 @@ public final class Database {
 
             for (User user : basicUsers) {
                 user.removeLikedSong(song);
-                user.getSearchResult().remove(song);
-                if (user.getSelection() == song) {
-                    user.setSelection(null);
-                }
+                user.removeElementFromSearchResult(album);
+                user.removeElementFromSearchResult(song);
+                user.clearSelectionIfEqualTo(album);
+                user.clearSelectionIfEqualTo(song);
             }
 
             for (User user : artists) {
                 user.removeLikedSong(song);
-                user.getSearchResult().remove(song);
-                if (user.getSelection() == song) {
-                    user.setSelection(null);
-                }
+                user.removeElementFromSearchResult(album);
+                user.removeElementFromSearchResult(song);
+                user.clearSelectionIfEqualTo(album);
+                user.clearSelectionIfEqualTo(song);
             }
 
             for (User user : hosts) {
                 user.removeLikedSong(song);
-                user.getSearchResult().remove(song);
-                if (user.getSelection() == song) {
-                    user.setSelection(null);
-                }
+                user.removeElementFromSearchResult(album);
+                user.removeElementFromSearchResult(song);
+                user.clearSelectionIfEqualTo(album);
+                user.clearSelectionIfEqualTo(song);
             }
         }
     }
@@ -150,6 +156,7 @@ public final class Database {
         return true;
     }
 
+
     /**
      * Traverses the song database and returns the instance of the
      * requested song, if it exists.
@@ -165,6 +172,7 @@ public final class Database {
         }
         throw new IllegalArgumentException("Critical: Song not found in the database.");
     }
+
 
     /**
      * Traverses the 3 user lists and searches for the username.
@@ -209,6 +217,7 @@ public final class Database {
             host.getPlayer().simulateTimePass(currTime);
         }
     }
+
 
     /* Getters and Setters */
     public ArrayList<Song> getSongs() {

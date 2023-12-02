@@ -1,7 +1,11 @@
 package database.users;
 
+import database.audio.Podcast;
+import fileio.input.CommandInput;
 import pages.HostPage;
 import utils.enums.UserType;
+
+import java.util.ArrayList;
 
 public class Host extends User {
     private HostPage officialPage;
@@ -13,8 +17,15 @@ public class Host extends User {
         this.officialPage = new HostPage(this);
     }
 
+    public Podcast addPodcast(CommandInput commandInput) {
+        return officialPage.addPodcast(commandInput);
+    }
+
     /* Getters and Setters */
     public HostPage getOfficialPage() {
         return officialPage;
+    }
+    public ArrayList<Podcast> getPodcasts() {
+        return officialPage.getPodcasts();
     }
 }
