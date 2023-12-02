@@ -3,7 +3,7 @@ package pages;
 import database.Event;
 import database.audio.Album;
 import database.audio.Song;
-import database.users.Merch;
+import database.Merch;
 import database.users.User;
 import fileio.input.CommandInput;
 import fileio.input.SongInput;
@@ -62,6 +62,25 @@ public class ArtistPage extends Page {
         return newAlbum;
     }
 
+    public void removeAlbum(Album album) {
+        albums.remove(album);
+    }
+
+    /**
+     * @param name name of the requested album
+     * @return Album from the list with the given name.
+     * @throws IllegalArgumentException if no album with the given name is found.
+     */
+    public Album findAlbum(String name) throws IllegalArgumentException {
+        for (Album album : albums) {
+            if (album.getName().equals(name)) {
+                return album;
+            }
+        }
+        throw new IllegalArgumentException(getOwningUser()
+                + " doesn't have an album with the given name.");
+    }
+
     @Override
     public String printPage() {
         StringBuilder stringBuilder = new StringBuilder("Albums:\n\t[");
@@ -76,7 +95,6 @@ public class ArtistPage extends Page {
             }
         }
 
-        // TODO: Print merch and events.
         stringBuilder.append("]\n\nMerch:\n\t[");
 
         Iterator<Merch> merchIterator = merchList.iterator();

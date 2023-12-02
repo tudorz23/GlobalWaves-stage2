@@ -16,6 +16,7 @@ import commands.userCommands.*;
 import commands.userCommands.artistCommands.AddAlbumCommand;
 import commands.userCommands.artistCommands.AddEventCommand;
 import commands.userCommands.artistCommands.AddMerchCommand;
+import commands.userCommands.artistCommands.RemoveAlbumCommand;
 import database.users.User;
 import fileio.input.CommandInput;
 import fileio.output.PrinterBasic;
@@ -159,6 +160,9 @@ public class CommandFactory {
             }
             case ADD_MERCH -> {
                 return new AddMerchCommand(session, commandInput, user, output);
+            }
+            case REMOVE_ALBUM -> {
+                return new RemoveAlbumCommand(session, commandInput, user, output);
             }
             default -> {
                 PrinterBasic printer = new PrinterBasic(output, commandInput);

@@ -1,4 +1,4 @@
-package database.users;
+package database;
 
 public class Merch {
     private final String name;

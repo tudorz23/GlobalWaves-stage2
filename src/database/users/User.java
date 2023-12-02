@@ -1,16 +1,11 @@
 package database.users;
 
 import database.*;
-import database.audio.Audio;
-import database.audio.Playlist;
-import database.audio.Podcast;
-import database.audio.Song;
+import database.audio.*;
 import fileio.input.UserInput;
 import pages.HomePage;
 import pages.Page;
-import utils.enums.LogStatus;
-import utils.enums.SearchableType;
-import utils.enums.UserType;
+import utils.enums.*;
 
 import java.util.ArrayList;
 
@@ -48,6 +43,7 @@ public abstract class User extends Searchable {
         this(userInput.getUsername(), userInput.getAge(), userInput.getCity());
     }
 
+
     /**
      * Adds a new Playlist to user's playlists.
      * @return true, for success, false, if a playlist with the
@@ -64,6 +60,7 @@ public abstract class User extends Searchable {
         return true;
     }
 
+
     /**
      * Adds a new Playlist to user's followed playlists.
      */
@@ -71,12 +68,14 @@ public abstract class User extends Searchable {
         followedPlaylists.add(playlist);
     }
 
+
     /**
      * Removes a Playlist from user's followed playlists.
      */
     public void removeFollowedPlaylist(final Playlist playlist) {
         followedPlaylists.remove(playlist);
     }
+
 
     /**
      * Adds a new Song to user's liked songs.
@@ -86,12 +85,135 @@ public abstract class User extends Searchable {
         song.incrementLikeCnt();
     }
 
+
     /**
      * Removes a Song from user's liked songs.
      */
     public void removeLikedSong(final Song song) {
-        likedSongs.remove(song);
-        song.decrementLikeCnt();
+        if (likedSongs.contains(song)) {
+            likedSongs.remove(song);
+            song.decrementLikeCnt();
+        }
+    }
+
+
+    /**
+     * Checks if the User interacts with the Audio entity, i.e. if he has it
+     * loaded or has one of its songs loaded, in case of Playlists and Albums.
+     * @param audio Audio entity
+     * @return true if he does interact with it, false otherwise.
+     */
+    public boolean interactsWithAudio(Audio audio) {
+        if (player.getPlayerState() == PlayerState.EMPTY
+                || player.getPlayerState() == PlayerState.STOPPED) {
+            return false;
+        }
+
+        switch (audio.getType()) {
+            case SONG -> {
+                Song audioSong = (Song) audio;
+                return interactsWithSong(audioSong);
+            }
+            case ALBUM -> {
+                Album audioAlbum = (Album) audio;
+                return interactsWithAlbum(audioAlbum);
+            }
+            case PLAYLIST -> {
+                Playlist audioPlaylist = (Playlist) audio;
+                return interactsWithPlaylist(audioPlaylist);
+            }
+            default -> {
+                Podcast audioPodcast = (Podcast) audio;
+                return interactsWithPodcast(audioPodcast);
+            }
+        }
+    }
+
+    /**
+     * Helper for checking if the user interacts with the song.
+     * @return true if he does, false otherwise.
+     */
+    private boolean interactsWithSong(Song song) {
+        Audio currPlaying = player.getCurrPlaying();
+
+        if (currPlaying.getType() != AudioType.SONG) {
+            return false;
+        }
+
+        Song currSong = (Song) currPlaying;
+        return song.getName().equals(currSong.getName())
+                && song.getArtist().equals(currSong.getArtist());
+    }
+
+    /**
+     * Helper for checking if the user interacts with the album.
+     * @return true if he does, false otherwise.
+     */
+    private boolean interactsWithAlbum(Album album) {
+        Audio currPlaying = player.getCurrPlaying();
+
+        switch (currPlaying.getType()) {
+            case PLAYLIST -> {
+                Playlist currPlaylist = (Playlist) currPlaying;
+                for (Song playlistSong : currPlaylist.getSongs()) {
+                    for (Song albumSong : album.getSongs()) {
+                        if (playlistSong.getName().equals(albumSong.getName())
+                                && playlistSong.getArtist().equals(albumSong.getArtist())) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+            case ALBUM -> {
+                Album currAlbum = (Album) currPlaying;
+                return album.getName().equals(currAlbum.getName())
+                    && album.getOwner().equals(currAlbum.getOwner());
+            }
+            case SONG -> {
+                Song currSong = (Song) currPlaying;
+                for (Song song : album.getSongs()) {
+                    if (song.getName().equals(currSong.getName())
+                        && song.getArtist().equals(currSong.getArtist())) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            default -> {
+                return false;
+            }
+        }
+    }
+
+    /**
+     * Helper for checking if the user interacts with the playlist.
+     * @return true if he does, false otherwise.
+     */
+    private boolean interactsWithPlaylist(Playlist playlist) {
+        Audio currPlaying = player.getCurrPlaying();
+        if (currPlaying.getType() != AudioType.PLAYLIST) {
+            return false;
+        }
+
+        Playlist currPlaylist = (Playlist) currPlaying;
+        return currPlaylist.getName().equals(playlist.getName())
+                && currPlaylist.getOwner().equals(playlist.getOwner());
+    }
+
+    /**
+     * Helper for checking if the user interacts with the podcast.
+     * @return true if he does, false otherwise.
+     */
+    private boolean interactsWithPodcast(Podcast podcast) {
+        Audio currPlaying = player.getCurrPlaying();
+        if (currPlaying.getType() != AudioType.PODCAST) {
+            return false;
+        }
+
+        Podcast currPodcast = (Podcast) currPlaying;
+        return currPodcast.getName().equals(podcast.getName())
+                && currPodcast.getOwner().equals(podcast.getOwner());
     }
 
     /* Getters and Setters */

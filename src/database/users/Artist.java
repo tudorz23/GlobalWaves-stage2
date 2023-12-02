@@ -22,6 +22,14 @@ public class Artist extends User {
         return officialPage.addAlbum(commandInput);
     }
 
+    public void removeAlbum(Album album) {
+        officialPage.removeAlbum(album);
+    }
+
+    public Album findAlbum(String name) {
+        return officialPage.findAlbum(name);
+    }
+
     public void addEvent(CommandInput commandInput) {
         officialPage.addEvent(commandInput);
     }

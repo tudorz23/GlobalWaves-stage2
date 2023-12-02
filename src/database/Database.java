@@ -1,9 +1,6 @@
 package database;
 
-import database.audio.Album;
-import database.audio.Playlist;
-import database.audio.Podcast;
-import database.audio.Song;
+import database.audio.*;
 import database.users.Artist;
 import database.users.BasicUser;
 import database.users.Host;
@@ -84,6 +81,75 @@ public final class Database {
         }
     }
 
+
+    /**
+     * Removes an album from the album list (and all its songs from the song list).
+     */
+    public void removeAlbum(Album album) {
+        albums.remove(album);
+
+        for (Song song : album.getSongs()) {
+            songs.remove(song);
+
+            for (Playlist playlist : playlists) {
+                if (playlist.getSongs().contains(song)) {
+                    playlist.removeSong(song);
+                }
+            }
+
+            for (User user : basicUsers) {
+                user.removeLikedSong(song);
+                user.getSearchResult().remove(song);
+                if (user.getSelection() == song) {
+                    user.setSelection(null);
+                }
+            }
+
+            for (User user : artists) {
+                user.removeLikedSong(song);
+                user.getSearchResult().remove(song);
+                if (user.getSelection() == song) {
+                    user.setSelection(null);
+                }
+            }
+
+            for (User user : hosts) {
+                user.removeLikedSong(song);
+                user.getSearchResult().remove(song);
+                if (user.getSelection() == song) {
+                    user.setSelection(null);
+                }
+            }
+        }
+    }
+
+
+    /**
+     * Checks if the Audio entity can be removed or not.
+     * @return true, if it can, false otherwise.
+     */
+    public boolean canRemoveAudio(Audio audio) {
+        for (User iterUser : basicUsers) {
+            if (iterUser.interactsWithAudio(audio)) {
+                return false;
+            }
+        }
+
+        for (User iterUser : artists) {
+            if (iterUser.interactsWithAudio(audio)) {
+                return false;
+            }
+        }
+
+        for (User iterUser : hosts) {
+            if (iterUser.interactsWithAudio(audio)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     /**
      * Traverses the song database and returns the instance of the
      * requested song, if it exists.
@@ -123,6 +189,25 @@ public final class Database {
             }
         }
         return false;
+    }
+
+
+    /**
+     * Simulates the passing of the time for all the users of the database.
+     * @param currTime Current time.
+     */
+    public void simulateTimeForEveryone(int currTime) {
+        for (User user : basicUsers) {
+            user.getPlayer().simulateTimePass(currTime);
+        }
+
+        for (User artist : artists) {
+            artist.getPlayer().simulateTimePass(currTime);
+        }
+
+        for (User host : hosts) {
+            host.getPlayer().simulateTimePass(currTime);
+        }
     }
 
     /* Getters and Setters */
