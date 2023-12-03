@@ -47,6 +47,16 @@ public class Artist extends User {
         officialPage.addMerch(commandInput);
     }
 
+    public int computeLikeCnt() {
+        int totalLikes = 0;
+
+        for (Album album : getAlbums()) {
+            totalLikes += album.computeLikeCnt();
+        }
+
+        return totalLikes;
+    }
+
     /* Getters and Setters */
     public ArtistPage getOfficialPage() {
         return officialPage;

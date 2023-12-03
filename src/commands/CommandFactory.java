@@ -59,6 +59,12 @@ public class CommandFactory {
             case GET_ALL_USERS -> {
                 return new GetAllUsersCommand(session, commandInput, output);
             }
+            case GET_TOP5_ALBUMS -> {
+                return new GetTop5AlbumsCommand(session, commandInput, output);
+            }
+            case GET_TOP5_ARTISTS -> {
+                return new GetTop5ArtistsCommand(session, commandInput, output);
+            }
             default -> {
                 return helperGetCommand(commandInput, commandType);
             }
