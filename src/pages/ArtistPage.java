@@ -158,6 +158,27 @@ public class ArtistPage extends Page {
         events.add(newEvent);
     }
 
+
+    /**
+     * @param name name of the requested event.
+     * @return Event from the list with the given name.
+     * @throws IllegalArgumentException if no event with the given name is found.
+     */
+    public Event findEvent(String name) throws IllegalArgumentException {
+        for (Event event : events) {
+            if (event.getName().equals(name)) {
+                return event;
+            }
+        }
+
+        throw new IllegalArgumentException(getOwningUser().getUsername()
+                + " doesn't have an event with the given name.");
+    }
+
+    public void removeEvent(Event event) {
+        events.remove(event);
+    }
+
     /**
      * Adds a new merch to the merch list.
      * @param commandInput Data containing details of the new merch.

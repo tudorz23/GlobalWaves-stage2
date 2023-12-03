@@ -1,5 +1,6 @@
 package database.users;
 
+import database.Event;
 import database.audio.Album;
 import database.audio.Song;
 import fileio.input.CommandInput;
@@ -32,6 +33,14 @@ public class Artist extends User {
 
     public void addEvent(CommandInput commandInput) {
         officialPage.addEvent(commandInput);
+    }
+
+    public Event findEvent(String name) {
+        return officialPage.findEvent(name);
+    }
+
+    public void removeEvent(Event event) {
+        officialPage.removeEvent(event);
     }
 
     public void addMerch(CommandInput commandInput) {

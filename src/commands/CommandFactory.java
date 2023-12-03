@@ -11,10 +11,7 @@ import commands.searchbar.LoadCommand;
 import commands.searchbar.SearchCommand;
 import commands.searchbar.SelectCommand;
 import commands.userCommands.*;
-import commands.userCommands.artistCommands.AddAlbumCommand;
-import commands.userCommands.artistCommands.AddEventCommand;
-import commands.userCommands.artistCommands.AddMerchCommand;
-import commands.userCommands.artistCommands.RemoveAlbumCommand;
+import commands.userCommands.artistCommands.*;
 import commands.userCommands.hostCommands.AddAnnouncementCommand;
 import commands.userCommands.hostCommands.AddPodcastCommand;
 import commands.userCommands.hostCommands.RemoveAnnouncementCommand;
@@ -189,6 +186,9 @@ public class CommandFactory {
             }
             case CHANGE_PAGE -> {
                 return new ChangePageCommand(session, commandInput, user, output);
+            }
+            case REMOVE_EVENT -> {
+                return new RemoveEventCommand(session, commandInput, user, output);
             }
             default -> {
                 PrinterBasic printer = new PrinterBasic(output, commandInput);

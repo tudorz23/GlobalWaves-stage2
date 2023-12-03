@@ -21,7 +21,7 @@ public class LikedContentPage extends Page {
         Iterator<Song> songIterator = getOwningUser().getLikedSongs().iterator();
         while (songIterator.hasNext()) {
             Song song = songIterator.next();
-            stringBuilder.append(song.getName()).append("-").append(song.getArtist());
+            stringBuilder.append(song.getName()).append(" - ").append(song.getArtist());
 
             if (songIterator.hasNext()) {
                 stringBuilder.append(", ");
