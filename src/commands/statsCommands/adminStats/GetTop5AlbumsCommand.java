@@ -8,6 +8,7 @@ import fileio.input.CommandInput;
 import fileio.output.PrinterBasic;
 import static utils.Constants.MAX_ALBUM_RANK_NUMBER;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class GetTop5AlbumsCommand implements ICommand {
     private final Session session;
@@ -29,7 +30,8 @@ public class GetTop5AlbumsCommand implements ICommand {
 
         ArrayList<Album> albums = new ArrayList<>(session.getDatabase().getAlbums());
 
-        albums.sort((album1, album2) -> album2.computeLikeCnt() - album1.computeLikeCnt());
+        albums.sort(Comparator.comparing(Album::computeLikeCnt).reversed()
+                .thenComparing(Album::getName));
 
         while (albums.size() > MAX_ALBUM_RANK_NUMBER) {
             albums.remove(albums.size() - 1);
