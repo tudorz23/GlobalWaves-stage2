@@ -62,7 +62,8 @@ public final class LikeSongCommand implements ICommand {
             playingSong = (Song) userPlayer.getCurrPlaying();
         } else {
             SongCollection currSongCollection = (SongCollection) (userPlayer.getCurrPlaying());
-            playingSong = currSongCollection.getSongs().get(currSongCollection.getPlayingSongIndex());
+            playingSong = currSongCollection.getSongs()
+                            .get(currSongCollection.getPlayingSongIndex());
         }
 
         Song song;

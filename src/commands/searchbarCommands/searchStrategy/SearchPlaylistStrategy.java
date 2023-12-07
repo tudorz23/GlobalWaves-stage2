@@ -51,7 +51,12 @@ public final class SearchPlaylistStrategy implements ISearchStrategy {
         }
     }
 
-    private void searchPlaylistsByName(final ArrayList<Searchable> searchResult, final String name) {
+    /**
+     * Traverses the Search result list and removes the playlists
+     * that do not have the indicated name.
+     */
+    private void searchPlaylistsByName(final ArrayList<Searchable> searchResult,
+                                       final String name) {
         Iterator<Searchable> iterator = searchResult.iterator();
         while (iterator.hasNext()) {
             Playlist playlist = (Playlist) iterator.next();
@@ -62,7 +67,12 @@ public final class SearchPlaylistStrategy implements ISearchStrategy {
         }
     }
 
-    private void searchPlaylistsByOwner(final ArrayList<Searchable> searchResult, final String owner) {
+    /**
+     * Traverses the Search result list and removes the playlists
+     * that do not have the indicated owner.
+     */
+    private void searchPlaylistsByOwner(final ArrayList<Searchable> searchResult,
+                                        final String owner) {
         Iterator<Searchable> iterator = searchResult.iterator();
         while (iterator.hasNext()) {
             Playlist playlist = (Playlist) iterator.next();

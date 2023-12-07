@@ -20,6 +20,9 @@ public abstract class SongCollection extends Audio {
         this.songs = new ArrayList<>();
     }
 
+    /**
+     * Overridden method for the simulation of the passing of time.
+     */
     @Override
     public void simulateTimePass(final Player player, final int currTime) {
         if (player.getPlayerState() == PlayerState.PAUSED
@@ -49,6 +52,7 @@ public abstract class SongCollection extends Audio {
         int songNewTimePos = playingSong.getTimePosition() + elapsedTime;
         playingSong.setTimePosition(songNewTimePos);
     }
+
 
     /**
      * Moves to the next song in the song collection, considering the shuffled state
@@ -82,6 +86,7 @@ public abstract class SongCollection extends Audio {
         newSong.setTimePosition(0);
     }
 
+
     /**
      * @return Index of the shuffleArray where the songArrayIndex
      * is found as a value.
@@ -99,12 +104,20 @@ public abstract class SongCollection extends Audio {
         throw new IllegalArgumentException("Invalid index argument passed!");
     }
 
+
+    /**
+     * @return Time remained until song collection ends.
+     */
     @Override
     public int getRemainedTime() {
         Song currPlayingSong = songs.get(playingSongIndex);
         return currPlayingSong.getRemainedTime();
     }
 
+
+    /**
+     * Overridden method for the Next Command.
+     */
     @Override
     public void next(final Player player) {
         changeToNextSong(player);
@@ -114,6 +127,10 @@ public abstract class SongCollection extends Audio {
         }
     }
 
+
+    /**
+     * Overridden method for the Prev Command.
+     */
     @Override
     public void prev(final Player player) {
         Song playingSong = songs.get(playingSongIndex);
@@ -136,9 +153,10 @@ public abstract class SongCollection extends Audio {
         }
     }
 
+
     /**
-     * Moves to the previous song in the playlist, considering the shuffle state
-     * of the playlist.
+     * Moves to the previous song in the collection, considering the shuffle state
+     * of the collection.
      */
     private void changeToPrevSong() {
         int shuffleIndex = getShuffleIndex(playingSongIndex);
@@ -156,11 +174,16 @@ public abstract class SongCollection extends Audio {
         prevSong.setTimePosition(0);
     }
 
+
+    /**
+     * Overridden method for getting the name of the currently playing song.
+     */
     @Override
     public String getPlayingTrackName() {
         Song currPlayingSong = songs.get(playingSongIndex);
         return currPlayingSong.getName();
     }
+
 
     /**
      * Adds a song to the collection.
@@ -169,12 +192,14 @@ public abstract class SongCollection extends Audio {
         songs.add(song);
     }
 
+
     /**
      * Removes a song from the collection.
      */
     public void removeSong(final Song song) {
         songs.remove(song);
     }
+
 
     /**
      * Initializes the shuffle array with the array v[i] = i (i.e. un-shuffled).
@@ -185,6 +210,7 @@ public abstract class SongCollection extends Audio {
             shuffleArray.add(i);
         }
     }
+
 
     /**
      * Computes the total number of likes of the collection,
@@ -200,23 +226,36 @@ public abstract class SongCollection extends Audio {
         return totalLikes;
     }
 
+
     /* Getters and Setters */
+    /**
+     * Getter for songs.
+     */
     public ArrayList<Song> getSongs() {
         return songs;
     }
+    /**
+     * Setter for songs.
+     */
     public void setSongs(final ArrayList<Song> songs) {
         this.songs = songs;
     }
+    /**
+     * Getter for playingSongIndex.
+     */
     public int getPlayingSongIndex() {
         return playingSongIndex;
     }
-    public void setPlayingSongIndex(int playingSongIndex) {
+    /**
+     * Setter for playingSongIndex.
+     */
+    public void setPlayingSongIndex(final int playingSongIndex) {
         this.playingSongIndex = playingSongIndex;
     }
+    /**
+     * Getter for shuffleArray.
+     */
     public ArrayList<Integer> getShuffleArray() {
         return shuffleArray;
-    }
-    public void setShuffleArray(ArrayList<Integer> shuffleArray) {
-        this.shuffleArray = shuffleArray;
     }
 }

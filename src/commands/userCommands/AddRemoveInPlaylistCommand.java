@@ -68,7 +68,8 @@ public final class AddRemoveInPlaylistCommand implements ICommand {
             playingSong = (Song) userPlayer.getCurrPlaying();
         } else {
             SongCollection currSongCollection = (SongCollection) (userPlayer.getCurrPlaying());
-            playingSong = currSongCollection.getSongs().get(currSongCollection.getPlayingSongIndex());
+            playingSong = currSongCollection.getSongs()
+                            .get(currSongCollection.getPlayingSongIndex());
         }
 
         int realIndex = commandInput.getPlaylistId() - 1;

@@ -86,7 +86,7 @@ public final class FiltersInput {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(final String description) {
         this.description = description;
     }
 }

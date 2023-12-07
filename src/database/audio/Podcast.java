@@ -217,7 +217,10 @@ public final class Podcast extends Audio {
         }
     }
 
-    public void addEpisode(Episode episode) {
+    /**
+     * Adds an episode to the episode list.
+     */
+    public void addEpisode(final Episode episode) {
         episodes.add(episode);
     }
 

@@ -45,7 +45,8 @@ public final class SwitchPlaylistVisibilityCommand implements ICommand {
 
         Playlist playlist = user.getPlaylists().get(realId);
 
-        PlaylistVisibility newVisibility = PlaylistVisibility.cycleVisibility(playlist.getVisibility());
+        PlaylistVisibility newVisibility =
+                PlaylistVisibility.cycleVisibility(playlist.getVisibility());
         playlist.setVisibility(newVisibility);
 
         printer.print("Visibility status updated successfully to "

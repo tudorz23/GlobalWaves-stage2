@@ -99,7 +99,8 @@ public final class SearchSongStrategy implements ISearchStrategy {
         }
     }
 
-    private void searchSongsByLyrics(final ArrayList<Searchable> searchResult, final String lyrics) {
+    private void searchSongsByLyrics(final ArrayList<Searchable> searchResult,
+                                     final String lyrics) {
         Iterator<Searchable> iterator = searchResult.iterator();
         while (iterator.hasNext()) {
             Song song = (Song) iterator.next();
@@ -175,7 +176,8 @@ public final class SearchSongStrategy implements ISearchStrategy {
         return (year > reqYear);
     }
 
-    private void searchSongsByArtist(final ArrayList<Searchable> searchResult, final String artist) {
+    private void searchSongsByArtist(final ArrayList<Searchable> searchResult,
+                                     final String artist) {
         Iterator<Searchable> iterator = searchResult.iterator();
         while (iterator.hasNext()) {
             Song song = (Song) iterator.next();

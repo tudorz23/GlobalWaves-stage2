@@ -7,10 +7,9 @@ import database.users.User;
 import fileio.input.CommandInput;
 import fileio.input.FiltersInput;
 import java.util.ArrayList;
-
 import static utils.Constants.SEARCH_MAX_RESULT_SIZE;
 
-public class SearchArtistStrategy implements ISearchStrategy {
+public final class SearchArtistStrategy implements ISearchStrategy {
     private final Session session;
     private final CommandInput commandInput;
     private final User user;

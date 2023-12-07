@@ -13,7 +13,7 @@ public final class PrinterBasic extends Printer {
     private final CommandInput commandInput;
 
     /* Constructor */
-    public PrinterBasic(final ArrayNode output, CommandInput commandInput) {
+    public PrinterBasic(final ArrayNode output, final CommandInput commandInput) {
         super(output);
         this.commandInput = commandInput;
     }
@@ -29,6 +29,7 @@ public final class PrinterBasic extends Printer {
         output.add(commandNode);
     }
 
+
     /**
      * Prints a specific message for a command when the queried user is offline.
      */
@@ -38,6 +39,7 @@ public final class PrinterBasic extends Printer {
 
         output.add(commandNode);
     }
+
 
     /**
      * @return ObjectNode containing general daa regarding a command.
@@ -52,12 +54,13 @@ public final class PrinterBasic extends Printer {
         return commandNode;
     }
 
+
     /**
      * Used for basic Stats Commands, whose output is formed by the
-     * command name, the timestamp and a list of Strings called result.
+     * command name, the timestamp and a list of Strings, called result.
      * @param stringList the String list.
      */
-    public void printStringResultsStats(ArrayList<String> stringList) {
+    public void printStringResultsStats(final ArrayList<String> stringList) {
         ObjectNode commandNode = mapper.createObjectNode();
         commandNode.put("command", commandInput.getCommand());
         commandNode.put("timestamp", commandInput.getTimestamp());

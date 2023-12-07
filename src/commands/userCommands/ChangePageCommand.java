@@ -10,7 +10,7 @@ import pages.Page;
 import pages.PageFactory;
 import utils.enums.UserType;
 
-public class ChangePageCommand implements ICommand {
+public final class ChangePageCommand implements ICommand {
     private final Session session;
     private final CommandInput commandInput;
     private final User user;

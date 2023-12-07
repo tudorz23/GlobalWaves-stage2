@@ -12,33 +12,59 @@ public final class Host extends User {
     private final HostPage officialPage;
 
     /* Constructor */
-    public Host(String username, int age, String city) {
+    public Host(final String username, final int age, final String city) {
         super(username, age, city);
         this.setType(UserType.HOST);
         this.officialPage = new HostPage(this);
     }
 
-    public Podcast addPodcast(CommandInput commandInput) {
+    /**
+     * Adds a new podcast to the page.
+     * @return The instance of the added Podcast.
+     */
+    public Podcast addPodcast(final CommandInput commandInput) {
         return officialPage.addPodcast(commandInput);
     }
 
-    public void removePodcast(Podcast podcast) {
+
+    /**
+     * Removes a podcast from the page.
+     */
+    public void removePodcast(final Podcast podcast) {
         officialPage.removePodcast(podcast);
     }
 
-    public Podcast findPodcast(String name) {
+
+    /**
+     * Searches if a Podcast exists on the page.
+     * @param name name of the searched podcast.
+     */
+    public Podcast findPodcast(final String name) {
         return officialPage.findPodcast(name);
     }
 
-    public void addAnnouncement(CommandInput commandInput) {
+
+    /**
+     * Adds an announcement on the page.
+     */
+    public void addAnnouncement(final CommandInput commandInput) {
         officialPage.addAnnouncement(commandInput);
     }
 
-    public Announcement findAnnouncement(String name) {
+
+    /**
+     * Searches if an announcement exists on the page.
+     * @param name name of the searched announcement.
+     */
+    public Announcement findAnnouncement(final String name) {
         return officialPage.findAnnouncement(name);
     }
 
-    public void removeAnnouncement(Announcement announcement) {
+
+    /**
+     * Removes an announcement from the page.
+     */
+    public void removeAnnouncement(final Announcement announcement) {
         officialPage.removeAnnouncement(announcement);
     }
 

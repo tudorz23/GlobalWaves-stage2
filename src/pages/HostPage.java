@@ -125,7 +125,7 @@ public final class HostPage extends Page {
 
 
     /**
-     * Adds a new announcement to the event list.
+     * Adds a new announcement to the announcement list.
      * @param commandInput Data containing details of the new announcement.
      * @throws IllegalArgumentException if the operation fails.
      */

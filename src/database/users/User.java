@@ -6,9 +6,7 @@ import fileio.input.UserInput;
 import pages.HomePage;
 import pages.Page;
 import utils.enums.*;
-
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public abstract class User extends Searchable {
     private String username;
@@ -26,7 +24,7 @@ public abstract class User extends Searchable {
     private LogStatus logStatus;
 
     /* Constructors */
-    public User(String username, int age, String city) {
+    public User(final String username, final int age, final String city) {
         this.username = username;
         this.age = age;
         this.city = city;
@@ -43,7 +41,6 @@ public abstract class User extends Searchable {
     public User(final UserInput userInput) {
         this(userInput.getUsername(), userInput.getAge(), userInput.getCity());
     }
-
 
     /**
      * Adds a new Playlist to user's playlists.
@@ -102,7 +99,7 @@ public abstract class User extends Searchable {
      * If podcast is found to have been listened to, it is removed from the list.
      * @param podcast podcast to remove if has been listened to.
      */
-    public void removeListenedPodcast(Podcast podcast) {
+    public void removeListenedPodcast(final Podcast podcast) {
         listenedPodcasts.removeIf(listenedPodcast
                 -> listenedPodcast.getName().equals(podcast.getName())
                 && listenedPodcast.getOwner().equals(podcast.getOwner()));
@@ -112,10 +109,10 @@ public abstract class User extends Searchable {
     /**
      * Checks if the User interacts with the Audio entity, i.e. if he has it
      * loaded or has one of its songs loaded, in case of Playlists and Albums.
-     * @param audio Audio entity
+     * @param audio Audio entity.
      * @return true if he does interact with it, false otherwise.
      */
-    public boolean interactsWithAudio(Audio audio) {
+    public boolean interactsWithAudio(final Audio audio) {
         if (player.getPlayerState() == PlayerState.EMPTY
                 || player.getPlayerState() == PlayerState.STOPPED) {
             return false;
@@ -146,7 +143,7 @@ public abstract class User extends Searchable {
      * Helper for checking if the user interacts with the song.
      * @return true if he does, false otherwise.
      */
-    private boolean interactsWithSong(Song song) {
+    private boolean interactsWithSong(final Song song) {
         Audio currPlaying = player.getCurrPlaying();
 
         if (currPlaying.getType() != AudioType.SONG) {
@@ -163,7 +160,7 @@ public abstract class User extends Searchable {
      * Helper for checking if the user interacts with the album.
      * @return true if he does, false otherwise.
      */
-    private boolean interactsWithAlbum(Album album) {
+    private boolean interactsWithAlbum(final Album album) {
         Audio currPlaying = player.getCurrPlaying();
 
         switch (currPlaying.getType()) {
@@ -205,7 +202,7 @@ public abstract class User extends Searchable {
      * Helper for checking if the user interacts with the playlist.
      * @return true if he does, false otherwise.
      */
-    private boolean interactsWithPlaylist(Playlist playlist) {
+    private boolean interactsWithPlaylist(final Playlist playlist) {
         Audio currPlaying = player.getCurrPlaying();
         if (currPlaying.getType() != AudioType.PLAYLIST) {
             return false;
@@ -221,7 +218,7 @@ public abstract class User extends Searchable {
      * Helper for checking if the user interacts with the podcast.
      * @return true if he does, false otherwise.
      */
-    private boolean interactsWithPodcast(Podcast podcast) {
+    private boolean interactsWithPodcast(final Podcast podcast) {
         Audio currPlaying = player.getCurrPlaying();
         if (currPlaying.getType() != AudioType.PODCAST) {
             return false;
@@ -234,70 +231,136 @@ public abstract class User extends Searchable {
 
 
     /* Getters and Setters */
+    /**
+     * Getter for username.
+     */
     public String getUsername() {
         return username;
     }
+    /**
+     * Setter for username.
+     */
     public void setUsername(final String username) {
         this.username = username;
     }
+    /**
+     * Getter for age.
+     */
     public int getAge() {
         return age;
     }
+    /**
+     * Setter for age.
+     */
     public void setAge(final int age) {
         this.age = age;
     }
+    /**
+     * Getter for city.
+     */
     public String getCity() {
         return city;
     }
+    /**
+     * Setter for city.
+     */
     public void setCity(final String city) {
         this.city = city;
     }
+    /**
+     * Getter for searchResult.
+     */
     public ArrayList<Searchable> getSearchResult() {
         return searchResult;
     }
+    /**
+     * Setter for searchResult.
+     */
     public void setSearchResult(final ArrayList<Searchable> searchResult) {
         this.searchResult = searchResult;
     }
+    /**
+     * Getter for selection.
+     */
     public Searchable getSelection() {
         return selection;
     }
+    /**
+     * Setter for selection.
+     */
     public void setSelection(final Searchable selection) {
         this.selection = selection;
     }
+    /**
+     * Getter for player.
+     */
     public Player getPlayer() {
         return player;
     }
+    /**
+     * Setter for player.
+     */
     public void setPlayer(final Player player) {
         this.player = player;
     }
+    /**
+     * Getter for playlist.
+     */
     public ArrayList<Playlist> getPlaylists() {
         return playlists;
     }
+    /**
+     * Getter for listenedPodcast.
+     */
     public ArrayList<Podcast> getListenedPodcasts() {
         return listenedPodcasts;
     }
+    /**
+     * Getter for likedSongs.
+     */
     public ArrayList<Song> getLikedSongs() {
         return likedSongs;
     }
+    /**
+     * Getter for followedPlaylists.
+     */
     public ArrayList<Playlist> getFollowedPlaylists() {
         return followedPlaylists;
     }
+    /**
+     * Getter for type.
+     */
     public UserType getType() {
         return type;
     }
-    public void setType(UserType type) {
+    /**
+     * Setter for type.
+     */
+    public void setType(final UserType type) {
         this.type = type;
     }
+    /**
+     * Getter for currPage.
+     */
     public Page getCurrPage() {
         return currPage;
     }
-    public void setCurrPage(Page currPage) {
+    /**
+     * Setter for currPage.
+     */
+    public void setCurrPage(final Page currPage) {
         this.currPage = currPage;
     }
+    /**
+     * Getter for logStatus.
+     */
     public LogStatus getLogStatus() {
         return logStatus;
     }
-    public void setLogStatus(LogStatus logStatus) {
+    /**
+     * Setter for logStatus.
+     */
+    public void setLogStatus(final LogStatus logStatus) {
         this.logStatus = logStatus;
     }
 }

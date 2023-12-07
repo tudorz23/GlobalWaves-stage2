@@ -49,7 +49,8 @@ public final class SearchPodcastStrategy implements ISearchStrategy {
      * Traverses the Search result list and removes the podcasts
      * that do not have the indicated name.
      */
-    private void searchPodcastsByName(final ArrayList<Searchable> searchResult, final String name) {
+    private void searchPodcastsByName(final ArrayList<Searchable> searchResult,
+                                      final String name) {
         Iterator<Searchable> iterator = searchResult.iterator();
         while (iterator.hasNext()) {
             Podcast podcast = (Podcast) iterator.next();
@@ -64,7 +65,8 @@ public final class SearchPodcastStrategy implements ISearchStrategy {
      * Traverses the Search result list and removes the podcasts
      * that do not have the indicated owner.
      */
-    private void searchPodcastsByOwner(final ArrayList<Searchable> searchResult, final String owner) {
+    private void searchPodcastsByOwner(final ArrayList<Searchable> searchResult,
+                                       final String owner) {
         Iterator<Searchable> iterator = searchResult.iterator();
         while (iterator.hasNext()) {
             Podcast podcast = (Podcast) iterator.next();

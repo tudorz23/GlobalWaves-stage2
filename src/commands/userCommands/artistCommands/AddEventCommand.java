@@ -9,7 +9,7 @@ import fileio.input.CommandInput;
 import fileio.output.PrinterBasic;
 import utils.enums.UserType;
 
-public class AddEventCommand implements ICommand {
+public final class AddEventCommand implements ICommand {
     private final Session session;
     private final CommandInput commandInput;
     private final User user;

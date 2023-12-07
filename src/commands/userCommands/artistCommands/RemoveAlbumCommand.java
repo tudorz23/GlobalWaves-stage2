@@ -10,7 +10,7 @@ import fileio.input.CommandInput;
 import fileio.output.PrinterBasic;
 import utils.enums.UserType;
 
-public class RemoveAlbumCommand implements ICommand {
+public final class RemoveAlbumCommand implements ICommand {
     private final Session session;
     private final CommandInput commandInput;
     private final User user;

@@ -9,7 +9,7 @@ import fileio.input.FiltersInput;
 import java.util.ArrayList;
 import static utils.Constants.SEARCH_MAX_RESULT_SIZE;
 
-public class SearchHostStrategy implements ISearchStrategy {
+public final class SearchHostStrategy implements ISearchStrategy {
     private final Session session;
     private final CommandInput commandInput;
     private final User user;

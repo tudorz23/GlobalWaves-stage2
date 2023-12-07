@@ -71,9 +71,11 @@ public final class Main {
     public static void action(final String filePath1,
                               final String filePath2) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        LibraryInput library = objectMapper.readValue(new File(CheckerConstants.TESTS_PATH + "library/library.json"), LibraryInput.class);
-        List<CommandInput> commandList = Arrays.asList(objectMapper.readValue(new File(CheckerConstants.TESTS_PATH
-                + filePath1), CommandInput[].class));
+        LibraryInput library = objectMapper.readValue(new File(CheckerConstants.TESTS_PATH
+                                + "library/library.json"), LibraryInput.class);
+        List<CommandInput> commandList = Arrays.asList(objectMapper
+                .readValue(new File(CheckerConstants.TESTS_PATH + filePath1),
+                        CommandInput[].class));
         ArrayNode outputs = objectMapper.createArrayNode();
 
         AdminInteraction adminInteraction = new AdminInteraction(library, commandList, outputs);

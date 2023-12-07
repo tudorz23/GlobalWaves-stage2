@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import database.Searchable;
 import database.audio.Audio;
 import database.users.User;
-import utils.enums.LogStatus;
 import utils.enums.SearchableType;
 
 public final class PrinterSearch extends PrinterComplex {

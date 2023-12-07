@@ -1,7 +1,6 @@
 package commands.userCommands.hostCommands;
 
 import client.Session;
-import com.fasterxml.jackson.databind.introspect.Annotated;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import commands.ICommand;
 import database.Announcement;
@@ -11,7 +10,7 @@ import fileio.input.CommandInput;
 import fileio.output.PrinterBasic;
 import utils.enums.UserType;
 
-public class RemoveAnnouncementCommand implements ICommand {
+public final class RemoveAnnouncementCommand implements ICommand {
     private final Session session;
     private final CommandInput commandInput;
     private final User user;

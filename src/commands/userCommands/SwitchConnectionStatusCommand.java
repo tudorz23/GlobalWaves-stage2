@@ -10,7 +10,7 @@ import fileio.output.PrinterBasic;
 import utils.enums.LogStatus;
 import utils.enums.UserType;
 
-public class SwitchConnectionStatusCommand implements ICommand {
+public final class SwitchConnectionStatusCommand implements ICommand {
     private final Session session;
     private final CommandInput commandInput;
     private final User user;

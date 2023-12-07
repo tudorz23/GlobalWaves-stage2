@@ -48,7 +48,7 @@ public final class Database {
     /**
      * Removes a podcast from the podcast list.
      */
-    public void removePodcast(Podcast podcast) {
+    public void removePodcast(final Podcast podcast) {
         podcasts.remove(podcast);
 
         for (User user : basicUsers) {
@@ -100,7 +100,7 @@ public final class Database {
     /**
      * Removes a playlist from the database.
      */
-    public void removePlaylist(Playlist playlist) {
+    public void removePlaylist(final Playlist playlist) {
         playlists.remove(playlist);
 
         for (User user : basicUsers) {
@@ -116,10 +116,11 @@ public final class Database {
         }
     }
 
+
     /**
      * Adds a new album to the albums list (and all its songs to the songs list).
      */
-    public void addAlbum(Album album) {
+    public void addAlbum(final Album album) {
         albums.add(album);
 
         for (Song song : album.getSongs()) {
@@ -131,7 +132,7 @@ public final class Database {
     /**
      * Removes an album from the album list (and all its songs from the song list).
      */
-    public void removeAlbum(Album album) {
+    public void removeAlbum(final Album album) {
         albums.remove(album);
 
         for (Song song : album.getSongs()) {
@@ -163,7 +164,7 @@ public final class Database {
      * i.e. if any user interacts with it.
      * @return true, if it can, false otherwise.
      */
-    public boolean canRemoveAudio(Audio audio) {
+    public boolean canRemoveAudio(final Audio audio) {
         for (User iterUser : basicUsers) {
             if (iterUser.interactsWithAudio(audio)) {
                 return false;
@@ -204,10 +205,10 @@ public final class Database {
 
 
     /**
-     * Traverses the 3 user lists and searches for the username.
+     * Traverses the user lists and searches for the username.
      * @return true if the username exists in the database, false otherwise.
      */
-    public boolean checkExistingUsername(String username) {
+    public boolean checkExistingUsername(final String username) {
         for (User user : basicUsers) {
             if (user.getUsername().equals(username)) {
                 return true;
@@ -233,7 +234,7 @@ public final class Database {
      * Simulates the passing of the time for all the users of the database.
      * @param currTime Current time.
      */
-    public void simulateTimeForEveryone(int currTime) {
+    public void simulateTimeForEveryone(final int currTime) {
         for (User user : basicUsers) {
             user.getPlayer().simulateTimePass(currTime);
         }
@@ -251,7 +252,7 @@ public final class Database {
     /**
      * Removes the user from the database.
      */
-    public void removeUser(User user) {
+    public void removeUser(final User user) {
         if (user.getType() == UserType.BASIC_USER) {
             basicUsers.remove((BasicUser) user);
             return;
