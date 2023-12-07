@@ -1,4 +1,4 @@
-package commands.searchbar;
+package commands.searchbarCommands;
 
 import client.Session;
 import com.fasterxml.jackson.databind.node.ArrayNode;

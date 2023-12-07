@@ -7,6 +7,8 @@ import database.audio.Song;
 import fileio.input.CommandInput;
 import fileio.output.PrinterBasic;
 import java.util.ArrayList;
+import java.util.Comparator;
+
 import static utils.Constants.MAX_SONG_RANK_NUMBER;
 
 public final class GetTop5SongsCommand implements ICommand {
@@ -29,8 +31,8 @@ public final class GetTop5SongsCommand implements ICommand {
 
         ArrayList<Song> allSongs = new ArrayList<>(session.getDatabase().getSongs());
 
-        // Lambda expression to sort the songs by the likes number, decreasingly.
-        allSongs.sort((song1, song2) -> song2.getLikeCnt() - song1.getLikeCnt());
+        // Sort songs by the likes number, decreasingly, using method reference operator.
+        allSongs.sort(Comparator.comparing(Song::getLikeCnt).reversed());
 
         while (allSongs.size() > MAX_SONG_RANK_NUMBER) {
             allSongs.remove((allSongs.size() - 1));

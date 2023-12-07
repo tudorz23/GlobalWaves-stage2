@@ -7,9 +7,9 @@ import utils.enums.PageType;
 
 import java.util.Iterator;
 
-public class LikedContentPage extends Page {
+public final class LikedContentPage extends Page {
     /* Constructor */
-    public LikedContentPage(User owningUser) {
+    public LikedContentPage(final User owningUser) {
         super(owningUser);
         setType(PageType.LIKED_CONTENT);
     }

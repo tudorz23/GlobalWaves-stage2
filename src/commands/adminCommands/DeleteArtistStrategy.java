@@ -5,7 +5,7 @@ import database.audio.Album;
 import database.users.Artist;
 import database.users.User;
 
-public class DeleteArtistStrategy implements IDeleteUserStrategy {
+public final class DeleteArtistStrategy implements IDeleteUserStrategy {
     private final Session session;
     private final Artist artist;
 
@@ -37,24 +37,8 @@ public class DeleteArtistStrategy implements IDeleteUserStrategy {
         }
 
         // Check if any user interacts with any of the artist's albums.
-        for (Album album : artist.getAlbums()) {
-            for (User user : session.getDatabase().getBasicUsers()) {
-                if (user.interactsWithAudio(album)) {
-                    return false;
-                }
-            }
-
-            for (User user : session.getDatabase().getArtists()) {
-                if (user.interactsWithAudio(album)) {
-                    return false;
-                }
-            }
-
-            for (User user : session.getDatabase().getHosts()) {
-                if (user.interactsWithAudio(album)) {
-                    return false;
-                }
-            }
+        if (checkAlbumsInteractions()) {
+            return false;
         }
 
         for (Album album : artist.getAlbums()) {
@@ -63,5 +47,33 @@ public class DeleteArtistStrategy implements IDeleteUserStrategy {
 
         session.getDatabase().removeUser(artist);
         return true;
+    }
+
+
+    /**
+     * Checks if any user interacts with any of the artist's albums.
+     * @return true if it does, false otherwise.
+     */
+    private boolean checkAlbumsInteractions() {
+        for (Album album : artist.getAlbums()) {
+            for (User user : session.getDatabase().getBasicUsers()) {
+                if (user.interactsWithAudio(album)) {
+                    return true;
+                }
+            }
+
+            for (User user : session.getDatabase().getHosts()) {
+                if (user.interactsWithAudio(album)) {
+                    return true;
+                }
+            }
+
+            for (User user : session.getDatabase().getArtists()) {
+                if (user.interactsWithAudio(album)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

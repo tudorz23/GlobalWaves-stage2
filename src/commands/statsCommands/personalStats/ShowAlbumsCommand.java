@@ -8,7 +8,7 @@ import database.users.User;
 import fileio.input.CommandInput;
 import fileio.output.stats.PrinterShowAlbums;
 
-public class ShowAlbumsCommand implements ICommand {
+public final class ShowAlbumsCommand implements ICommand {
     private final Session session;
     private final CommandInput commandInput;
     private final User user;

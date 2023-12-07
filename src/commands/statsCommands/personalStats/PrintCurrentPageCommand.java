@@ -8,7 +8,7 @@ import fileio.input.CommandInput;
 import fileio.output.PrinterBasic;
 import utils.enums.LogStatus;
 
-public class PrintCurrentPageCommand implements ICommand {
+public final class PrintCurrentPageCommand implements ICommand {
     private final Session session;
     private final CommandInput commandInput;
     private final User user;

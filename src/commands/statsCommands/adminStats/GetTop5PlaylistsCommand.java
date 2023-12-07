@@ -8,6 +8,8 @@ import fileio.input.CommandInput;
 import fileio.output.PrinterBasic;
 import utils.enums.PlaylistVisibility;
 import java.util.ArrayList;
+import java.util.Comparator;
+
 import static utils.Constants.MAX_PLAYLIST_RANK_NUMBER;
 
 public final class GetTop5PlaylistsCommand implements ICommand {
@@ -35,11 +37,10 @@ public final class GetTop5PlaylistsCommand implements ICommand {
             }
         }
 
-        // Lambda expression to sort the playlists by the followers count, decreasingly.
+        // Sort playlists by the followers count, decreasingly using method reference operator.
         // Because playlists are added to the Database as they are created, they are
         // automatically sorted by "age" in case of equality for followers.
-        publicPlaylists.sort((playlist1, playlist2) -> playlist2.getFollowersCnt()
-                                - playlist1.getFollowersCnt());
+        publicPlaylists.sort(Comparator.comparing(Playlist::getFollowersCnt).reversed());
 
         while (publicPlaylists.size() > MAX_PLAYLIST_RANK_NUMBER) {
             publicPlaylists.remove(publicPlaylists.size() - 1);

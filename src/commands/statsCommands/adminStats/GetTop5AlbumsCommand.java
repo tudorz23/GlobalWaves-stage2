@@ -10,7 +10,7 @@ import static utils.Constants.MAX_ALBUM_RANK_NUMBER;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class GetTop5AlbumsCommand implements ICommand {
+public final class GetTop5AlbumsCommand implements ICommand {
     private final Session session;
     private final CommandInput commandInput;
     private final ArrayNode output;
@@ -30,6 +30,7 @@ public class GetTop5AlbumsCommand implements ICommand {
 
         ArrayList<Album> albums = new ArrayList<>(session.getDatabase().getAlbums());
 
+        // Sort albums by the likes number using method reference operator.
         albums.sort(Comparator.comparing(Album::computeLikeCnt).reversed()
                 .thenComparing(Album::getName));
 

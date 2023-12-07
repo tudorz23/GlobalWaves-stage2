@@ -1,35 +1,43 @@
 package pages;
 
-import database.audio.Playlist;
-import database.audio.Song;
 import database.users.User;
 import utils.enums.PageType;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 public abstract class Page {
-    private User owningUser;
+    private final User owningUser;
     private PageType type;
 
     /* Constructor */
-    public Page(User owningUser) {
+    public Page(final User owningUser) {
         this.owningUser = owningUser;
     }
 
+    /**
+     * Prints details regarding the Page, personalized depending on the owning user.
+     * @return Details as a String.
+     */
     public abstract String printPage();
 
+
     /* Getters and Setters */
+    /**
+     * Getter for type;
+     */
     public PageType getType() {
         return type;
     }
-    public void setType(PageType type) {
+
+    /**
+     * Setter for type.
+     */
+    public void setType(final PageType type) {
         this.type = type;
     }
+
+    /**
+     * Getter for owningUser.
+     */
     public User getOwningUser() {
         return owningUser;
-    }
-    public void setOwningUser(User owningUser) {
-        this.owningUser = owningUser;
     }
 }

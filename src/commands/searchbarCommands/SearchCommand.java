@@ -1,12 +1,11 @@
-package commands.searchbar;
+package commands.searchbarCommands;
 
 import client.Session;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import commands.ICommand;
-import commands.searchbar.searchStrategy.*;
+import commands.searchbarCommands.searchStrategy.*;
 import database.users.User;
 import fileio.input.CommandInput;
-import fileio.output.PrinterBasic;
 import fileio.output.PrinterSearch;
 import utils.enums.LogStatus;
 import utils.enums.PlayerState;

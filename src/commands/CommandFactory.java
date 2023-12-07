@@ -7,9 +7,9 @@ import commands.adminCommands.DeleteUserCommand;
 import commands.statsCommands.adminStats.*;
 import commands.statsCommands.personalStats.*;
 import commands.playerCommands.*;
-import commands.searchbar.LoadCommand;
-import commands.searchbar.SearchCommand;
-import commands.searchbar.SelectCommand;
+import commands.searchbarCommands.LoadCommand;
+import commands.searchbarCommands.SearchCommand;
+import commands.searchbarCommands.SelectCommand;
 import commands.userCommands.*;
 import commands.userCommands.artistCommands.*;
 import commands.userCommands.hostCommands.AddAnnouncementCommand;
@@ -30,7 +30,6 @@ public class CommandFactory {
         this.session = session;
         this.output = output;
     }
-
 
     /**
      * Public Factory Method that creates ICommand instances, based on the CommandInput.
@@ -77,7 +76,8 @@ public class CommandFactory {
      * that require a User instance.
      * @return ICommand object.
      */
-    private ICommand helperGetCommand(CommandInput commandInput, CommandType commandType) {
+    private ICommand helperGetCommand(final CommandInput commandInput,
+                                      final CommandType commandType) {
         User user = getUser(commandInput);
 
         switch (commandType) {
@@ -148,9 +148,9 @@ public class CommandFactory {
      * @return ICommand object.
      * @throws IllegalArgumentException if the command is not supported.
      */
-    private ICommand helperGetCommandStage2(CommandInput commandInput, CommandType commandType,
-                                            User user) {
-        switch(commandType) {
+    private ICommand helperGetCommandStage2(final CommandInput commandInput,
+                                            final CommandType commandType, final User user) {
+        switch (commandType) {
             case SWITCH_CONNECTION_STATUS -> {
                 return new SwitchConnectionStatusCommand(session, commandInput, user, output);
             }

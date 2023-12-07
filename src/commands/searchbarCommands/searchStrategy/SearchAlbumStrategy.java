@@ -1,4 +1,4 @@
-package commands.searchbar.searchStrategy;
+package commands.searchbarCommands.searchStrategy;
 
 import client.Session;
 import database.Searchable;

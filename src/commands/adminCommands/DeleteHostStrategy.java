@@ -5,7 +5,7 @@ import database.audio.Podcast;
 import database.users.Host;
 import database.users.User;
 
-public class DeleteHostStrategy implements IDeleteUserStrategy {
+public final class DeleteHostStrategy implements IDeleteUserStrategy {
     private final Session session;
     private final Host host;
 
@@ -37,24 +37,8 @@ public class DeleteHostStrategy implements IDeleteUserStrategy {
         }
 
         // Check if any user interacts with any of the host's podcasts.
-        for (Podcast podcast : host.getPodcasts()) {
-            for (User user : session.getDatabase().getBasicUsers()) {
-                if (user.interactsWithAudio(podcast)) {
-                    return false;
-                }
-            }
-
-            for (User user : session.getDatabase().getHosts()) {
-                if (user.interactsWithAudio(podcast)) {
-                    return false;
-                }
-            }
-
-            for (User user : session.getDatabase().getArtists()) {
-                if (user.interactsWithAudio(podcast)) {
-                    return false;
-                }
-            }
+        if (checkPodcastsInteractions()) {
+            return false;
         }
 
         for (Podcast podcast : host.getPodcasts()) {
@@ -63,5 +47,33 @@ public class DeleteHostStrategy implements IDeleteUserStrategy {
 
         session.getDatabase().removeUser(host);
         return true;
+    }
+
+
+    /**
+     * Checks if any user interacts with any of the host's podcasts.
+     * @return true if it does, false otherwise.
+     */
+    private boolean checkPodcastsInteractions() {
+        for (Podcast podcast : host.getPodcasts()) {
+            for (User user : session.getDatabase().getArtists()) {
+                if (user.interactsWithAudio(podcast)) {
+                    return true;
+                }
+            }
+
+            for (User user : session.getDatabase().getHosts()) {
+                if (user.interactsWithAudio(podcast)) {
+                    return true;
+                }
+            }
+
+            for (User user : session.getDatabase().getBasicUsers()) {
+                if (user.interactsWithAudio(podcast)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

@@ -10,7 +10,7 @@ import utils.enums.LogStatus;
 
 import java.util.ArrayList;
 
-public class GetOnlineUsersCommand implements ICommand {
+public final class GetOnlineUsersCommand implements ICommand {
     private final Session session;
     private final CommandInput commandInput;
     private final ArrayNode output;

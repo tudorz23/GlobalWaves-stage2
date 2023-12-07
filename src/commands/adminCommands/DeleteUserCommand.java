@@ -12,7 +12,7 @@ import database.users.User;
 import fileio.input.CommandInput;
 import fileio.output.PrinterBasic;
 
-public class DeleteUserCommand implements ICommand {
+public final class DeleteUserCommand implements ICommand {
     private final Session session;
     private final CommandInput commandInput;
     private final User user;
@@ -75,20 +75,20 @@ public class DeleteUserCommand implements ICommand {
      */
     private boolean checkPlaylistsInteractions() {
         for (Playlist playlist : user.getPlaylists()) {
-            for (User user : session.getDatabase().getBasicUsers()) {
-                if (user.interactsWithAudio(playlist)) {
+            for (User iterUser : session.getDatabase().getBasicUsers()) {
+                if (iterUser.interactsWithAudio(playlist)) {
                     return true;
                 }
             }
 
-            for (User user : session.getDatabase().getArtists()) {
-                if (user.interactsWithAudio(playlist)) {
+            for (User iterUser : session.getDatabase().getArtists()) {
+                if (iterUser.interactsWithAudio(playlist)) {
                     return true;
                 }
             }
 
-            for (User user : session.getDatabase().getHosts()) {
-                if (user.interactsWithAudio(playlist)) {
+            for (User iterUser : session.getDatabase().getHosts()) {
+                if (iterUser.interactsWithAudio(playlist)) {
                     return true;
                 }
             }
@@ -98,7 +98,7 @@ public class DeleteUserCommand implements ICommand {
 
 
     /**
-     * Factory method to get the appropriate Strategy object for Delete USer Command.
+     * Factory method to get the appropriate Strategy object for Delete User Command.
      */
     private IDeleteUserStrategy getDeleteUserStrategy() {
         switch (user.getType()) {

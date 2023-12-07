@@ -8,8 +8,8 @@ import utils.enums.UserType;
 
 import java.util.ArrayList;
 
-public class Host extends User {
-    private HostPage officialPage;
+public final class Host extends User {
+    private final HostPage officialPage;
 
     /* Constructor */
     public Host(String username, int age, String city) {

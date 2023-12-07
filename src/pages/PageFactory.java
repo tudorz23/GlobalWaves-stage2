@@ -4,7 +4,7 @@ import database.users.User;
 import fileio.input.CommandInput;
 import utils.enums.PageType;
 
-public class PageFactory {
+public final class PageFactory {
     private final User user;
 
     /* Constructor */
@@ -12,7 +12,12 @@ public class PageFactory {
         this.user = user;
     }
 
-
+    /**
+     * Factory Method that creates Page instances, based on the CommandInput.
+     * @param commandInput key that decides the type of instance that is created.
+     * @return Page object.
+     * @throws IllegalArgumentException if the requested page is invalid.
+     */
     public Page getPage(final CommandInput commandInput) throws IllegalArgumentException {
         PageType pageType = PageType.fromString(commandInput.getNextPage());
 

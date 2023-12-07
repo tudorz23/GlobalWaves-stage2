@@ -8,10 +8,11 @@ import fileio.input.CommandInput;
 import fileio.output.PrinterBasic;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import static utils.Constants.MAX_ARTIST_RANK_NUMBER;
 
-public class GetTop5ArtistsCommand implements ICommand {
+public final class GetTop5ArtistsCommand implements ICommand {
     private final Session session;
     private final CommandInput commandInput;
     private final ArrayNode output;
@@ -31,7 +32,8 @@ public class GetTop5ArtistsCommand implements ICommand {
 
         ArrayList<Artist> artists = new ArrayList<>(session.getDatabase().getArtists());
 
-        artists.sort((artist1, artist2) -> artist2.computeLikeCnt() - artist1.computeLikeCnt());
+        // Sort artists by the likes number using method reference operator.
+        artists.sort(Comparator.comparing(Artist::computeLikeCnt).reversed());
 
         while (artists.size() > MAX_ARTIST_RANK_NUMBER) {
             artists.remove(artists.size() - 1);

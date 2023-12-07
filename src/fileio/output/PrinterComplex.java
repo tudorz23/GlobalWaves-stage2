@@ -21,6 +21,36 @@ public abstract class PrinterComplex extends Printer {
     }
 
     /**
+     * @param songs ArrayList of Song objects.
+     * @return ArrayNode containing the names of the songs from an ArrayList.
+     */
+    public ArrayNode createSongsArrayNode(final ArrayList<Song> songs) {
+        ArrayNode songsArrayNode = mapper.createArrayNode();
+
+        for (Song song : songs) {
+            songsArrayNode.add(song.getName());
+        }
+
+        return songsArrayNode;
+    }
+
+
+    /**
+     * @param episodes ArrayList of Episode objects.
+     * @return ArrayNode containing the names of the episodes from an ArrayList.
+     */
+    public ArrayNode createEpisodesArrayNode(final ArrayList<Episode> episodes) {
+        ArrayNode episodesArrayNode = mapper.createArrayNode();
+
+        for (Episode episode : episodes) {
+            episodesArrayNode.add(episode.getName());
+        }
+
+        return episodesArrayNode;
+    }
+
+
+    /**
      * @param playlist Original Playlist object.
      * @return ObjectNode containing data regarding a Playlist.
      */
@@ -38,33 +68,6 @@ public abstract class PrinterComplex extends Printer {
         return playlistNode;
     }
 
-    /**
-     * @param songs ArrayList of Song objects.
-     * @return ArrayNode containing the names of the songs from an ArrayList.
-     */
-    public ArrayNode createSongsArrayNode(final ArrayList<Song> songs) {
-        ArrayNode songsArrayNode = mapper.createArrayNode();
-
-        for (Song song : songs) {
-            songsArrayNode.add(song.getName());
-        }
-
-        return songsArrayNode;
-    }
-
-    /**
-     * @param episodes ArrayList of Episode objects.
-     * @return ArrayNode containing the names of the episodes from an ArrayList.
-     */
-    public ArrayNode createEpisodesArrayNode(final ArrayList<Episode> episodes) {
-        ArrayNode episodesArrayNode = mapper.createArrayNode();
-
-        for (Episode episode : episodes) {
-            episodesArrayNode.add(episode.getName());
-        }
-
-        return episodesArrayNode;
-    }
 
     /**
      * @param album Album object.
@@ -80,6 +83,7 @@ public abstract class PrinterComplex extends Printer {
 
         return albumNode;
     }
+
 
     /**
      * @param podcast Podcast object.

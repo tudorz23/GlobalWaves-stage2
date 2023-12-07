@@ -1,8 +1,7 @@
-package commands.searchbar.searchStrategy;
+package commands.searchbarCommands.searchStrategy;
 
 import client.Session;
 import database.Searchable;
-import database.audio.Audio;
 import database.audio.Playlist;
 import database.users.User;
 import fileio.input.CommandInput;

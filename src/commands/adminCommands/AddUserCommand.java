@@ -9,7 +9,7 @@ import database.users.Host;
 import fileio.input.CommandInput;
 import fileio.output.PrinterBasic;
 
-public class AddUserCommand implements ICommand {
+public final class AddUserCommand implements ICommand {
     private final Session session;
     private final CommandInput commandInput;
     private final ArrayNode output;
@@ -36,23 +36,37 @@ public class AddUserCommand implements ICommand {
             case "user" -> addBasicUser();
             case "artist" -> addArtist();
             case "host" -> addHost();
+            default -> throw new IllegalArgumentException("Invalid input.");
         }
 
-        printer.print("The username " + commandInput.getUsername() + " has been added successfully.");
+        printer.print("The username " + commandInput.getUsername()
+                        + " has been added successfully.");
     }
 
+
+    /**
+     * Helper for adding a new basic user to the database.
+     */
     private void addBasicUser() {
         BasicUser user = new BasicUser(commandInput.getUsername(), commandInput.getAge(),
                                         commandInput.getCity());
         session.getDatabase().addBasicUser(user);
     }
 
+
+    /**
+     * Helper for adding a new artist to the database.
+     */
     private void addArtist() {
         Artist artist = new Artist(commandInput.getUsername(), commandInput.getAge(),
                                         commandInput.getCity());
         session.getDatabase().addArtist(artist);
     }
 
+
+    /**
+     * Helper for adding a new host to the database.
+     */
     private void addHost() {
         Host host = new Host(commandInput.getUsername(), commandInput.getAge(),
                                         commandInput.getCity());

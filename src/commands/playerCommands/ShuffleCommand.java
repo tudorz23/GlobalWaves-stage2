@@ -4,7 +4,6 @@ import client.Session;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import commands.ICommand;
 import database.Player;
-import database.audio.Playlist;
 import database.audio.SongCollection;
 import database.users.User;
 import fileio.input.CommandInput;
@@ -62,22 +61,13 @@ public final class ShuffleCommand implements ICommand {
 
         SongCollection currSongCollection = (SongCollection) userPlayer.getCurrPlaying();
 
-        // Clear the old shuffle array.
-        currSongCollection.getShuffleArray().clear();
+        // Reinitialize the shuffle array.
+        currSongCollection.initializeShuffleArray();
 
         if (userPlayer.isShuffle()) {
-            // Set the shuffle array to v[i] = i. (i.e. "un-shuffle" the collection).
-            for (int i = 0; i < currSongCollection.getSongs().size(); i++) {
-                currSongCollection.getShuffleArray().add(i);
-            }
-
             userPlayer.setShuffle(false);
             printer.print("Shuffle function deactivated successfully.");
             return;
-        }
-
-        for (int i = 0; i < currSongCollection.getSongs().size(); i++) {
-            currSongCollection.getShuffleArray().add(i);
         }
 
         Collections.shuffle(currSongCollection.getShuffleArray(),

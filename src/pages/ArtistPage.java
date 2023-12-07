@@ -14,13 +14,16 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class ArtistPage extends Page {
-    private ArrayList<Album> albums;
-    private ArrayList<Event> events;
-    private ArrayList<Merch> merchList;
+import static utils.Constants.MAX_YEAR_EVENT;
+import static utils.Constants.MIN_YEAR_EVENT;
+
+public final class ArtistPage extends Page {
+    private final ArrayList<Album> albums;
+    private final ArrayList<Event> events;
+    private final ArrayList<Merch> merchList;
 
     /* Constructor */
-    public ArtistPage(User owningUser) {
+    public ArtistPage(final User owningUser) {
         super(owningUser);
         setType(PageType.ARTIST_PAGE);
         albums = new ArrayList<>();
@@ -29,11 +32,11 @@ public class ArtistPage extends Page {
     }
 
     /**
-     * Adds a new album to the album list.
+     * Adds a new album to the album list of the page.
      * @param commandInput Data containing details of the new album.
      * @throws IllegalArgumentException if the operation fails.
      */
-    public Album addAlbum(CommandInput commandInput) throws IllegalArgumentException {
+    public Album addAlbum(final CommandInput commandInput) throws IllegalArgumentException {
         for (Album album : albums) {
             if (album.getName().equals(commandInput.getName())) {
                 throw new IllegalArgumentException(commandInput.getUsername()
@@ -62,16 +65,21 @@ public class ArtistPage extends Page {
         return newAlbum;
     }
 
-    public void removeAlbum(Album album) {
+
+    /**
+     *  Removes the album from the album list.
+     */
+    public void removeAlbum(final Album album) {
         albums.remove(album);
     }
+
 
     /**
      * @param name name of the requested album
      * @return Album from the list with the given name.
      * @throws IllegalArgumentException if no album with the given name is found.
      */
-    public Album findAlbum(String name) throws IllegalArgumentException {
+    public Album findAlbum(final String name) throws IllegalArgumentException {
         for (Album album : albums) {
             if (album.getName().equals(name)) {
                 return album;
@@ -80,6 +88,7 @@ public class ArtistPage extends Page {
         throw new IllegalArgumentException(getOwningUser().getUsername()
                 + " doesn't have an album with the given name.");
     }
+
 
     @Override
     public String printPage() {
@@ -122,16 +131,16 @@ public class ArtistPage extends Page {
         }
 
         stringBuilder.append("]");
-
         return stringBuilder.toString();
     }
+
 
     /**
      * Adds a new event to the event list.
      * @param commandInput Data containing details of the new event.
      * @throws IllegalArgumentException if the operation fails.
      */
-    public void addEvent(CommandInput commandInput) throws IllegalArgumentException {
+    public void addEvent(final CommandInput commandInput) throws IllegalArgumentException {
         for (Event event : events) {
             if (event.getName().equals(commandInput.getName())) {
                 throw new IllegalArgumentException(commandInput.getUsername()
@@ -148,7 +157,7 @@ public class ArtistPage extends Page {
                                                 + " does not have a valid date.");
         }
 
-        if (date.getYear() < 1900 || date.getYear() > 2023) {
+        if (date.getYear() < MIN_YEAR_EVENT || date.getYear() > MAX_YEAR_EVENT) {
             throw new IllegalArgumentException("Event for " + commandInput.getUsername()
                                                 + " does not have a valid date.");
         }
@@ -164,7 +173,7 @@ public class ArtistPage extends Page {
      * @return Event from the list with the given name.
      * @throws IllegalArgumentException if no event with the given name is found.
      */
-    public Event findEvent(String name) throws IllegalArgumentException {
+    public Event findEvent(final String name) throws IllegalArgumentException {
         for (Event event : events) {
             if (event.getName().equals(name)) {
                 return event;
@@ -175,16 +184,21 @@ public class ArtistPage extends Page {
                 + " doesn't have an event with the given name.");
     }
 
-    public void removeEvent(Event event) {
+
+    /**
+     * Removes the event from the event list.
+     */
+    public void removeEvent(final Event event) {
         events.remove(event);
     }
+
 
     /**
      * Adds a new merch to the merch list.
      * @param commandInput Data containing details of the new merch.
      * @throws IllegalArgumentException if the operation fails.
      */
-    public void addMerch(CommandInput commandInput) throws IllegalArgumentException {
+    public void addMerch(final CommandInput commandInput) throws IllegalArgumentException {
         for (Merch merch : merchList) {
             if (merch.getName().equals(commandInput.getName())) {
                 throw new IllegalArgumentException(commandInput.getUsername()

@@ -9,8 +9,8 @@ import utils.enums.UserType;
 
 import java.util.ArrayList;
 
-public class Artist extends User {
-    private ArtistPage officialPage;
+public final class Artist extends User {
+    private final ArtistPage officialPage;
 
     /* Constructor */
     public Artist(String username, int age, String city) {

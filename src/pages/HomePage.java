@@ -5,24 +5,25 @@ import database.audio.Song;
 import database.users.User;
 import utils.enums.PageType;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 
 import static utils.Constants.MAX_PLAYLIST_RANK_NUMBER;
 import static utils.Constants.MAX_SONG_RANK_NUMBER;
 
-public class HomePage extends Page {
+public final class HomePage extends Page {
     private ArrayList<Song> songRecommendation;
     private ArrayList<Playlist> playlistRecommendation;
 
     /* Constructor */
-    public HomePage(User owningUser) {
+    public HomePage(final User owningUser) {
         super(owningUser);
         setType(PageType.HOME);
     }
 
     @Override
     public String printPage() {
-        refreshPage(getOwningUser());
+        refreshPage();
         StringBuilder stringBuilder = new StringBuilder("Liked songs:\n\t[");
 
         Iterator<Song> songIterator = songRecommendation.iterator();
@@ -50,43 +51,40 @@ public class HomePage extends Page {
         return stringBuilder.toString();
     }
 
-    private void refreshPage(User user) {
-        refreshSongRecommendation(user);
-        refreshPlaylistRecommendation(user);
+
+    /**
+     * Refreshes the recommendations displayed on the page.
+     */
+    private void refreshPage() {
+        refreshSongRecommendation();
+        refreshPlaylistRecommendation();
     }
 
-    private void refreshSongRecommendation(User user) {
-        songRecommendation = new ArrayList<>(user.getLikedSongs());
 
-        songRecommendation.sort((song1, song2) -> song2.getLikeCnt() - song1.getLikeCnt());
+    /**
+     * Helper for refreshing the song recommendations.
+     */
+    private void refreshSongRecommendation() {
+        songRecommendation = new ArrayList<>(getOwningUser().getLikedSongs());
+
+        songRecommendation.sort(Comparator.comparing(Song::getLikeCnt).reversed());
 
         while (songRecommendation.size() > MAX_SONG_RANK_NUMBER) {
             songRecommendation.remove(songRecommendation.size() - 1);
         }
     }
 
-    private void refreshPlaylistRecommendation(User user) {
-        playlistRecommendation = new ArrayList<>(user.getFollowedPlaylists());
 
-        playlistRecommendation.sort((playlist1, playlist2) ->
-                playlist2.computeLikeCnt() - playlist1.computeLikeCnt());
+    /**
+     * Helper for refreshing the playlist recommendations.
+     */
+    private void refreshPlaylistRecommendation() {
+        playlistRecommendation = new ArrayList<>(getOwningUser().getFollowedPlaylists());
+
+        playlistRecommendation.sort(Comparator.comparing(Playlist::computeLikeCnt).reversed());
 
         while (playlistRecommendation.size() > MAX_PLAYLIST_RANK_NUMBER) {
             playlistRecommendation.remove(playlistRecommendation.size() - 1);
         }
-    }
-
-    /* Getters and Setters */
-    public ArrayList<Song> getSongRecommendation() {
-        return songRecommendation;
-    }
-    public void setSongRecommendation(ArrayList<Song> songRecommendation) {
-        this.songRecommendation = songRecommendation;
-    }
-    public ArrayList<Playlist> getPlaylistRecommendation() {
-        return playlistRecommendation;
-    }
-    public void setPlaylistRecommendation(ArrayList<Playlist> playlistRecommendation) {
-        this.playlistRecommendation = playlistRecommendation;
     }
 }

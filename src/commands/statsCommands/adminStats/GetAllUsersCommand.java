@@ -9,7 +9,7 @@ import fileio.output.PrinterBasic;
 
 import java.util.ArrayList;
 
-public class GetAllUsersCommand implements ICommand {
+public final class GetAllUsersCommand implements ICommand {
     private final Session session;
     private final CommandInput commandInput;
     private final ArrayNode output;

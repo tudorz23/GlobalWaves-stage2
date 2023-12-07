@@ -10,25 +10,24 @@ import utils.enums.PageType;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class HostPage extends Page {
-    private ArrayList<Podcast> podcasts;
-    private ArrayList<Announcement> announcements;
+public final class HostPage extends Page {
+    private final ArrayList<Podcast> podcasts;
+    private final ArrayList<Announcement> announcements;
 
     /* Constructor */
-    public HostPage(User owningUser) {
+    public HostPage(final User owningUser) {
         super(owningUser);
         setType(PageType.HOST_PAGE);
         podcasts = new ArrayList<>();
         announcements = new ArrayList<>();
     }
 
-
     /**
      * Adds a new podcast to the podcast list.
      * @param commandInput Data containing details of the new podcast.
      * @throws IllegalArgumentException if the operation fails.
      */
-    public Podcast addPodcast(CommandInput commandInput) throws IllegalArgumentException {
+    public Podcast addPodcast(final CommandInput commandInput) throws IllegalArgumentException {
         for (Podcast podcast : podcasts) {
             if (podcast.getName().equals(commandInput.getName())) {
                 throw new IllegalArgumentException(commandInput.getUsername()
@@ -56,7 +55,11 @@ public class HostPage extends Page {
         return newPodcast;
     }
 
-    public void removePodcast(Podcast podcast) {
+
+    /**
+     * Removes the podcast from the list.
+     */
+    public void removePodcast(final Podcast podcast) {
         podcasts.remove(podcast);
     }
 
@@ -66,7 +69,7 @@ public class HostPage extends Page {
      * @return Podcast from the list with the given name.
      * @throws IllegalArgumentException if no podcast with the given name is found.
      */
-    public Podcast findPodcast(String name) throws IllegalArgumentException {
+    public Podcast findPodcast(final String name) throws IllegalArgumentException {
         for (Podcast podcast : podcasts) {
             if (podcast.getName().equals(name)) {
                 return podcast;
@@ -88,7 +91,8 @@ public class HostPage extends Page {
             Iterator<Episode> episodeIterator = podcast.getEpisodes().iterator();
             while (episodeIterator.hasNext()) {
                 Episode episode = episodeIterator.next();
-                stringBuilder.append(episode.getName()).append(" - ").append(episode.getDescription());
+                stringBuilder.append(episode.getName()).append(" - ")
+                        .append(episode.getDescription());
 
                 if (episodeIterator.hasNext()) {
                     stringBuilder.append(", ");
@@ -116,7 +120,6 @@ public class HostPage extends Page {
         }
 
         stringBuilder.append("\n]");
-
         return stringBuilder.toString();
     }
 
@@ -126,7 +129,7 @@ public class HostPage extends Page {
      * @param commandInput Data containing details of the new announcement.
      * @throws IllegalArgumentException if the operation fails.
      */
-    public void addAnnouncement(CommandInput commandInput) throws IllegalArgumentException {
+    public void addAnnouncement(final CommandInput commandInput) throws IllegalArgumentException {
         for (Announcement announcement : announcements) {
             if (announcement.getName().equals(commandInput.getName())) {
                 throw new IllegalArgumentException(commandInput.getUsername()
@@ -145,7 +148,7 @@ public class HostPage extends Page {
      * @return Announcement from the list with the given name.
      * @throws IllegalArgumentException if no announcement with the given name is found.
      */
-    public Announcement findAnnouncement(String name) throws IllegalArgumentException {
+    public Announcement findAnnouncement(final String name) throws IllegalArgumentException {
         for (Announcement announcement : announcements) {
             if (announcement.getName().equals(name)) {
                 return announcement;
@@ -156,15 +159,16 @@ public class HostPage extends Page {
                 + " has no announcement with the given name.");
     }
 
-    public void removeAnnouncement(Announcement announcement) {
+
+    /**
+     * Removes the announcement from the list.
+     */
+    public void removeAnnouncement(final Announcement announcement) {
         announcements.remove(announcement);
     }
 
     /* Getters and Setters */
     public ArrayList<Podcast> getPodcasts() {
         return podcasts;
-    }
-    public ArrayList<Announcement> getAnnouncements() {
-        return announcements;
     }
 }

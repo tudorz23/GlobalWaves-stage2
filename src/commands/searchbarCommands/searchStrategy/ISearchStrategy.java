@@ -1,4 +1,4 @@
-package commands.searchbar.searchStrategy;
+package commands.searchbarCommands.searchStrategy;
 
 /**
  * Interface for applying the Strategy Design Pattern to the Search Command.

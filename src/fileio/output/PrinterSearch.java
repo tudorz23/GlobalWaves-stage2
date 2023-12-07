@@ -41,6 +41,10 @@ public final class PrinterSearch extends PrinterComplex {
         output.add(commandNode);
     }
 
+
+    /**
+     * Prints standard details regarding an offline user.
+     */
     public void printOfflineUser() {
         ObjectNode commandNode = getMetadataNode();
         commandNode.put("message", user.getUsername() + " is offline.");
@@ -50,6 +54,11 @@ public final class PrinterSearch extends PrinterComplex {
         output.add(commandNode);
     }
 
+
+    /**
+     * Helper for printing common details of a command.
+     * @return ObjectNode containing the data.
+     */
     private ObjectNode getMetadataNode() {
         ObjectNode commandNode = mapper.createObjectNode();
 
