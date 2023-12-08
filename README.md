@@ -10,7 +10,7 @@
 3. [I/O](#io)
 4. [Implementation details](#implementation-details)
     * [Design choices](#design-choices)
-    * [Design patterns used](#design-pattern-used)
+    * [Design patterns used](#design-patterns-used)
     * [Program flow](#program-flow)
 5. [Conclusions](#conclusions)
 
@@ -88,21 +88,21 @@ thus making the code cleaner.
 
 ---
 
-### Design pattern used
-### Command Pattern
+### Design patterns used
+#### Command Pattern
 * Kept from the first stage, used for separating the implementations of
 different actions. Because of this, adding new functionalities was done in
 an easy and "clean" way.
 * Still based on the `ICommand` interface and the Invoker class calling the
 `execute()` method.
 
-### Strategy Pattern
+#### Strategy Pattern
 * Used for diverging in implementation between various ways of searching
 (from stage 1), based on the `ISearchStrategy` interface.
 * Used for different implementations of deleting a user, depending on its type.
 Based on the `IDeleteStrategy` interface.
 
-### Factory Pattern
+#### Factory Pattern
 * Used a Factory Method in three places:
   * to create concrete command instances based on the `ICommand` interface in
     the `CommandFactory` class.
