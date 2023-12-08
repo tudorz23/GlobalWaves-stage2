@@ -1,4 +1,4 @@
-package commands.adminCommands;
+package commands.adminCommands.deleteUserStrategy;
 
 import client.Session;
 import database.audio.Podcast;

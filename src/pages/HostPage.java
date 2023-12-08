@@ -1,6 +1,6 @@
 package pages;
 
-import database.Announcement;
+import database.records.Announcement;
 import database.audio.Episode;
 import database.audio.Podcast;
 import database.users.User;
@@ -79,6 +79,51 @@ public final class HostPage extends Page {
                 + " doesn't have a podcast with the given name.");
     }
 
+
+    /**
+     * Adds a new announcement to the announcement list.
+     * @param commandInput Data containing details of the new announcement.
+     * @throws IllegalArgumentException if the operation fails.
+     */
+    public void addAnnouncement(final CommandInput commandInput) throws IllegalArgumentException {
+        for (Announcement announcement : announcements) {
+            if (announcement.name().equals(commandInput.getName())) {
+                throw new IllegalArgumentException(commandInput.getUsername()
+                        + " has already added an announcement with this name.");
+            }
+        }
+
+        Announcement announcement = new Announcement(commandInput.getName(),
+                                                    commandInput.getDescription());
+        announcements.add(announcement);
+    }
+
+
+    /**
+     * @param name name of the requested announcement.
+     * @return Announcement from the list with the given name.
+     * @throws IllegalArgumentException if no announcement with the given name is found.
+     */
+    public Announcement findAnnouncement(final String name) throws IllegalArgumentException {
+        for (Announcement announcement : announcements) {
+            if (announcement.name().equals(name)) {
+                return announcement;
+            }
+        }
+
+        throw new IllegalArgumentException(getOwningUser().getUsername()
+                + " has no announcement with the given name.");
+    }
+
+
+    /**
+     * Removes the announcement from the list.
+     */
+    public void removeAnnouncement(final Announcement announcement) {
+        announcements.remove(announcement);
+    }
+
+
     @Override
     public String printPage() {
         StringBuilder stringBuilder = new StringBuilder("Podcasts:\n\t[");
@@ -111,8 +156,8 @@ public final class HostPage extends Page {
         Iterator<Announcement> announcementIterator = announcements.iterator();
         while (announcementIterator.hasNext()) {
             Announcement announcement = announcementIterator.next();
-            stringBuilder.append(announcement.getName()).append(":\n\t")
-                    .append(announcement.getDescription());
+            stringBuilder.append(announcement.name()).append(":\n\t")
+                    .append(announcement.description());
 
             if (announcementIterator.hasNext()) {
                 stringBuilder.append(", ");
@@ -121,50 +166,6 @@ public final class HostPage extends Page {
 
         stringBuilder.append("\n]");
         return stringBuilder.toString();
-    }
-
-
-    /**
-     * Adds a new announcement to the announcement list.
-     * @param commandInput Data containing details of the new announcement.
-     * @throws IllegalArgumentException if the operation fails.
-     */
-    public void addAnnouncement(final CommandInput commandInput) throws IllegalArgumentException {
-        for (Announcement announcement : announcements) {
-            if (announcement.getName().equals(commandInput.getName())) {
-                throw new IllegalArgumentException(commandInput.getUsername()
-                        + " has already added an announcement with this name.");
-            }
-        }
-
-        Announcement announcement = new Announcement(commandInput.getName(),
-                                                    commandInput.getDescription());
-        announcements.add(announcement);
-    }
-
-
-    /**
-     * @param name name of the requested announcement.
-     * @return Announcement from the list with the given name.
-     * @throws IllegalArgumentException if no announcement with the given name is found.
-     */
-    public Announcement findAnnouncement(final String name) throws IllegalArgumentException {
-        for (Announcement announcement : announcements) {
-            if (announcement.getName().equals(name)) {
-                return announcement;
-            }
-        }
-
-        throw new IllegalArgumentException(getOwningUser().getUsername()
-                + " has no announcement with the given name.");
-    }
-
-
-    /**
-     * Removes the announcement from the list.
-     */
-    public void removeAnnouncement(final Announcement announcement) {
-        announcements.remove(announcement);
     }
 
     /* Getters and Setters */

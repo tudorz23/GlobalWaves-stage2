@@ -1,9 +1,9 @@
 package pages;
 
-import database.Event;
+import database.records.Event;
 import database.audio.Album;
 import database.audio.Song;
-import database.Merch;
+import database.records.Merch;
 import database.users.User;
 import fileio.input.CommandInput;
 import fileio.input.SongInput;
@@ -90,51 +90,6 @@ public final class ArtistPage extends Page {
     }
 
 
-    @Override
-    public String printPage() {
-        StringBuilder stringBuilder = new StringBuilder("Albums:\n\t[");
-
-        Iterator<Album> albumIterator = albums.iterator();
-        while (albumIterator.hasNext()) {
-            Album album = albumIterator.next();
-            stringBuilder.append(album.getName());
-
-            if (albumIterator.hasNext()) {
-                stringBuilder.append(", ");
-            }
-        }
-
-        stringBuilder.append("]\n\nMerch:\n\t[");
-
-        Iterator<Merch> merchIterator = merchList.iterator();
-        while (merchIterator.hasNext()) {
-            Merch merch = merchIterator.next();
-            stringBuilder.append(merch.getName()).append(" - ").append(merch.getPrice())
-                    .append(":\n\t").append(merch.getDescription());
-
-            if (merchIterator.hasNext()) {
-                stringBuilder.append(", ");
-            }
-        }
-
-        stringBuilder.append("]\n\nEvents:\n\t[");
-
-        Iterator<Event> eventIterator = events.iterator();
-        while (eventIterator.hasNext()) {
-            Event event = eventIterator.next();
-            stringBuilder.append(event.getName()).append(" - ").append(event.getDate())
-                    .append(":\n\t").append(event.getDescription());
-
-            if (eventIterator.hasNext()) {
-                stringBuilder.append(", ");
-            }
-        }
-
-        stringBuilder.append("]");
-        return stringBuilder.toString();
-    }
-
-
     /**
      * Adds a new event to the event list.
      * @param commandInput Data containing details of the new event.
@@ -142,7 +97,7 @@ public final class ArtistPage extends Page {
      */
     public void addEvent(final CommandInput commandInput) throws IllegalArgumentException {
         for (Event event : events) {
-            if (event.getName().equals(commandInput.getName())) {
+            if (event.name().equals(commandInput.getName())) {
                 throw new IllegalArgumentException(commandInput.getUsername()
                         + " has another event with the same name.");
             }
@@ -175,7 +130,7 @@ public final class ArtistPage extends Page {
      */
     public Event findEvent(final String name) throws IllegalArgumentException {
         for (Event event : events) {
-            if (event.getName().equals(name)) {
+            if (event.name().equals(name)) {
                 return event;
             }
         }
@@ -200,7 +155,7 @@ public final class ArtistPage extends Page {
      */
     public void addMerch(final CommandInput commandInput) throws IllegalArgumentException {
         for (Merch merch : merchList) {
-            if (merch.getName().equals(commandInput.getName())) {
+            if (merch.name().equals(commandInput.getName())) {
                 throw new IllegalArgumentException(commandInput.getUsername()
                         + " has merchandise with the same name.");
             }
@@ -213,6 +168,51 @@ public final class ArtistPage extends Page {
         Merch newMerch = new Merch(commandInput.getName(), commandInput.getDescription(),
                                     commandInput.getPrice());
         merchList.add(newMerch);
+    }
+
+
+    @Override
+    public String printPage() {
+        StringBuilder stringBuilder = new StringBuilder("Albums:\n\t[");
+
+        Iterator<Album> albumIterator = albums.iterator();
+        while (albumIterator.hasNext()) {
+            Album album = albumIterator.next();
+            stringBuilder.append(album.getName());
+
+            if (albumIterator.hasNext()) {
+                stringBuilder.append(", ");
+            }
+        }
+
+        stringBuilder.append("]\n\nMerch:\n\t[");
+
+        Iterator<Merch> merchIterator = merchList.iterator();
+        while (merchIterator.hasNext()) {
+            Merch merch = merchIterator.next();
+            stringBuilder.append(merch.name()).append(" - ").append(merch.price())
+                    .append(":\n\t").append(merch.description());
+
+            if (merchIterator.hasNext()) {
+                stringBuilder.append(", ");
+            }
+        }
+
+        stringBuilder.append("]\n\nEvents:\n\t[");
+
+        Iterator<Event> eventIterator = events.iterator();
+        while (eventIterator.hasNext()) {
+            Event event = eventIterator.next();
+            stringBuilder.append(event.name()).append(" - ").append(event.date())
+                    .append(":\n\t").append(event.description());
+
+            if (eventIterator.hasNext()) {
+                stringBuilder.append(", ");
+            }
+        }
+
+        stringBuilder.append("]");
+        return stringBuilder.toString();
     }
 
     /* Getters */

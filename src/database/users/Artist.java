@@ -1,6 +1,6 @@
 package database.users;
 
-import database.Event;
+import database.records.Event;
 import database.audio.Album;
 import fileio.input.CommandInput;
 import pages.ArtistPage;

@@ -3,7 +3,7 @@ package commands.userCommands.hostCommands;
 import client.Session;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import commands.ICommand;
-import database.Announcement;
+import database.records.Announcement;
 import database.users.Host;
 import database.users.User;
 import fileio.input.CommandInput;

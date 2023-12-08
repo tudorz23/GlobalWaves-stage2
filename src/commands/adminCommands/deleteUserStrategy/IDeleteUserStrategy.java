@@ -1,4 +1,4 @@
-package commands.adminCommands;
+package commands.adminCommands.deleteUserStrategy;
 
 /**
  * Interface for applying the Strategy Design Pattern to the Delete User Command.

@@ -1,6 +1,6 @@
 package database.users;
 
-import database.Announcement;
+import database.records.Announcement;
 import database.audio.Podcast;
 import fileio.input.CommandInput;
 import pages.HostPage;
